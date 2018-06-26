@@ -22,6 +22,28 @@ class Nuevo_usu_model{
         $this->db->close();
         
         return $this->sector;
- 
+    }
+    
+    public function add_usuario() {
+        $email=$_POST['email'];
+        $nombre=$_POST['empresa'];
+        $sector=(int)$_POST['sector'];
+        $tel1=(int)$_POST['tel1'];
+        $tel2=(int)$_POST['tel2'];
+        $dir= htmlspecialchars($_POST['dir']);
+        $owner=$_POST['propietario'];
+        $numE=(int)$_POST['numempleados'];
+        $descC= htmlspecialchars($_POST['descC']);
+        $descL= htmlspecialchars($_POST['descL']);
+        
+        
+        $sqlinsert= ("INSERT INTO empresa('descripcion_larga', 'descripcion_corta', 'telefono1', 'telefono2', 'direccion', 'nombre', 'id_sector', 'numero_empleados', 'propietario') VALUES ('".$descL."','".$descC."',".$tel1.",".$tel2.",'".$dir."','".$nombre."',".$sector.",".$numE.",'".$owner."')");
+        
+        $resultado=$this->db->query($sqlinsert);
+        if($resultado){
+            
+            echo ("<script>alert('Nuevo usuario agregado');</script>");  
+        }
+        
     }
 }
