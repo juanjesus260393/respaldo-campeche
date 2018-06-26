@@ -18,8 +18,8 @@
                 ?>
                     <tr>
                         <td><?php echo $pd[$i]["nombre"]; ?></td>
-                        <td><a href="Controller/ControladorSitios.php" src="img/actualizar.png"></a>
-                        <td><a href="Controller/ControladorSitios.php" src="img/eliminar.png"></a>
+                        <td><a href="index.php"> <img src="img/actualizar.jpg"/> </a></td>
+                         <td><a href="index.php"> <img src="img/eliminar.jpg"/> </a></td>
                     </tr>
                 <?php
             }
