@@ -18,11 +18,11 @@
     <center><h2><?php echo "Bienvenido: " . $un; ?> </h2></center>
     <!-- Funcion para habilitar un div si el tipo de usuario es empresa o administrador--> 
     <div name = "tipo_usuario"> 
-    <?php $estatus = $val->mostrar_ocultar($tp);?>
+        <?php $estatus = $val->mostrar_ocultar($tp, $ie); ?>
     </div>
-  
-     
-      
-  
+
+
+
+
 </body>
 </html>

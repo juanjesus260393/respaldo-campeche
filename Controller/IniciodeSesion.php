@@ -9,3 +9,4 @@ $user = $usuario->busquedad_usuario();
 //Se llama a la vista vista sitios
 require_once("C:/xampp/htdocs/campeche-web2/view/MenuPrincipal.php");
 ?>
+

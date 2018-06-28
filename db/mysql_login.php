@@ -4,9 +4,9 @@
  * Mysql.
  */
 
-define("HOSTNAME", "localhost");// Nombre del host
+define("HOSTNAME", "127.0.0.1:3306");// Nombre del host
 define("DATABASE", "campeche"); // Nombre de la base de datos
-define("PORT", "3307"); // Puerto
+define("PORT", "3306"); // Puerto
 define("USERNAME", "root"); // Nombre del usuario
 define("PASSWORD", "P4SSW0RD"); // constraseña
 ?>

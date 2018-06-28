@@ -24,7 +24,6 @@ class DataBase {
    private function AbrirConexion() {
       $this->db = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE, PORT);
    }
-
    /**
    * Un método privado.
    * Cierra la conexión

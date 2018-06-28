@@ -9,3 +9,4 @@ $pd = $sitio->lista_sitios();
 //Se llama a la vista vista sitios     
  require_once("C:/xampp/htdocs/campeche-web2/view/VistaSitios.php");
 ?>
+
