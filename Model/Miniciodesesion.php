@@ -52,7 +52,6 @@ class obtener_usuario {
         }
         //Se define un arreglo el cuando tendra el nombre de usuario y tipo de usuario
         return array($nombreusuario, $tipodeusuario, $idempresa);
-        ;
     }
 
     //Se define la funcion busquedad de usuario la cual realiza el inicio de sesion para acceder al menu principal
@@ -67,7 +66,7 @@ class obtener_usuario {
         list($un, $tp, $im) = $obu->tipo_usuario();
         $username = $un;
         //Se recibe la contrasela del formulario inicio de sesion
-        $password = $_GET['id'];
+        $password = $_POST['password'];
         //Consultar si los datos son están guardados en la base de datos
         $consulta = "SELECT * FROM users WHERE username='" . $username . "' AND password='" . $password . "'";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());

@@ -5,7 +5,7 @@
         <title>Proyecto Campeche 360</title>
     </head>
     <body>
-    <center><h1>Administracion de los </h1></center> 
+    <center><h1>Administracion de los Sitios</h1></center> 
     <center><table border="1">
             <tr>
                 <td><strong>Nombre del sitio</strong></td>

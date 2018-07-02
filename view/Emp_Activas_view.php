@@ -21,19 +21,19 @@
 
 
             /* obtener el array asociativo */
-                 printf("<table style='border: 2px solid black'>");
-                 printf("<tr>");
-                    printf("<th>Id</th>");
-                    printf("<th>Nombre</th>");
-                    printf("<th>Descripción corta</th>");
-                    printf("<th>Sector</th>");
+                 printf("<table style='border: 3px solid black' align='center'>");
+                 printf("<tr align='center'>");
+                    printf("<th width='120' align='center'>Id</th>");
+                    printf("<th width='220' align='center'>Nombre</th>");
+                    printf("<th width='500' align='center'>Descripción</th>");
+                    printf("<th width='220' align='center'>Sector</th>");
                  printf("</tr>");
    // while ($datos) {
    foreach ($datos as $dato) {
        
    
         printf("<tr>");
-        printf ("<td> %s </td><td> %s </td><td> %s </td><td>%s </td>", $dato[0], $dato[1], $dato[2], $dato[3]);
+        printf ("<td height='80' align='center'> %s </td><td height='80' align='center'> %s </td><td height='80' align='center'> %s </td><td height='80' align='center'>%s </td>", $dato[0], $dato[1], $dato[2], $dato[3]);
         printf("</tr>");
     }
      printf("</table>");

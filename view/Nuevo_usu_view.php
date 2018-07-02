@@ -8,7 +8,7 @@
     <body>
         <h1 align="center">Nuevo Usuario</h1>
         <div id="formulario" >
-            <form enctype="text/plain" method="post" action="Nuevo_usu_model">
+            <form  action="../Controller/Nuevo_usu_controller.php" method="post">
             <br><br>
             
             <label>Correo</label>
@@ -17,7 +17,7 @@
             <input type="text" size="40" name="empresa">
             <label>Sector</label>
             <?php
-                     printf("<select required name='sector'>");
+                     printf("<select required name='sectores'>");
                      printf("<option value=''>Seleccionar...</option>");
                      foreach ($sector as $sec){
                      printf("<option value='".$sec[0]."'>".$sec[1]."</option>");
@@ -37,18 +37,27 @@
              <label>Numero de Empleados</label>
             <input type="text" size="5" name="numempleados">
             <br>
-            <label>Descripcion corta</label>
+            <label>Descripcion </label>
             <br>
-            <textarea name="descC" rows="5" cols="25" placeholder="Escriba una descripcion corta..."></textarea>
+            <textarea name="desc" rows="10" cols="80" placeholder="Escriba una descripcion larga ..."></textarea>
             <br>
-            <label>Descripcion larga</label>
+            <label>Tamaño</label>
+            <input type="text" size="20" name="tam">
             <br>
-            <textarea name="descL$" rows="10" cols="80" placeholder="Escriba una descripcion larga ..."></textarea>
+            <label>Ventas mensuales</label>
+            <input type="text" size="20" name="ventas">
+            <label>Monto de rangos</label>
+            <br>
+            <label>Minimo---Maximo</label>
+            <input type="text" size="20" name="min">
+            <input type="text" size="20" name="max">
+            <br><br>
+            <input type="checkbox" name="habilitar" value="si" checked> Habilitar usuario<br>
 
 
             <br>
             <br>
-            <input type="submit" value="Agregar usuario">
+            <input type="submit" name="submit" value="Agregar usuario">
             
             
         </form>

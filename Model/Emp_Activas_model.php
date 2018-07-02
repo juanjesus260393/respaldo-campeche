@@ -9,7 +9,7 @@ class Emp_Activas_model{
     }
     public function get_empresas(){
         
-        $sqlconsulta = ("SELECT id_empresa, E.nombre, descripcion_corta, S.nombre FROM empresa E JOIN sector S ON E.id_sector=S.id_sector WHERE 1");
+        $sqlconsulta = ("SELECT id_empresa, E.nombre, descripcion, S.nombre FROM empresa E JOIN sector S ON E.id_sector=S.id_sector WHERE 1");
         
         $resultado=$this->db->query($sqlconsulta);
         while($filas=$resultado->fetch_row()){
