@@ -38,6 +38,30 @@ class validacion {
         return $key;
     }
 
+    // creamos la función
+    public function fecha_actual() {
+        $año_actual = date("y");
+        $mes_actual = date("m");
+        $dia_actual = date("d");
+        $hora_actual = date("h");
+        $minuto_actual = date("i");
+        $segundo_actual = date("s");
+        $fecha_actual = $año_actual . "-" . $mes_actual . "-" . $dia_actual . " " . $hora_actual . ":" . $minuto_actual . ":" . $segundo_actual;
+        //Se genera el numero aleatorio
+        return $fecha_actual;
+    }
+     public function fecha_actualizacion() {
+        $año_actual = date("Y");
+        $mes_actual = date("m");
+        $dia_actual = date("d");
+        $hora_actual = date("h");
+        $minuto_actual = date("i");
+        $segundo_actual = date("s");
+        $fecha_actual = $año_actual . "-" . $mes_actual . "-" . $dia_actual . " " . $hora_actual . ":" . $minuto_actual . ":" . $segundo_actual;
+        //Se genera el numero aleatorio
+        return $fecha_actual;
+    }
+
 }
 
 ?>
