@@ -50,7 +50,8 @@ class validacion {
         //Se genera el numero aleatorio
         return $fecha_actual;
     }
-     public function fecha_actualizacion() {
+
+    public function fecha_actualizacion() {
         $año_actual = date("Y");
         $mes_actual = date("m");
         $dia_actual = date("d");
@@ -60,6 +61,15 @@ class validacion {
         $fecha_actual = $año_actual . "-" . $mes_actual . "-" . $dia_actual . " " . $hora_actual . ":" . $minuto_actual . ":" . $segundo_actual;
         //Se genera el numero aleatorio
         return $fecha_actual;
+    }
+
+    public function campo_vacio($parametro) {
+        if ($parametro == NULL) {
+            $message = "Todavia no has registrado ningun elemento";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+        } else {
+            return $fecha_actual;
+        }
     }
 
 }

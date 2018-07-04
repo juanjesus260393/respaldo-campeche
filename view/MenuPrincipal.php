@@ -17,7 +17,7 @@
         <!-- Se recibe el nombre de usuario debido a que las opciones cambiaran dependiendo del tipo de usuario--> 
     <center><h2><?php echo "Bienvenido: " . $un; ?> </h2></center>
     <!-- Funcion para habilitar un div si el tipo de usuario es empresa o administrador--> 
-    <div name = "tipo_usuario"> 
+    <div id = "tipo_usuario"> 
         <?php $estatus = $val->mostrar_ocultar($tp, $ie); ?>
     </div>
 

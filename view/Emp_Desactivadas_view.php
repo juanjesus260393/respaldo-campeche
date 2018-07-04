@@ -9,8 +9,8 @@
         <h1>Bienvenido Administrador </h1>
         
     
-        <form action="../Controller/Emp_Desactivadas_controller.php" method="post">
-        <input type="submit" value="Desactivadas" name="Desactivadas" > 
+        <form action="../Controller/Emp_Activas_controller.php" method="post">
+        <input type="submit" value="Activas" name="activas" > 
     </form>
         <form action="../view/InicioAdmin_pruebas.php" method="post">
         <input type="submit" value="Principal" name="principal" > 
@@ -41,9 +41,9 @@
         printf("<td height='80' align='center'>"
                 . "<table>"
                 . "<tr>"
-                . "<form action='../Controller/Emp_Activas_controller.php' method='post'>"
-                ."<input type='hidden' name='user_disabled' value='".$dato[4]."'>"
-                . "<input type='submit' name='desactivar' value='Deshabilitar'>"
+                . "<form action='../Controller/Emp_Desactivadas_controller.php' method='post'>"
+                ."<input type='hidden' name='user_able' value='".$dato[4]."'>"
+                . "<input type='submit' name='activar' value='Habilitar'>"
                 . "</form>"
                 . "</tr>"
                 . "</table> "
@@ -55,3 +55,4 @@
         ?>
     </body>
 </html>
+

@@ -16,6 +16,8 @@
                 <td><strong>Actualizar</strong></td>
             </tr>
             <?php
+            $lcupones2; 
+             $idemp = $lcupones2;
             for ($i = 0; $i < count($lcupones); $i++) {
                 ?>
                 <tr>
@@ -24,7 +26,7 @@
                     <td><?php echo $lcupones[$i]["terminos_y_condiciones"]; ?></td>
                     <?php
                     //Lista de parametros por medio de los cuales se actualizara el cupon
-                    $idemp = $lcupones2;
+                   
                     $idcup = $lcupones[$i]["id_cupon"];
                     $idrob = $lcupones[$i]["id_revision_objeto"];
                     $t = $lcupones[$i]["titulo"];

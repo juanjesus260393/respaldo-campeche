@@ -6,6 +6,9 @@
         <title>Nuevo usuario</title>
     </head>
     <body>
+        <form action="../view/InicioAdmin_pruebas.php" method="post">
+        <input type="submit" value="Principal" name="principal" > 
+    </form>
         <h1 align="center">Nuevo Usuario</h1>
         <div id="formulario" >
             <form  action="../Controller/Nuevo_usu_controller.php" method="post">

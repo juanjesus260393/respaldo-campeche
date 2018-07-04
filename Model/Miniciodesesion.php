@@ -29,7 +29,7 @@ class obtener_usuario {
             if (!$fila2[0]) {
                 echo '<script language = javascript>
 	alert("Verifique que el usuario se encuentre registrado.")
-	self.location = "https://localhost/campeche-web2"
+           self.location = "https://localhost/campeche-web2"
 	</script>';
             }
             //opcion2: El usuario es una empresa

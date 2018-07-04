@@ -11,17 +11,21 @@ class obtener_cupon {
     public function recibir_id() {
         //Se recibe el dentificador de la empresa de  la clase contenido
         $id_empresa = $_GET['ide'];
-
         return $id_empresa;
+    }
+
+    //Funcion para obtener el identificador de la revision del objeto que tenga el mismo ide
+    public function get_idro() {
+        
     }
 
     public function lista_cupones() {
         //Se llama a la case conectar del archivo conexion.php
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         //Se declara la variable identificador el cual obtendra el id de la empresa el cual se obtiene del metodo lista_ojetos_revisados
-        $auxiliar = new obtener_cupon();
+        $id_empresa = $_GET['ide'];
         //Se recibe l identificador de la empresa del metodo lista de objetos revisados
-        $sql = "select * from cupon ";
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.vigencia, c.terminos_y_condiciones from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = '$id_empresa' group by titulo;";
         foreach ($this->dbh->query($sql) as $res) {
             $this->platillo[] = $res;
         }

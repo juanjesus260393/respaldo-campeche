@@ -9,26 +9,20 @@
         <h1>Bienvenido Administrador </h1>
         
     
-        <form action="../Controller/Emp_Desactivadas_controller.php" method="post">
-        <input type="submit" value="Desactivadas" name="Desactivadas" > 
-    </form>
-        <form action="../view/InicioAdmin_pruebas.php" method="post">
-        <input type="submit" value="Principal" name="principal" > 
-    </form>
         
   <?php
   
 
 
             /* obtener el array asociativo */
-                 printf("<table style='border: 3px solid black' align='center'>");
-                 printf("<tr align='center'>");
+                    printf("<table style='border: 3px solid black' align='center'>");
+                    printf("<tr align='center'>");
                     printf("<th width='120' align='center'>Id</th>");
                     printf("<th width='220' align='center'>Nombre</th>");
                     printf("<th width='500' align='center'>Descripción</th>");
                     printf("<th width='220' align='center'>Sector</th>");
                     printf("<th width='220' align='center'></th>");
-                 printf("</tr>");
+                    printf("</tr>");
    // while ($datos) {
    foreach ($datos as $dato) {
        
@@ -41,9 +35,9 @@
         printf("<td height='80' align='center'>"
                 . "<table>"
                 . "<tr>"
-                . "<form action='../Controller/Emp_Activas_controller.php' method='post'>"
-                ."<input type='hidden' name='user_disabled' value='".$dato[4]."'>"
-                . "<input type='submit' name='desactivar' value='Deshabilitar'>"
+                . "<form action='../Controller/set_usu_controller2.php' method='post'>"
+                ."<input type='hidden' name='user_to_set' value='".$dato[4]."'>"
+                . "<input type='submit' name='Modificar' value='Modificar'>"
                 . "</form>"
                 . "</tr>"
                 . "</table> "

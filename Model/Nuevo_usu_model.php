@@ -72,7 +72,7 @@ class Nuevo_usu_model{
             $sqlconsultaAux = ("SELECT id_empresa FROM empresa WHERE nombre='".$nombre."' AND propietario='".$owner."'");
            $res=$this->db->query($sqlconsultaAux);
             $id=$res->fetch_row();
-            echo $id[0];
+
             $sqlinsertAux=("INSERT INTO usuario_empresa (id_empresa, username) VALUES (".$id[0].", '".$email."')");
             $agregadoAux=$this->db->query($sqlinsertAux);  
             if($agregadoAux){
@@ -90,12 +90,13 @@ class Nuevo_usu_model{
     
     
     public function habilitando($usu) {
+        if(isset($usu)){
         $sqlupdate=("UPDATE users SET enabled = '1' WHERE users.username = '".$usu."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
                  
                 
-            }else{ printf("Errormessage: %s\n", $this->db->error);}
+        }else{ printf("Errormessage: %s\n", $this->db->error);}}
     }
     
     
