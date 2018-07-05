@@ -34,12 +34,20 @@
                 <span><input type="file" id="id_imagen_extra" name="id_imagen_extra"></span>
             </div>
             <div>
-                <span><label>*Vigencia:</label></span>
-                <span><input title="Agrega la fecha de vencimiento del cupon" type="date" id="vigencia" name="vigencia" required></span>
+                <span><label>*Vigencia inicio:</label></span>
+                <span><input title="Agrega la fecha de vencimiento del cupon" type="date" id="vigencia_inicio" name="vigencia_inicio" required></span>
+            </div>
+            <div>
+                <span><label>*Vigencia fin:</label></span>
+                <span><input title="Agrega la fecha de vencimiento del cupon" type="date" id="vigencia_fin" name="vigencia_fin" required></span>
             </div>
             <div>
                 <span><label>*Terminos y Condiciones:</label></span>
                 <span><textarea title="los terminos y condiciones no se pueden superar los 250 caracteres"  id="terminos_y_condiciones" name="terminos_y_condiciones" rows="10" cols="40" placeholder="Terminos y condiciones" required></textarea></span>
+            </div>
+            <div>
+                <span><label>*Limite de cupones:</label></span>
+                <span><input title="los terminos y condiciones no se pueden superar los 250 caracteres"  id="limite_codigos" name="limite_codigos" rows="10" cols="40" placeholder="Cantidad de cupones" required></span>
             </div>
             <div>
                 <span><input type="submit" value="Registrar Cupon" ></span>

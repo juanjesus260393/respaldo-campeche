@@ -43,14 +43,23 @@
                 <span><input type="file" id="id_imagen_extra" name="id_imagen_extra"></span>
             </div>
             <div>
-                <span><label>*Vigencia:</label></span>
-                <span><input type="date" id="vigencia" name="vigencia" ></span>
+                <span><label>*Vigencia inicio:</label></span>
+                <span><input type="date" id="vigencia" name="vigencia_inicio" ></span>
+            </div>
+            <div>
+                <span><label>*Vigencia fin:</label></span>
+                <span><input type="date" id="vigencia" name="vigencia_fin" ></span>
             </div>
             <div>
                 <span><label>*Terminos y Condiciones:</label></span>
                 <span><input  id="terminos_y_condiciones" name="terminos_y_condiciones" size="35" style="WIDTH: 228px; HEIGHT: 98px" value="<?php echo $terminos_y_condiciones = $_GET['terminos_y_condiciones'];
 ?>" required></span>
             </div>
+            <div>
+                <span><label>*Cantidad de cupones:</label></span>
+                <span><input title="Agrega una descripcion no mayor a 150 caracteres"  type="text" id="limite_codigos" name="limite_codigos" value="<?php echo $limite_codigos = $_GET['limite_codigos'];
+?>"required></span>
+            </div> 
             <div>
                 <span><input type="submit" value="Actualizar Cupon" ></span>
             </div>

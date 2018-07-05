@@ -5,6 +5,7 @@ require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
 
 class obtener_cupon {
+    
 
     //Se crea el metodo obtener los objetos revisados esto con el objetivo obtener aquellos cupones que han sido colocados por una empresa 
     //en especificos
@@ -13,19 +14,13 @@ class obtener_cupon {
         $id_empresa = $_GET['ide'];
         return $id_empresa;
     }
-
-    //Funcion para obtener el identificador de la revision del objeto que tenga el mismo ide
-    public function get_idro() {
-        
-    }
-
     public function lista_cupones() {
         //Se llama a la case conectar del archivo conexion.php
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         //Se declara la variable identificador el cual obtendra el id de la empresa el cual se obtiene del metodo lista_ojetos_revisados
         $id_empresa = $_GET['ide'];
         //Se recibe l identificador de la empresa del metodo lista de objetos revisados
-        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.vigencia, c.terminos_y_condiciones from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = '$id_empresa' group by titulo;";
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.vigencia_inicio, c.terminos_y_condiciones, c.limite_codigos from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = '$id_empresa' group by titulo;";
         foreach ($this->dbh->query($sql) as $res) {
             $this->platillo[] = $res;
         }
@@ -70,12 +65,14 @@ class obtener_cupon {
         //Mandar a llamar el nombre de la imagen
         $id_imagen_extra = $_FILES['id_imagen_extra'];
         $nombre = $id_imagen_extra["name"];
-        $vigencia = $_POST['vigencia'];
+        $vigencia_inicio = $_POST['vigencia_inicio'];
+        $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
+        $limite_codigos = $_POST['limite_codigos'];
         //Se genera el identificador del cupon
         $idcu = $na->generar_aleatorio();
-        $sql2 = "INSERT INTO cupon (id_cupon,id_revision_objeto,titulo,descripcion_corta,descripcion_larga,id_imagen_extra,vigencia,terminos_y_condiciones)
-        VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$nombre','$vigencia','$terminos_y_condiciones')";
+        $sql2 = "INSERT INTO cupon (id_cupon,id_revision_objeto,titulo,descripcion_corta,descripcion_larga,id_imagen_extra,vigencia_inicio,vigencia_fin,terminos_y_condiciones,limite_codigos)
+        VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$nombre','$vigencia_inicio','$vigencia_fin','$terminos_y_condiciones','$limite_codigos')";
         if (!mysqli_query($pd, $sql2)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -139,14 +136,16 @@ class obtener_cupon {
         }
         $id_imagen_extra = $_FILES['id_imagen_extra'];
         $nombre = $id_imagen_extra["name"];
-        $vigencia = $_POST['vigencia'];
+        $vigencia_inicio = $_POST['vigencia_inicio'];
+        $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
+        $limite_codigos = $_POST['limite_codigos'];
         $actulizacion1 = "update revision_objeto set fecha_actualizacion = " . $fecha_actual . "  where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = " . $id_empresa . "";
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
         echo $nombre;
-        $actulizacion2 = "update cupon set titulo = '$titulo', descripcion_corta = '$descripcion_corta', descripcion_larga = '$descripcion_larga', id_imagen_extra = '$nombre' ,vigencia = '$vigencia' , terminos_y_condiciones =  '$terminos_y_condiciones' where id_cupon = " . $id_cupon . " AND id_revision_objeto = " . $id_revision_objeto . "";
+        $actulizacion2 = "update cupon set titulo = '$titulo', descripcion_corta = '$descripcion_corta', descripcion_larga = '$descripcion_larga', id_imagen_extra = '$nombre' ,vigencia_inicio = '$vigencia_inicio',vigencia_fin = '$vigencia_fin' , terminos_y_condiciones =  '$terminos_y_condiciones' , limite_codigos =  '$limite_codigos' where id_cupon = " . $id_cupon . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
         }

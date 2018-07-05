@@ -65,10 +65,12 @@ class validacion {
 
     public function campo_vacio($parametro) {
         if ($parametro == NULL) {
-            $message = "Todavia no has registrado ningun elemento";
-            echo "<script type='text/javascript'>alert('$message');</script>";
+             echo '<script language = javascript>
+	alert("No tienes contenido registrado.")
+           self.location = "https://localhost/campeche-web2"
+	</script>';
         } else {
-            return $fecha_actual;
+            return $parametro;
         }
     }
 

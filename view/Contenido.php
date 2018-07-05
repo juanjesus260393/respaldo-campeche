@@ -12,7 +12,8 @@ $array = array("Cupones", "Videos", "Audio Guias");
 ?>
     <center><?php echo"<h1>Contenido que puedes administrar de $nam</h1>"?></center> 
     <center>
-         <?php echo "<a href='../Controller/crtCupones.php?ide=$id'>Cupones</a>" ?>
+         <?php echo "<a href='../Controller/crtCupones.php?ide=$id'>Cupones</a> " ?>
+         <?php echo "<a href='../view/Addcupon.php?id_empresa=$id'><img src='../Controller/img/agregar.png'/></a>" ?>
     </center> 
 </body>
 </html>
