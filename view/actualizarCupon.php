@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+    
     <head>
         <meta charset="UTF-8" />
         <title>Proyecto Campeche 360</title>
     </head>
     <body>
+        
     <center><h1>Actualizar Cupon</h1></center>
     <center><form method="post" action="../Controller/crtacCupon.php" name="form1" enctype="multipart/form-data">
             <div>
@@ -41,6 +43,9 @@
             <div>
                 <span><label>Imagen:</label></span>
                 <span><input type="file" id="id_imagen_extra" name="id_imagen_extra"></span>
+                <span><label>Nombre anterior de la imagen:</label></span>
+                <span><input type="text" id="id_imagen_extra" name="id_imagen_anterior" value="<?php echo $id_imagen_extra = $_GET['id_imagen_extra'];
+?>"></span>
             </div>
             <div>
                 <span><label>*Vigencia inicio:</label></span>
@@ -61,7 +66,7 @@
 ?>"required></span>
             </div> 
             <div>
-                <span><input type="submit" value="Actualizar Cupon" ></span>
+                <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres actualizar este cupon?')) { return false }" value="Actualizar Cupon" ></span>
             </div>
         </form></center>
 </body>

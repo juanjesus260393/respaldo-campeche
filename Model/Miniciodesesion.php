@@ -34,13 +34,13 @@ class obtener_usuario {
             }
             //opcion2: El usuario es una empresa
             else {
-                
+
                 //Se crea una variable auxiliar a la cual se le asignara el nombre de usuario 
                 //para que el controlador la muestre en el menu principal
                 //Identificador de la empresa que se utilizara para las operaciones de la empresa con losm sitios que tiene
                 $idempresa = $fila2['id_empresa'];
                 $nombreusuario = $fila2['username'];
-                $tipodeusuario = "empresa";   
+                $tipodeusuario = "empresa";
             }
         }
         //Si el nombre de usuario existe en la tabla authorities
@@ -82,7 +82,7 @@ class obtener_usuario {
         else {
             $habilitada = $fila['enabled'];
         }
-        return array($un, $tp, $im,$habilitada);
+        return array($un, $tp, $im, $habilitada);
     }
 
 }

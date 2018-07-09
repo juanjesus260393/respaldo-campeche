@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>Proyecto Campeche 360</title>
+        <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
     </head>
     <body>
     <center><h1>Agregar Cupon</h1></center>
@@ -19,15 +20,15 @@
             </div>
             <div>
                 <span><label>*Titulo del Cupon:</label></span>
-                <span><input title="Se necesita el titulo del cupon" type="text" id="titulo" name="titulo" placeholder="Titulo del Cupon" required></span>
+                <span><input type="text" id="titulo" name="titulo" placeholder="Titulo del Cupon" pattern=".{1,100}" required title="El titulo de cupon no puede ser mayor a 100 caracteres incluyendo espacios en blanco"></span>
             </div>
             <div>
                 <span><label>*Descripcion Corta:</label></span>
-                <span><input title="Agrega una descripcion no mayor a 150 caracteres"  type="text" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta"required></span>
+                <span><input type="text" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta"  pattern=".{1,150}" required title="La descripcion no puede ser mayor a 150 caracteres incluyendo espacios en blanco"></span>
             </div>   
             <div>
                 <span><label>*Descripcion Larga:</label></span>
-                <span><textarea title="Agrega una descripcion no mayor a 500 caracteres" id="descripcion_larga" name="descripcion_larga" rows="10" cols="40" placeholder="Descripcion Larga"required></textarea></span>
+                <span><textarea  id="descripcion_larga" name="descripcion_larga" rows="10" cols="40" placeholder="Descripcion Larga" required title="La cantidad de caracteres maxima es de 500" maxlength="490"></textarea></span>
             </div> 
             <div>
                 <span><label>Imagen:</label></span>
@@ -35,22 +36,22 @@
             </div>
             <div>
                 <span><label>*Vigencia inicio:</label></span>
-                <span><input title="Agrega la fecha de vencimiento del cupon" type="date" id="vigencia_inicio" name="vigencia_inicio" required></span>
+                <span><input type="date" id="vigencia_inicio" name="vigencia_inicio" value="<?php echo date('Y-m-d'); ?>"</span>
             </div>
             <div>
                 <span><label>*Vigencia fin:</label></span>
-                <span><input title="Agrega la fecha de vencimiento del cupon" type="date" id="vigencia_fin" name="vigencia_fin" required></span>
+                <span><input type="date" id="vigencia_fin" name="vigencia_fin" value="<?php echo date('Y-m-d'); ?>"</span>
             </div>
             <div>
                 <span><label>*Terminos y Condiciones:</label></span>
-                <span><textarea title="los terminos y condiciones no se pueden superar los 250 caracteres"  id="terminos_y_condiciones" name="terminos_y_condiciones" rows="10" cols="40" placeholder="Terminos y condiciones" required></textarea></span>
+                <span><textarea id="terminos_y_condiciones" name="terminos_y_condiciones" rows="10" cols="40" placeholder="Terminos y condiciones" maxlength="240"></textarea></span>
             </div>
             <div>
                 <span><label>*Limite de cupones:</label></span>
-                <span><input title="los terminos y condiciones no se pueden superar los 250 caracteres"  id="limite_codigos" name="limite_codigos" rows="10" cols="40" placeholder="Cantidad de cupones" required></span>
+                <span><input id="limite_codigos" name="limite_codigos" rows="10" cols="40" placeholder="Cantidad de cupones" pattern=".{1,2}" required title="La cantidad de cupones no puede ser mayor a dos digitos"></span>
             </div>
             <div>
-                <span><input type="submit" value="Registrar Cupon" ></span>
+                <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres registrar este cupon?')) { return false }" value="Registrar Cupon" ></span>
             </div>
         </form></center>
 </body>

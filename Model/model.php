@@ -24,9 +24,9 @@ class model {
       return -1;
    }
 
-   public function SeleccionarVistas( $opciones = null ){
+   public function SeleccionarVistas( $opciones = null, $llaveforanea){
       $db = new DataBase;
-      $mascaras = "";
+      $mascaras = $llaveforanea;
       $joins = "";
       foreach( $this->columnas as $nombre=>$valor ){
         if(is_array($valor)){

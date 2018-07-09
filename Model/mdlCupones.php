@@ -5,7 +5,6 @@ require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
 
 class obtener_cupon {
-    
 
     //Se crea el metodo obtener los objetos revisados esto con el objetivo obtener aquellos cupones que han sido colocados por una empresa 
     //en especificos
@@ -14,6 +13,7 @@ class obtener_cupon {
         $id_empresa = $_GET['ide'];
         return $id_empresa;
     }
+
     public function lista_cupones() {
         //Se llama a la case conectar del archivo conexion.php
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
@@ -37,6 +37,7 @@ class obtener_cupon {
         //Primero se genera el identificador de la revision del objeto
         $na = new validacion();
         $idro = $na->generar_aleatorio();
+        $iie = $na->generar_alfanumerico();
         //Se reciben los parametros de la vista addcupon
         $id_empresa = $_POST['id_empresa'];
         //Fecha de creacion y hora 
@@ -53,18 +54,14 @@ class obtener_cupon {
         $descripcion_corta = $_POST['descripcion_corta'];
         $descripcion_larga = $_POST['descripcion_larga'];
         //Ruta donde se guardaran las imagenes de los cupones
-        $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
-        $uploadfile_temporal = $_FILES['id_imagen_extra']['tmp_name'];
-        $uploadfile_nombre = $ruta . $_FILES['id_imagen_extra']['name'];
-
-        if (is_uploaded_file($uploadfile_temporal)) {
-            move_uploaded_file($uploadfile_temporal, $uploadfile_nombre);
+        $nombreimagen = $_FILES['id_imagen_extra']['name'];
+        $nombreimagen = $iie . ".jpg";
+        if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen")) {
+            $msg = "El archivo ha sido cargado correctamente.<br>";
         } else {
-            echo "error";
+           $nombreimagen = ""; 
         }
-        //Mandar a llamar el nombre de la imagen
-        $id_imagen_extra = $_FILES['id_imagen_extra'];
-        $nombre = $id_imagen_extra["name"];
+        $nombres = $nombreimagen;
         $vigencia_inicio = $_POST['vigencia_inicio'];
         $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
@@ -72,7 +69,7 @@ class obtener_cupon {
         //Se genera el identificador del cupon
         $idcu = $na->generar_aleatorio();
         $sql2 = "INSERT INTO cupon (id_cupon,id_revision_objeto,titulo,descripcion_corta,descripcion_larga,id_imagen_extra,vigencia_inicio,vigencia_fin,terminos_y_condiciones,limite_codigos)
-        VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$nombre','$vigencia_inicio','$vigencia_fin','$terminos_y_condiciones','$limite_codigos')";
+        VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$nombres','$vigencia_inicio','$vigencia_fin','$terminos_y_condiciones','$limite_codigos')";
         if (!mysqli_query($pd, $sql2)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -112,15 +109,31 @@ class obtener_cupon {
         //se llama a la funcion con para obtener la variable conexion la cual sera utilizada para ejecutar la sentencia sql
         $pd = $conn->con();
         //Primero se reciben los parametros de la vista actualizar cupon
+        //se compara si el parametro id_imagen_ extra esta regresando vacia
+        $na = new validacion();
+        $iie = $na->generar_alfanumerico();
+        $nombreimagen = $_FILES['id_imagen_extra']['name'];
+        $nombreanterior = $_POST["id_imagen_anterior"];
+        if ($nombreimagen == "") {
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            unlink($ruta . $nombreanterior);
+        } else {
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            unlink($ruta . $nombreanterior);
+            $nombreimagen = $_FILES['id_imagen_extra']['name'];
+            $nombreimagen = $iie . ".jpg";
+            if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen")) {
+                $msg = "El archivo ha sido cargado correctamente.<br>";
+            } else {
+                die();
+            }
+        }
         $id_empresa = $_POST["id_empresa"];
         $id_revision_objeto = $_POST["id_revision_objeto"];
         $id_cupon = $_POST["id_cupon"];
         $titulo = $_POST['titulo'];
         $descripcion_corta = $_POST['descripcion_corta'];
         $descripcion_larga = $_POST['descripcion_larga'];
-        $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
-        $uploadfile_temporal = $_FILES['id_imagen_extra']['tmp_name'];
-        $uploadfile_nombre = $ruta . $_FILES['id_imagen_extra']['name'];
         //Fecha actual
         $año_actual = date("Y");
         $mes_actual = date("m");
@@ -134,17 +147,15 @@ class obtener_cupon {
         } else {
             echo "error";
         }
-        $id_imagen_extra = $_FILES['id_imagen_extra'];
-        $nombre = $id_imagen_extra["name"];
         $vigencia_inicio = $_POST['vigencia_inicio'];
         $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
+        $nombre = $nombreimagen;
         $limite_codigos = $_POST['limite_codigos'];
         $actulizacion1 = "update revision_objeto set fecha_actualizacion = " . $fecha_actual . "  where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = " . $id_empresa . "";
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
-        echo $nombre;
         $actulizacion2 = "update cupon set titulo = '$titulo', descripcion_corta = '$descripcion_corta', descripcion_larga = '$descripcion_larga', id_imagen_extra = '$nombre' ,vigencia_inicio = '$vigencia_inicio',vigencia_fin = '$vigencia_fin' , terminos_y_condiciones =  '$terminos_y_condiciones' , limite_codigos =  '$limite_codigos' where id_cupon = " . $id_cupon . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
