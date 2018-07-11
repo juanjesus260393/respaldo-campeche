@@ -60,12 +60,16 @@ class Nuevo_usu_model{
         $venta=(int)$_POST['ventas'];
         $min=(int)$_POST['min'];
         $max=(int)$_POST['max'];
-        $pass=$this->gen_pass($email);
+        $passaux= $this->gen_pass($email);
+        sendmail($email, $passaux, 0);
+        $pass=password_hash($passaux, PASSWORD_DEFAULT);
+       // $pass=password_hash('empresa1', PASSWORD_DEFAULT);
+      //$pass=$this->gen_pass($email);
          
         $sqlinsert1=("INSERT INTO users (username, password) VALUES ('".$email."','".$pass."')");
         $agregado=$this->db->query($sqlinsert1);
         if($agregado){
-        $sqlinsert= ("INSERT INTO empresa (id_plan, id_sector , descripcion, telefono1, telefono2, direccion, nombre, numero_empleados, propietario, tamano, ventas_mensuales, monto_min, monto_max) VALUES (1,".$sector.",'".$desc."',".$tel1.",".$tel2.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.",".$venta.",".$min.",".$max.")");
+        $sqlinsert= ("INSERT INTO empresa (id_plan, id_sector , descripcion, telefono1, telefono2, direccion, nombre, numero_empleados, propietario, tamano) VALUES (11223344,".$sector.",'".$desc."',".$tel1.",".$tel2.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.")");
         $agregado=$this->db->query($sqlinsert);  
         if($agregado){
             

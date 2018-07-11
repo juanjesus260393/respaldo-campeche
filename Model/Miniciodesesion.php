@@ -29,9 +29,10 @@ class obtener_usuario {
             if (!$fila2[0]) {
                 echo '<script language = javascript>
 	alert("Verifique que el usuario se encuentre registrado.")
-           self.location = "https://localhost/campeche-web2"
+           self.location = "../index.php"
 	</script>';
             }
+            //self.location = "https://localhost/campeche-web2"
             //opcion2: El usuario es una empresa
             else {
 
@@ -60,29 +61,47 @@ class obtener_usuario {
         $conn = new Conectar();
         //se llama a la funcion con para obtener la variable conexion la cual sera utilizada para ejecutar la sentencia sql
         $pd = $conn->con();
-        //Se llama a la clase obtener usuario 
-        $obu = new obtener_usuario();
-        //Se recibe el array de la funcion admin_usuario
-        list($un, $tp, $im) = $obu->tipo_usuario();
-        $username = $un;
+        /* //Se llama a la clase obtener usuario 
+          $obu = new obtener_usuario();
+          //Se recibe el array de la funcion admin_usuario
+          list($un, $tp, $im) = $obu->tipo_usuario();
+          $username = $un; */
+        $username = $_POST['username'];
         //Se recibe la contrasela del formulario inicio de sesion
         $password = $_POST['password'];
         //Consultar si los datos son están guardados en la base de datos
-        $consulta = "SELECT * FROM users WHERE username='" . $username . "' AND password='" . $password . "'";
+
+
+        $consulta = "SELECT * FROM users WHERE username='" . $username . "'";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
-        if (!$fila[0]) {
+
+
+        if (!$fila[0] || password_verify($password, $fila[1]) == FALSE) {
+            $_SESSION['loggedin'] = FALSE;
+            session_destroy();
             echo '<script language = javascript>
+                
 	alert("Usuario o contraseña incorrectos, por favor verifique.")
-	self.location = "https://localhost/campeche-web2"
+	self.location = "../index.php"
 	</script>';
         }
+        //self.location = "https://localhost/campeche-web2"
         //opcion2: El usuario ha iniciado sesion correctamente
         else {
-            $habilitada = $fila['enabled'];
+            //Se llama a la clase obtener usuario 
+            $obu = new obtener_usuario();
+            //Se recibe el array de la funcion admin_usuario
+            list($un, $tp, $im) = $obu->tipo_usuario();
+
+            $_SESSION['username'] = $un;
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['enabled'] = $fila['enabled'];
+            $_SESSION['idemp'] = $im;
+            $_SESSION['tipo'] = $tp;
         }
-        return array($un, $tp, $im, $habilitada);
+        return array($tp, $im);
     }
 
 }

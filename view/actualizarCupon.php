@@ -1,3 +1,4 @@
+<?php  session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
     
@@ -12,7 +13,7 @@
             <div>
 
                 <span><label>Identificador de la empresa:</label></span>
-                <span><input type="text" name="id_empresa" id="id_empresa" value="<?php echo $id_empresa = $_GET['id_empresa'];
+                <span><input type="text" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
 ?>"></span>
             </div>
             <div>

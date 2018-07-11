@@ -4,22 +4,33 @@
     <head>
         <meta charset="UTF-8">
         <title>Nuevo usuario</title>
+                <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     </head>
     <body>
+        <div class="container">
+            <div class="form-inline">
         <form action="../view/InicioAdmin_pruebas.php" method="post">
-        <input type="submit" value="Principal" name="principal" > 
-    </form>
+        <input type="submit" value="Principal" name="principal" class="btn btn-warning" > 
+        </form></div></div>
         <h1 align="center">Nuevo Usuario</h1>
-        <div id="formulario" >
+        <div id="formulario" class="container">
         <?php
                     foreach ($datos as $info){   
-            
+          
             
                         printf('  <form  action="../Controller/Set_usu_controller2.php" method="post">');
                         printf('  <br><br>');
                         printf("<input type='hidden' name='usu_before_set' value='".$info[0]."'>");
                         printf('    <label>Correo</label>');
-                        printf(' <input type="text" size="32" name="email" value="'.$info[0].'"/>');
+                        printf('<div class="input-group">');
+                        printf('<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>');
+                        printf(' <input id="email" type="text" size="32" name="email" class="form-control" value="'.$info[0].'"/>');
+                        printf('</div>');
                         printf('   <label>Nombre de la Empresa</label>');
                         printf('   <input type="text" size="40" name="empresa" value="'.$info[1].'">');
                         printf('      <label>Sector</label>');

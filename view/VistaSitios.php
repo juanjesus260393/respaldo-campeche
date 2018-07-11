@@ -18,9 +18,10 @@
                 <tr>
                     <td><?php echo $pd[$i]["nombre"]; ?></td>
                     <td><?php echo $pd[$i]["direccion"]; ?></td>
-                    <?php $idemp = $pd[$i]["id_empresa"]; 
-                    $nm = $pd[$i]["nombre"]; ?>
-                    <td> <?php echo "<a href='../view/Contenido.php?ide=$idemp&name=$nm'><img src='img/actualizar.jpg'/></a>" ?></td>                    
+                    <?php
+                    $nm = $pd[$i]["nombre"];
+                    ?>
+                    <td> <?php echo "<a href='../view/Contenido.php?name=$nm'><img src='img/actualizar.jpg'/></a>" ?></td>                    
                 </tr>
                 <?php
             }

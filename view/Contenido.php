@@ -5,16 +5,13 @@
         <title>Administracion de Contenido</title>
     </head>
     <body>
-        <?php  
-$id=$_GET['ide'];
-$nam=$_GET['name'];
-$array = array("Cupones", "Videos", "Audio Guias");
-?>
-    <center><?php echo"<h1>Contenido que puedes administrar de $nam</h1>"?></center> 
+        <?php
+        $nam = $_GET['name'];
+        ?>
+    <center><?php echo"<h1>Contenido que puedes administrar de $nam</h1>" ?></center> 
     <center>
-         <?php echo "<a href='../Controller/crtCupones.php?ide=$id'>Cupones</a> " ?>
-         <?php echo "<a href='../view/Addcupon.php?id_empresa=$id'><img src='../Controller/img/agregar.png'/></a>" ?>
+        <?php echo "<li><a href='../Controller/crtCupones.php'>Cupones</a>   <a href='../view/Addcupon.php'><img src='../Controller/img/agregar.png'/>Agregar Cupon</a></li> " ?>
+        <?php echo "<li><a href='../Controller/crtcVideos.php'>Videos</a>   <a href='../view/Addvideo.php'><img src='../Controller/img/agregar.png'/>Agregar video</a></li>" ?>
     </center> 
 </body>
 </html>
- 

@@ -4,18 +4,34 @@
     <head>
         <meta charset="UTF-8">
         <title>.</title>
-    </head>
-    <body>
-        <h1>Bienvenido Administrador </h1>
-        
     
-        <form action="../Controller/Emp_Activas_controller.php" method="post">
-        <input type="submit" value="Activas" name="activas" > 
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </head>
+  <body>
+      <div class="container">
+        <h1>Bienvenido Administrador </h1> <h5 style="text-align: right;"><a href="../Controller/cerrarSession.php">Cerrar Sesion</a></h5>
+      </div>
+        <div class="container">
+            <div class="form-inline">
+      <form  action="../Controller/IniciodeSesion.php" method="post">
+        <input type="submit" value="Principal" name="principal" class="btn btn-warning"> 
+        </form>
+                
+    <form  action="../Controller/Emp_Activas_controller.php" method="post">
+            <input type="submit" value="Activas" name="activas" class="btn btn-warning "> 
     </form>
-        <form action="../view/InicioAdmin_pruebas.php" method="post">
-        <input type="submit" value="Principal" name="principal" > 
-    </form>
-        
+
+       <form action="../Controller/set_usu_controller1.php" method="post">
+        <input type="submit" value="Modificar" name="setusu" class="btn btn-warning"> 
+    </form>     
+            
+            </div>
+        </div>
   <?php
   
 

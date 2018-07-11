@@ -1,6 +1,6 @@
 <?php
 
-echo password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n";
+$pass=password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n";
 
 $hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
 

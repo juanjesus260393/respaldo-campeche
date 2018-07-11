@@ -1,5 +1,3 @@
 <?php
-
-list($nom,$tp,$idempre) = $bl;
-echo $nom,$tp,$idempre;
+echo  json_encode($bl), "\n";
 ?>        

@@ -2,6 +2,7 @@
 
 require_once('model.php');
 require_once('Conexion.php');
+require_once('../scripts/Validaciones.php');
 
 Class Turista extends model {
 
@@ -27,12 +28,15 @@ Class Turista extends model {
         //Se llama a la funcion conectar
         $conn = new Conectar();
         $pd = $conn->con();
+        //se define token y el usuario
+        $token = bin2hex(openssl_random_pseudo_bytes (64));
+        $vigencia = date('H:i:s', (strtotime("+ 1 Hours")));
         $consultausers = "SELECT * FROM users WHERE username='" . $username . "' AND password='" . $password . "'";
         $resultadoconsultausers = mysqli_query($pd, $consultausers) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultadoconsultausers);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
         if (!$fila[0]) {
-            die(mysqli_error());
+            return null;
         } else {
             $nombredeusuario = $fila['username'];
         }
@@ -54,18 +58,23 @@ Class Turista extends model {
             else {
                 $idempresa = $fila2['id_empresa'];
                 $nombreusuario = $fila2['username'];
-                $tipodeusuario = "Cajero";
+                $tipodeusuario = "C";
+                //pasar parametros al token
+                $respuesta['token'] = $token;
+                $respuesta['tipo_de_usuario'] = $tipodeusuario;
+                $respuesta['vigencia'] = $vigencia;
             }
         } else {
-            //Generar token 
-            $validar = new validacion();
-            $tok = $validar->identificador_token();
             //el usuario es un turista
             $idempresa = $fila1['vigencia'];
-            $tipodeusuario = "Turista";
+            $tipodeusuario = "T";
             $nombreusuario = $fila1['username'];
+            //Pasar parametros a arreglo
+            $respuesta['token'] = $token;
+            $respuesta['tipo_de_usuario'] = $tipodeusuario;
+            $respuesta['vigencia'] = $vigencia;
         }
-        return array($nombreusuario, $tipodeusuario, $idempresa);
+        return json_encode($respuesta);
     }
 
 }

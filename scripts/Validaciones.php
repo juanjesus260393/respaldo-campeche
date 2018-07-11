@@ -1,25 +1,36 @@
 <?php
 
 class validacion {
+    /* public function habilitado($estado) {
+      //Si tu cuenta no se encuentra habilitada
+      if ($_SESSION['enabled'] == NULL) {
+      echo '<script language = javascript>
+      alert("Tu cuenta todavia no se encuentra habilitada.")
+      </script>';
+      }
+      } */
 
-    public function habilitado($estado) {
-        //Si tu cuenta no se encuentra habilitada 
-        if ($estado = "0") {
+    // creamos la función
+    function mostrar_ocultar() {
+
+
+        if ($_SESSION['enabled'] == 1) {
+
+            if ($_SESSION['tipo'] == "administrador") {
+                $identificadorempresa == $_SESSION['id_empresa'];
+                echo "Tus opciones como administrador son: ";
+                echo "<li><a href='../Controller/Nuevo_usu_controller.php'>Agregar nueva Empresa</a></li>";
+                echo "<li><a href='../Controller/Emp_Activas_controller.php'>Validar Empresa</a></li>";
+                echo "<li><a href='../Controller/Emp_Desactivadas_controller.php'>Validar Empresa</a></li>";
+            } else if ($_SESSION['tipo'] == "empresa") {
+                echo "Tus opciones como empresa son: ";
+                echo "<li><a href='ControladorSitios.php'>Administrar Sitios</a></li>";
+                echo "<li><a href='cambiaPass_controller.php'>Cambia contraseña</a></li>";
+            }
+        } else if ($_SESSION['enabled'] == NULL) {
             echo '<script language = javascript>
 	alert("Tu cuenta todavia no se encuentra habilitada.")
 		</script>';
-        }
-    }
-
-    // creamos la función
-    function mostrar_ocultar($tipodeusuario, $identificadorempresa) {
-        if ($tipodeusuario == "administrador") {
-            echo "Tus opciones como administrador son: ";
-            echo "<li><a href='Nuevo_usu_controller.php'>Agregar nueva Empresa</a></li>";
-            echo "<li><a href='Emp_Activas_controller.php'>Validar Empresa</a></li>";
-        } else if ($tipodeusuario == "empresa") {
-            echo "Tus opciones como empresa son: ";
-            echo "<li><a href='ControladorSitios.php?id=$identificadorempresa'>Administrar Sitios</a></li>";
         }
     }
 
@@ -52,10 +63,11 @@ class validacion {
         //Se genera el numero aleatorio
         return $key;
     }
+
     // creamos la función generar alfa numerico
     public function identificador_token() {
         //Se declara la longitud del numero aleatorio que se generara
-        $rango = 9;
+        $rango = 10;
         $longitud = $rango;
         $key = '';
         //Se establece el numero de patrones que se utilizara
@@ -66,6 +78,7 @@ class validacion {
         //Se genera el numero aleatorio
         return $key;
     }
+
     // creamos la función
     public function fecha_actual() {
         $año_actual = date("y");
@@ -80,23 +93,32 @@ class validacion {
     }
 
     public function hora_computadora() {
-        $año_actual = " ";
-        $mes_actual = " ";
-        $dia_actual = " ";
-        $hora = date("h");
-        $minuto_actual = date("i");
-        $segundo_actual = date("s");
-        $hora_actual = $año_actual . "-" . $mes_actual . "-" . $dia_actual . " " . $hora . ":" . $minuto_actual . ":" . $segundo_actual;
-        //Se genera el numero aleatorio
-        return $hora_actual;
+        $horaInicial = date("h");
+        $minutoAnadir = 60;
+        $segundos_horaInicial = strtotime($horaInicial);
+        $segundos_minutoAnadir = $horaInicial  * 60;
+        $nuevaHora = date("h:i", $segundos_horaInicial + $segundos_minutoAnadir);
+        //Se genera el numero aleatorio, $segundos_horaInicial + $segundos_minutoAnadir
+        return $segundos_minutoAnadir;
     }
 
     public function campos_vacios($p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10) {
         //Se verfica si los elementos enviados atraves de la url se encuentran vacios
         if ($p1 == NULL and $p2 == NULL and $p3 = NULL and $p4 == NULL and $p5 == NULL and $p6 = NULL and $p7 == NULL and $p8 == NULL and $p9 == NULL and $p10 == null) {
-           include 'error404.php';
+            include 'error404.php';
         } else {
-            //
+            
+        }
+    }
+
+    public function campo_vacio($parametro) {
+        if ($parametro == NULL) {
+            echo '<script language = javascript>
+	alert("No tienes contenido registrado.")
+           self.location = "https://localhost/campeche-web2/Controller/ControladorSitios.php"
+	</script>';
+        } else {
+            return $parametro;
         }
     }
 

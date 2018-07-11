@@ -4,12 +4,22 @@
     <head>
         <meta charset="UTF-8">
         <title>Nuevo usuario</title>
+        
+        <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/Validaciones.js"></script>
     </head>
     <body>
-        <form action="../view/InicioAdmin_pruebas.php" method="post">
-        <input type="submit" value="Principal" name="principal" > 
-    </form>
-        <h1 align="center">Nuevo Usuario</h1>
+        <div class="container">
+            <div class="form-inline">
+        <form action="../Controller/IniciodeSesion.php" method="post">
+            <input type="submit" value="Principal" name="principal"  class="btn btn-warning"> 
+        </form></div></div>
+        <h1 style="text-align: center;">Nuevo Usuario</h1><h5 style="text-align: right;"><a href="../Controller/cerrarSession.php">Cerrar Sesion</a></h5>
         <div id="formulario" >
             <form  action="../Controller/Nuevo_usu_controller.php" method="post">
             <br><br>
@@ -28,9 +38,9 @@
                      printf("</select>");
                     ?>
             <label>Telefono 1</label>
-            <input type="text" size="20" name="tel1">
+            <input type="text" size="20" name="tel1" onkeypress="soloNum()">
             <label>Telefono 2</label>
-            <input type="text" size="20" name="tel2">
+            <input type="text" size="20" name="tel2" onkeypress="soloNum()">
             <br>
             <label>Direccion</label>
             <br>
@@ -48,12 +58,12 @@
             <input type="text" size="20" name="tam">
             <br>
             <label>Ventas mensuales</label>
-            <input type="text" size="20" name="ventas">
+            <input type="text" size="20" name="ventas" onkeypress="soloNum()">
             <label>Monto de rangos</label>
             <br>
             <label>Minimo---Maximo</label>
-            <input type="text" size="20" name="min">
-            <input type="text" size="20" name="max">
+            <input type="text" size="20" name="min" onkeypress="soloNum()">
+            <input type="text" size="20" name="max" onkeypress="soloNum()">
             <br><br>
             <input type="checkbox" name="habilitar" value="si" checked> Habilitar usuario<br>
 

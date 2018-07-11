@@ -1,4 +1,16 @@
 <?php
+
+session_start();
+
+if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
+ unset($_SESSION);
+    session_destroy();
+     echo '<script language = javascript>
+	self.location = "../index.php"
+	</script>';
+
+}
+else if($_SESSION['loggedin']==TRUE){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
 require_once("../Model/Emp_Activas_model.php");
@@ -12,3 +24,4 @@ $datos=$emp->get_empresas();
  
 //Llamada a la vista
 require_once("../view/Emp_Activas_view.php");
+}

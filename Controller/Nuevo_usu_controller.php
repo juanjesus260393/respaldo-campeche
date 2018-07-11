@@ -1,7 +1,20 @@
 <?php
+session_start();
+
+if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
+ unset($_SESSION);
+    session_destroy();
+     echo '<script language = javascript>
+	self.location = "../index.php"
+	</script>';
+
+}
+else if($_SESSION['loggedin']==TRUE){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
 require_once("../Model/Nuevo_usu_model.php");
+require_once("../Model/Sendmail.php");
+
 $Nuevo_usu=new Nuevo_usu_model();
 $sector=$Nuevo_usu->get_sectores();
 
@@ -17,3 +30,4 @@ $sector=$Nuevo_usu->get_sectores();
 
  //Llamada a la vista
 require_once("../view/Nuevo_usu_view.php");
+}
