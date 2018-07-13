@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Nuevo usuario</title>
-                <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+        <title>.</title>
+    
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    </head>
+  </head>
     <body>
-        <div class="container">
-            <div class="form-inline">
-        <form action="../view/InicioAdmin_pruebas.php" method="post">
-        <input type="submit" value="Principal" name="principal" class="btn btn-warning" > 
-        </form></div></div>
+       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
+          <a class="navbar-brand" href="">Administrador</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navb">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="../Controller/Emp_Activas_controller.php">Principal</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="../Controller/Emp_Desactivadas_controller.php">Empresas Deshabilitadas</a>
+                  </li>
+                  
+              </ul>
+              <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
+                  <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
+              </form>
+          </div>
+      </nav>
+   
         <h1 align="center">Nuevo Usuario</h1>
         <div id="formulario" class="container">
         <?php

@@ -27,6 +27,8 @@ class obtener_usuario {
             $fila2 = mysqli_fetch_array($resultado2);
             //Si no se encuentra en la tabla empresa ni en la tabla authorities
             if (!$fila2[0]) {
+                $_SESSION['loggedin']=FALSE;
+            session_destroy();
                 echo '<script language = javascript>
 	alert("Verifique que el usuario se encuentre registrado.")
            self.location = "../index.php"
@@ -105,5 +107,3 @@ class obtener_usuario {
     }
 
 }
-
-?>

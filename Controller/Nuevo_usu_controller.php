@@ -9,7 +9,7 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 	</script>';
 
 }
-else if($_SESSION['loggedin']==TRUE){
+else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='administrador'){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
 require_once("../Model/Nuevo_usu_model.php");
@@ -30,4 +30,11 @@ $sector=$Nuevo_usu->get_sectores();
 
  //Llamada a la vista
 require_once("../view/Nuevo_usu_view.php");
+}
+else{
+    unset($_SESSION);
+    session_destroy();
+     echo '<script language = javascript>
+	self.location = "../index.php"
+	</script>';
 }

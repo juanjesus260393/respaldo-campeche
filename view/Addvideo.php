@@ -16,23 +16,23 @@
             </div>
             <div>
                 <span><label>*Titulo del Video:</label></span>
-                <span><input type="text" id="titulo" name="titulo" placeholder="Titulo del Cupon" pattern=".{1,100}" required title="El titulo de cupon no puede ser mayor a 100 caracteres incluyendo espacios en blanco"></span>
+                <span><input type="text" id="titulo" name="titulo" placeholder="Titulo del video" required></span>
             </div> 
             <div>
                 <span><label>*Descripcion:</label></span>
-                <span><textarea  id="descripcion" name="descripcion" rows="10" cols="40" placeholder="Descripcion" required title="La cantidad de caracteres maxima es de 500" maxlength="490"></textarea></span>
+                <span><textarea  id="descripcion" name="descripcion" rows="10" cols="40" placeholder="Descripcion" required></textarea></span>
             </div> 
             <div>
                 <span><label>*Precio:</label></span>
-                <span><input type="number" id="precio" name="precio" placeholder="precio"></span>
+                <span><input type="number" id="precio" name="precio" placeholder="precio"required></span>
             </div>
             <div>
                 <span><label>*Imagen del video:</label></span>
-                <span><input type="file" id="id_img_preview" name="id_img_preview"></span>
+                <span><input type="file"  id="id_img_preview" accept=".jpg" name="id_img_preview" required></span>
             </div>
             <div>
                 <span><label>*Video:</label></span>
-                <span><input type="file" id="id_video_archivo" name="id_video_archivo"></span>
+                <span><input type="file" onchange= "confirmar()" accept=".mp4" id="id_video_archivo"  name="id_video_archivo" required></span>
             </div>
             <div>
                 <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres registrar este video?')) {

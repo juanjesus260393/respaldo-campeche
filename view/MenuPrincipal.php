@@ -22,9 +22,6 @@
         //$estatus = $val->habilitado($ena);
         ?>
         <!-- Se recibe el nombre de usuario debido a que las opciones cambiaran dependiendo del tipo de usuario--> 
-        <div class="container">
-            <h2  style="text-align: center;" >-<?php echo "Bienvenido: " . $_SESSION['username']; ?></h2><h5 style="text-align: right;"><a href="../Controller/cerrarSession.php">Cerrar Sesion</a></h5>
-        </div>
         <!-- Funcion para habilitar un div si el tipo de usuario es empresa o administrador--> 
         <div id = "tipo_usuario"> 
             <?php $estatus = $val->mostrar_ocultar(); ?>

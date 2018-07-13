@@ -24,7 +24,9 @@ Class Turista extends model {
         return count($this->Seleccionar($str)) > 0 ? true : false;
     }
 
-    public function login_movil($username, $password) {
+    public function login_movil() {
+        $username = $_POST["username"];
+        $password = $_POST["password"];
         //Se llama a la funcion conectar
         $conn = new Conectar();
         $pd = $conn->con();

@@ -10,7 +10,7 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 	</script>';
 
 }
-else if($_SESSION['loggedin']==TRUE){
+else if($_SESSION['loggedin']==TRUE&& $_SESSION['tipo']=='administrador'){
 
 //Llamada al modelo
 require_once ("../Model/conexion.php");
@@ -25,3 +25,10 @@ $datos=$emp->get_empresas();
  
 //Llamada a la vista
 require_once("../view/Emp_Desactivadas_view.php");}
+else{
+    unset($_SESSION);
+    session_destroy();
+     echo '<script language = javascript>
+	self.location = "../index.php"
+	</script>';
+}

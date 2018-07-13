@@ -10,7 +10,7 @@
             <tr>
                 <td><strong>Titulo</strong></td>
                 <td><strong>Descripcion</strong></td>
-                <td><strong>Estado</strong></td>
+                <td><strong>Precio</strong></td>
                 <td><strong>Eliminar</strong></td>
                 <td><strong>Actualizar</strong></td>
             </tr>
@@ -27,23 +27,22 @@
             for ($i = 0; $i < count($llenar); $i++) {
                 ?>
                 <tr>
-                    <td><?php echo  $llenar[$i]["titulo"]; ?></td>
-                    <td><?php echo  $llenar[$i]["descripcion"]; ?></td>
-                    <td><?php echo  $llenar[$i]["status"]; ?></td>
+                    <td><?php echo $llenar[$i]["titulo"]; ?></td>
+                    <td><?php echo $llenar[$i]["descripcion"]; ?></td>
+                    <td><?php echo $llenar[$i]["precio"]; ?></td>
                     <?php
                     //Lista de parametros por medio de los cuales se actualizara el cupon
-                    $idcup =  $llenar[$i]["id_video"];
-                    $idrob =  $llenar[$i]["id_revision_objeto"];
-                    $t =  $llenar[$i]["titulo"];
-                    $dc =  $llenar[$i]["descripcion"];
-                    $dl =  $llenar[$i]["precio"];
-                    $img =  $llenar[$i]["fecha_subida"];
-                    $tyc =  $llenar[$i]["id_img_preview"];
-                    $limcd =  $llenar[$i]["id_video_archivo"];
-                    $est =  $llenar[$i]["status"];
+                    $idv = $llenar[$i]["id_video"];
+                    $idrob = $llenar[$i]["id_revision_objeto"];
+                    $t = $llenar[$i]["titulo"];
+                    $dc = $llenar[$i]["descripcion"];
+                    $dl = $llenar[$i]["precio"];
+                    $img = $llenar[$i]["fecha_subida"];
+                    $tyc = $llenar[$i]["id_img_preview"];
+                    $limcd = $llenar[$i]["id_video_archivo"];
                     ?>
-                    <td> <?php echo '<a href="../Controller/crteCupon.php?id_revision_objeto=' . $idrob . '&id_cupon=' . $idcup . '&id_imagen_extra=' . $img . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este cupon?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
-                    <td> <?php echo "<a href='../view/actualizarCupon.php?id_revision_objeto=$idrob&id_cupon=$idcup&titulo=$t&descripcion_corta=$dc&descripcion_larga=$dl&id_imagen_extra=$img&terminos_y_condiciones=$tyc&limite_codigos=$limcd'><img src='img/actualizar.jpg'/></a>" ?></td>
+                    <td> <?php echo '<a href="../Controller/crteVideo.php?id_revision_objeto=' . $idrob . '&id_video=' . $idv . '&id_img_preview=' . $tyc . '&id_video_archivo=' . $limcd . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este video?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
+                    <td> <?php echo "<a href='../Controller/crtaodaVideo.php?id_revision_objeto=$idrob&id_video=$idv'><img src='img/actualizar.jpg'/></a>" ?></td>
                 </tr>
                 <?php
             }

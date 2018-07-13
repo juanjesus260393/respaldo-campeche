@@ -17,15 +17,14 @@ class obtener_sitios {
 
     public function lista_sitios() {
         self::set_names();
-        /* @var $ide type */
+        
         $sql = "select * from sitio where id_empresa = " . $_SESSION['idemp'];
         foreach ($this->dbh->query($sql) as $res) {
             $this->platillo[] = $res;
-        }
+
         return $this->platillo;
-        $this->dbh = null;
     }
 
 }
-
+}
 ?>

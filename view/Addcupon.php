@@ -29,7 +29,7 @@
             </div> 
             <div>
                 <span><label>Imagen:</label></span>
-                <span><input type="file" id="id_imagen_extra" name="id_imagen_extra"></span>
+                <span><input type="file" id="id_imagen_extra" accept=".jpg" name="id_imagen_extra"></span>
             </div>
             <div>
                 <span><label>*Vigencia inicio:</label></span>
