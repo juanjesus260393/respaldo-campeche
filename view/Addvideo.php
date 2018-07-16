@@ -7,6 +7,7 @@
         <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
     </head>
     <body>
+    <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>  
     <center><h1>Agregar Video</h1></center>
     <center><form method="post" action="../Controller/crtAdvideo.php" name="form1" enctype="multipart/form-data">
             <div>
@@ -16,15 +17,15 @@
             </div>
             <div>
                 <span><label>*Titulo del Video:</label></span>
-                <span><input type="text" id="titulo" name="titulo" placeholder="Titulo del video" required></span>
+                <span><input type="text" id="titulo" name="titulo" placeholder="Titulo del video" maxlength="99" required></span>
             </div> 
             <div>
                 <span><label>*Descripcion:</label></span>
-                <span><textarea  id="descripcion" name="descripcion" rows="10" cols="40" placeholder="Descripcion" required></textarea></span>
+                <span><textarea  id="descripcion" name="descripcion" rows="10" cols="40" placeholder="Descripcion" maxlength="499" required></textarea></span>
             </div> 
             <div>
                 <span><label>*Precio:</label></span>
-                <span><input type="number" id="precio" name="precio" placeholder="precio"required></span>
+                <span><input type="number" id="precio" name="precio" placeholder="precio" maxlength="6" required></span>
             </div>
             <div>
                 <span><label>*Imagen del video:</label></span>

@@ -3,6 +3,7 @@
 //se incluye la conexion a la base de datos
 require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
+include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 
 class Videos {
 
@@ -41,29 +42,41 @@ class Videos {
         $this->titulo = $_POST['titulo'];
         $this->descripcion = $_POST['descripcion'];
         $this->precio = $_POST['precio'];
+        //Subir video
+        $nombrevideo = $this->iva . ".mp4";
+        //Primero se sube el video
+        if (move_uploaded_file($_FILES['id_video_archivo']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo")) {
+            $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
+                unlink($ruta . $nombrevideo);
+                echo '<script language = javascript> alert("La Resolucion no es la indicada selecciona otro video o reduce la calidad del mismo.") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        //Depues se sube la imagen 
         $nombreimagen = $this->iip . ".jpg";
         //Subir imagen
         if (move_uploaded_file($_FILES['id_img_preview']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/$nombreimagen")) {
             $msg = "El archivo ha sido cargado correctamente.<br>";
         }
-        //Subir video
-        $nombrevideo = $this->iva . ".mp4";
-        if (move_uploaded_file($_FILES['id_video_archivo']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo")) {
-            
-        }
-        echo $msg = "esto lo hace.<br>";
         $this->visualizaciones = '0.0';
         $insertrevision = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,status)
         VALUES('$this->iro'," . $_SESSION['idemp'] . ",'$this->fa','$this->status')";
         $insertvideo = "INSERT INTO video (id_video,id_revision_objeto,titulo,descripcion,precio,fecha_subida,id_img_preview,id_video_archivo,visualizaciones)
         VALUES('$this->ivi',$this->iro,' $this->titulo','$this->descripcion','$this->precio','  $this->fa','$nombreimagen','$nombrevideo','$this->visualizaciones')";
-        echo $msg = "esto todavia lo hace.<br>";
         if (!mysqli_query($this->pd, $insertrevision)) {
-            echo $msg = "esto todavia lo hace x2.<br>";
             die('Error: ' . mysqli_error($this->pd));
         }
         if (!mysqli_query($this->pd, $insertvideo)) {
-            echo $msg = "esto todavia lo hace x3.<br>";
             die('Error: ' . mysqli_error($this->pd));
         }
         mysqli_close($this->pd);
@@ -126,7 +139,7 @@ class Videos {
         return array($id_video, $id_revision_objeto, $titulo, $descripcion, $precio, $id_img_preview, $id_video_archivo);
     }
 
-    public function actualizar_video(){
+    public function actualizar_video() {
         $conn = new Conectar();
         $pd = $conn->con();
         $na = new validacion();
@@ -136,7 +149,35 @@ class Videos {
         $nombreanteriori = $_POST["id_imagen_anterior"];
         $nombrevideo = $_FILES['id_video_archivo']['name'];
         $nombreanteriorv = $_POST["id_video_antetior"];
-        if ($nombreimagen == "") {
+              if ($nombrevideo == "") {
+            $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
+            unlink($ruta . $nombreanteriorv);
+        } else {
+            $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
+            unlink($ruta . $nombreanteriorv);
+            $nombrevideo = $_FILES['id_video_archivo']['name'];
+            $nombrevideo = $iav . ".mp4";
+            if (move_uploaded_file($_FILES['id_video_archivo']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo")) {
+                $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
+                $getID3 = new getID3;
+                $file = $getID3->analyze($filename);
+                //Una ves que se yha subido se comprueba la resolucion del mismo
+                if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
+                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                    $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
+                    unlink($ruta . $nombrevideo);
+                    echo '<script language = javascript> alert("La Resolucion no es la indicada selecciona otro video o reduce la calidad del mismo.") </script>';
+                    //Regresamos a la pagina anterior
+                    echo "<html><head></head>" .
+                    "<body onload=\"javascript:history.back()\">" .
+                    "</body></html>";
+                    exit;
+                }
+            } else {
+                die();
+            }
+        }
+          if ($nombreimagen == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
             unlink($ruta . $nombreanteriori);
         } else {
@@ -150,22 +191,6 @@ class Videos {
                 die();
             }
         }
-        if ($nombrevideo == "") {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
-            unlink($ruta . $nombreanteriorv);
-        }
-        else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
-            unlink($ruta . $nombreanteriorv);
-            $nombrevideo = $_FILES['id_video_archivo']['name'];
-            $nombrevideo = $iav . ".mp4";
-            if (move_uploaded_file($_FILES['id_video_archivo']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo")) {
-                $msg = "El video ha sido cargado correctamente.<br>";
-            } else {
-                die();
-            }
-        }
-        $id_empresa = $_POST["id_empresa"];
         $id_revision_objeto = $_POST["id_revision_objeto"];
         $id_video = $_POST["id_video"];
         $titulo = $_POST['titulo'];
@@ -190,7 +215,7 @@ class Videos {
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
-       header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
     }
 
 }
