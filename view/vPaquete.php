@@ -29,18 +29,21 @@
                     <td><?php echo $llenar[$i]["nombre"]; ?></td>
                     <td><?php echo $llenar[$i]["descripcion"]; ?></td>
                     <?php
-                    //Lista de parametros por medio de los cuales se actualizara el cupon
                     $ip = $llenar[$i]["id_paquete"];
                     $nm = $llenar[$i]["nombre"];
                     $dc = $llenar[$i]["descripcion"];
                     $st = $llenar[$i]["status"];
                     ?>
-                    <td> <?php echo '<a href="../Controller/crtEpaquete.php?id_paquete=' . $ip . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este video?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
-                    <td> <?php echo "<a href='../Controller/crtbpPaquete.php?id_paquete=$ip'><img src='img/actualizar.jpg'/></a>" ?></td>
+                    <td> <?php echo '<a href="../Controller/crtEpaquete.php?id_paquete=' . $ip . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este video?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td> 
+                    <td><form method="post" action="../Controller/crtbpPaquete.php">
+                            <?php echo "<input type='hidden' id='id_paquete' name='id_paquete' value='$ip'> <input type='submit' value='Actualizar'>" ?>
+                        </form></td>
                 </tr>
                 <?php
             }
             ?>
-        </table></center>
+        </table>
+
+    </center>
 </body>
 </html>

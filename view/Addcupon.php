@@ -11,10 +11,8 @@
     <center><h1>Agregar Cupon</h1></center>
     <center><form method="post" action="../Controller/crtAdcupon.php" name="form1" enctype="multipart/form-data">
             <div>
-
-                <span><label>Identificador de la empresa:</label></span>
-                <span><input type="text" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
-?>"></span>
+                <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
+                ?>"></span>
             </div>
             <div>
                 <span><label>*Titulo del Cupon:</label></span>
@@ -34,11 +32,10 @@
             </div>
             <div>
                 <span><label>*Vigencia inicio:</label></span>
-                <span><input type="date" id="vigencia_inicio" name="vigencia_inicio" value="<?php echo date('Y-m-d'); ?>"</span>
-            </div>
+                <span><input type="date" id="vigencia_inicio"  name="vigencia_inicio" value="<?php echo date('Y-m-d'); ?>"></span>    </div>
             <div>
                 <span><label>*Vigencia fin:</label></span>
-                <span><input type="date" id="vigencia_fin" name="vigencia_fin" value="<?php echo date('Y-m-d'); ?>"</span>
+                <span><input type="date" id="vigencia_fin" name="vigencia_fin" value="<?php echo date('Y-m-d'); ?>"></span>
             </div>
             <div>
                 <span><label>*Terminos y Condiciones:</label></span>

@@ -95,6 +95,31 @@ class obtener_cupon {
         }
     }
 
+    public function buscar_cupon() {
+        $conn = new Conectar();
+        $pd = $conn->con();
+        $id_cupon = $_POST['id_cupon'];
+        $consulta = "SELECT * FROM cupon WHERE id_cupon = '$id_cupon'";
+        $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
+        $fila = mysqli_fetch_array($resultado);
+        if (!$fila[0]) {
+            echo '<script language = javascript>
+	alert("Este cupon no se puede modificar")
+           self.location = "https://localhost/campeche-web2/Controller/crtCupones.php"
+	</script>';
+        } else {
+            $id_cupon = $fila['id_cupon'];
+            $id_revision_objeto = $fila['id_revision_objeto'];
+            $titulo = $fila['titulo'];
+            $descripcion_corta = $fila['descripcion_corta'];
+            $descripcion_larga = $fila['descripcion_larga'];
+            $id_imagen_extra = $fila['id_imagen_extra'];
+            $terminos_y_condiciones = $fila['terminos_y_condiciones'];
+            $limite_codigos = $fila['limite_codigos'];
+        }
+        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta,$descripcion_larga, $id_imagen_extra,$terminos_y_condiciones, $limite_codigos);
+    }
+
     public function actualizar_cupon() {
         //Se llama a la clase conectar y a la funcion conectar 
         $conn = new Conectar();

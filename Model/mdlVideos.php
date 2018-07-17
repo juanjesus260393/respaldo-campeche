@@ -61,6 +61,17 @@ class Videos {
                 "</body></html>";
                 exit;
             }
+            if ($file['playtime_string'] > "10:00") {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/pruebascodigo/";
+                unlink($ruta . $nombrevideo);
+                echo '<script language = javascript> alert("El video tiene que durar menos de 10 minutos.") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
         }
         //Depues se sube la imagen 
         $nombreimagen = $this->iip . ".jpg";
@@ -117,9 +128,8 @@ class Videos {
     public function buscar_video() {
         $conn = new Conectar();
         $pd = $conn->con();
-        $id_revision_objeto = $_GET['id_revision_objeto'];
-        $id_video = $_GET['id_video'];
-        $consulta = "SELECT * FROM video WHERE id_video = '$id_video' and id_revision_objeto ='$id_revision_objeto' ";
+        $id_video = $_POST['id_video'];
+        $consulta = "SELECT * FROM video WHERE id_video = '$id_video'";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         if (!$fila[0]) {
@@ -149,7 +159,7 @@ class Videos {
         $nombreanteriori = $_POST["id_imagen_anterior"];
         $nombrevideo = $_FILES['id_video_archivo']['name'];
         $nombreanteriorv = $_POST["id_video_antetior"];
-              if ($nombrevideo == "") {
+        if ($nombrevideo == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
             unlink($ruta . $nombreanteriorv);
         } else {
@@ -173,11 +183,22 @@ class Videos {
                     "</body></html>";
                     exit;
                 }
+                if ($file['playtime_string'] > "10:00") {
+                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                    $ruta = "C:/xampp/htdocs/pruebascodigo/";
+                    unlink($ruta . $nombrevideo);
+                    echo '<script language = javascript> alert("El video tiene que durar menos de 10 minutos.") </script>';
+                    //Regresamos a la pagina anterior
+                    echo "<html><head></head>" .
+                    "<body onload=\"javascript:history.back()\">" .
+                    "</body></html>";
+                    exit;
+                }
             } else {
                 die();
             }
         }
-          if ($nombreimagen == "") {
+        if ($nombreimagen == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
             unlink($ruta . $nombreanteriori);
         } else {

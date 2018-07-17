@@ -62,4 +62,43 @@ class Paquetes {
         header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
     }
 
+    public function buscar_paquete() {
+        $conn = new Conectar();
+        $pd = $conn->con();
+        $id_paquete = $_POST['id_paquete'];
+        $consulta = "select p.nombre, e.descripcion, e.idpaquete from (paquete p inner join empresa_paquete e on p.id_paquete = e.idpaquete) where id_paquete = '$id_paquete'";
+        $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
+        $fila = mysqli_fetch_array($resultado);
+        if (!$fila[0]) {
+            echo '<script language = javascript>
+	alert("Este paquete no se puede modificar")
+           self.location = "https://localhost/campeche-web2/Controller/crtcVideos.php"
+	</script>';
+        } else {
+            $idpaquete = $fila['idpaquete'];
+            $nombre = $fila['nombre'];
+            $descripcion = $fila['descripcion'];
+        }
+        return array($idpaquete, $nombre, $descripcion);
+    }
+
+    public function actualizar_video() {
+        $conn = new Conectar();
+        $pd = $conn->con();
+        $id_empresa = $_POST['id_empresa'];
+        $id_paquete = $_POST['id_paquete'];
+        $nombre = $_POST['nombre'];
+        $descripcion = $_POST['descripcion'];
+        $actulizacion1 = "update paquete set nombre = '$nombre' where id_paquete = '$id_paquete'";
+        if (!mysqli_query($pd, $actulizacion1)) {
+            die('Error: ' . mysqli_error($pd));
+        }
+        $actulizacion2 = "update empresa_paquete set descripcion = '$descripcion' where idpaquete = " . $id_paquete . " AND idempresa = " . $id_empresa . "";
+        if (!mysqli_query($pd, $actulizacion2)) {
+            die('Error: ' . mysqli_error($pd));
+        }
+        mysqli_close($pd);
+        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+    }
+
 }

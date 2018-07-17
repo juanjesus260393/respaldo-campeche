@@ -11,9 +11,7 @@
     <center><h1>Agregar Paquete</h1></center>
     <center><form method="post" action="../Controller/crtcaPaquete.php" name="form1" enctype="multipart/form-data">
             <div>
-
-                <span><label>Identificador de la empresa:</label></span>
-                <span><input type="text" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
+                <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
 ?>"></span>
             </div>
             <div>

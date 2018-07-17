@@ -72,14 +72,10 @@ class obtener_usuario {
         //Se recibe la contrasela del formulario inicio de sesion
         $password = $_POST['password'];
         //Consultar si los datos son están guardados en la base de datos
-
-
         $consulta = "SELECT * FROM users WHERE username='" . $username . "'";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
-
-
         if (!$fila[0] || password_verify($password, $fila[1]) == FALSE) {
             $_SESSION['loggedin'] = FALSE;
             session_destroy();

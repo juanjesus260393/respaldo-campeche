@@ -10,6 +10,8 @@ class Nuevo_usu_model{
         $this->db=Conectar::con();
         $this->sector=array();
         $this->id=array();
+        $this->idplan=array();
+        $this->rango=array();
         
     }
     public function get_sectores(){
@@ -28,6 +30,21 @@ class Nuevo_usu_model{
         return $this->sector;
     }
     
+    public function get_Rangos(){
+        
+        $sqlconsultaRangos = ("SELECT R.id_rango_ventas, R.descripcion FROM rango_ventas R WHERE 1");
+        
+        $resRangos=$this->db->query($sqlconsultaRangos);
+        while($filaR=$resRangos->fetch_row()){
+            $this->rango[]=$filaR;
+            
+        }
+        
+        $resRangos->close();
+        //$this->db->close();
+        
+        return $this->rango;
+    }
     
 
   public function gen_pass($correo){
@@ -48,6 +65,7 @@ class Nuevo_usu_model{
          $email=$_POST['email'];
         $nombre=$_POST['empresa'];
         $sector=(int)$_POST['sectores'];
+        $precios=(int)$_POST['rangos'];
         $tel1=(int)$_POST['tel1'];
         $tel2=(int)$_POST['tel2'];
         $dir= htmlspecialchars($_POST['dir']);
@@ -56,20 +74,23 @@ class Nuevo_usu_model{
         
         $desc= htmlspecialchars($_POST['desc']);
         $tamano=(int)$_POST['tam'];
+        $membresia=$_POST['membresia'];
         
-        $venta=(int)$_POST['ventas'];
-        $min=(int)$_POST['min'];
-        $max=(int)$_POST['max'];
         $passaux= $this->gen_pass($email);
         sendmail($email, $passaux, 0);
         $pass=password_hash($passaux, PASSWORD_DEFAULT);
        // $pass=password_hash('empresa1', PASSWORD_DEFAULT);
       //$pass=$this->gen_pass($email);
-         
+         $sqlAuxMembresia = ("SELECT p.id_plan FROM plan p WHERE p.nombre='".$membresia."'");
+           $Mres=$this->db->query($sqlAuxMembresia);
+            $idplan=$Mres->fetch_row();
         $sqlinsert1=("INSERT INTO users (username, password) VALUES ('".$email."','".$pass."')");
         $agregado=$this->db->query($sqlinsert1);
         if($agregado){
-        $sqlinsert= ("INSERT INTO empresa (id_plan, id_sector , descripcion, telefono1, telefono2, direccion, nombre, numero_empleados, propietario, tamano) VALUES (11223344,".$sector.",'".$desc."',".$tel1.",".$tel2.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.")");
+
+        $sqlinsert= ("INSERT INTO empresa (id_plan, id_sector, id_rango_ventas, descripcion, telefono1, telefono2, direccion, nombre, numero_empleados, propietario, tamano) VALUES (".$idplan[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.")");
+
+
         $agregado=$this->db->query($sqlinsert);  
         if($agregado){
             

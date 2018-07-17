@@ -4,25 +4,20 @@
     <meta charset="UTF-8" />
     <title>Proyecto Campeche 360</title>
 </head>
-
 <?php list($id_video, $id_revision_objeto, $titulo, $descripcion, $precio, $id_img_preview, $id_video_archivo) = $video ?>
 <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>  
 <center><h1>Actualizar Video</h1></center>
 <center><form method="post" action="../Controller/crtacVideo.php" name="form1" enctype="multipart/form-data">
         <div>
-
-            <span><label>Identificador de la empresa:</label></span>
-            <span><input type="text" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
+            <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
 ?>"></span>
         </div>
         <div>
-            <span><label>Identificador del video</label></span>
-            <span><input type="text" name="id_video" id="id_cupon" value="<?php echo $id_video;
+            <span><input type="hidden" name="id_video" id="id_cupon" value="<?php echo $id_video;
 ?>"></span>
         </div>
         <div>
-            <span><label>Registro del video</label></span>
-            <span><input type="text" name="id_revision_objeto" id="id_revision_objeto" value="<?php echo $id_revision_objeto;
+            <span><input type="hidden" name="id_revision_objeto" id="id_revision_objeto" value="<?php echo $id_revision_objeto;
 ?>"></span>
         </div>
         <div>

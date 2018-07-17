@@ -1,9 +1,9 @@
 <?php
-require_once("../Model/mdlPaquetes.php");
+require_once("../Model/mdlCupones.php");
 //se referencia la clase obtener sesiones
-$dpaquete = new Paquetes();
+$scupon = new obtener_cupon ();
 //se llama el metodo lista de sitios del cual se obtiene la lista de sitios
-$paquete = $dpaquete ->buscar_paquete();
+$secupon = $scupon->buscar_cupon();
 //Se llama a la vista vista sitios
-require_once("../view/actualizarPaquete.php");
+require_once("../view/actualizarCupon.php");
 

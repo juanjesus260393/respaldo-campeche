@@ -17,6 +17,7 @@ require_once("../Model/Sendmail.php");
 
 $Nuevo_usu=new Nuevo_usu_model();
 $sector=$Nuevo_usu->get_sectores();
+$rangos=$Nuevo_usu->get_Rangos();
 
  if(isset($_POST['submit'])){
    

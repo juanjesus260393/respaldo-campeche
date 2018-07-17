@@ -2,7 +2,7 @@
 function confirmar() {
     var input = document.getElementById('id_video_archivo');
     var file = input.files[0];
-    if (file.size > 6000000) {
+    if (file.size > 200000000) {
         alert('El archivo supera el tamaño permitido selecciona otro');
     }
 }

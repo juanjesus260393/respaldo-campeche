@@ -11,6 +11,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/Validaciones.js"></script>
   </head>
     <body>
        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
@@ -41,6 +42,23 @@
             <input type="text" size="32" placeholder="ejemplo@correo.com" name="email" />
             <label>Nombre de la Empresa</label>
             <input type="text" size="40" name="empresa">
+            <span ><label>Membresias</label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio"  name="membresia" class="" value="BASICA">
+            
+                    <img src="../Controller/img/Mbasica.png" alt="Basica" height="50" width="60" class="">
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio"  name="membresia" class="" value="PREMIUM">
+                
+                    <img src="../Controller/img/MPremium.png" alt="Premium" height="50" width="60" class="">
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio"  class="" name="membresia" value="360">
+                
+                    <img src="../Controller/img/M360.png" alt="360" height="50" width="60" class="">
+                </label>
+            </span>
             <label>Sector</label>
             <?php
                      printf("<select required name='sectores'>");
@@ -70,13 +88,17 @@
             <label>Tamaño</label>
             <input type="text" size="20" name="tam">
             <br>
-            <label>Ventas mensuales</label>
-            <input type="text" size="20" name="ventas" onkeypress="soloNum()">
-            <label>Monto de rangos</label>
+            <label>Rango de costos</label>
             <br>
             <label>Minimo---Maximo</label>
-            <input type="text" size="20" name="min" onkeypress="soloNum()">
-            <input type="text" size="20" name="max" onkeypress="soloNum()">
+            <?php
+                     printf("<select required name='rangos'>");
+                     printf("<option value=''>Seleccionar...</option>");
+                     foreach ($rangos as $costo){
+                     printf("<option value='".$costo[0]."'>".$costo[1]."</option>");
+                     }
+                     printf("</select>");
+                    ?>
             <br>
             <input type="checkbox" name="habilitar" value="si" checked> Habilitar usuario<br>
 

@@ -12,7 +12,9 @@
     <center>
         <?php echo "<li><a href='../Controller/crtCupones.php'>Cupones</a>   <a href='../view/Addcupon.php'><img src='../Controller/img/agregar.png'/>Agregar Cupon</a></li> " ?>
         <?php echo "<li><a href='../Controller/crtcVideos.php'>Videos</a>   <a href='../view/Addvideo.php'><img src='../Controller/img/agregar.png'/>Agregar video</a></li>" ?>
-         <?php echo "<li><a href='../Controller/crtcPaquetes.php'>Paquetes</a>   <a href='../view/Addpaquete.php'><img src='../Controller/img/agregar.png'/>Agregar Paquete</a></li>" ?>
+        <?php echo "<li><a href='../Controller/crtcPaquetes.php'>Paquetes</a>   <a href='../view/Addpaquete.php'><img src='../Controller/img/agregar.png'/>Agregar Paquete</a></li>" ?>
+        <?php echo "<li><a href='../Controller/crtcPaquetes.php'>Flyers</a>   <a href='../view/Addpaquete.php'><img src='../Controller/img/agregar.png'/>Agregar Paquete</a></li>" ?>
+        <?php echo "<li><a href='../Controller/crtcPaquetes.php'>Banners</a>   <a href='../view/Addpaquete.php'><img src='../Controller/img/agregar.png'/>Agregar Paquete</a></li>" ?>
     </center> 
 </body>
 </html>

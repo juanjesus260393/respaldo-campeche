@@ -54,7 +54,7 @@ try {
                          . 'Usuario: '.$usuario.''
                         . 'Contraseña :'.$contraseña.'';
    
-
+   $mail->SMTPDebug = false;
     $mail->send();
     echo 'Message has been sent';
 } catch (Exception $e) {

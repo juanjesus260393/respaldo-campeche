@@ -34,11 +34,11 @@ if(isset($_SESSION['loggedin'])){
   <div class="inset">
   <p>
     <label for="username">Correo</label>
-    <input type="text" name="username" id="username" placeholder="Nombre de usuario" pattern=".{5,50}" required title="Minimo 5 carateres y  maximo 50">
+    <input type="text" style="color:white;" name="username" id="username" placeholder="Nombre de usuario" pattern=".{5,50}" required title="Minimo 5 carateres y  maximo 50">
   </p>
   <p>
     <label for="password">Contraseña</label>
-    <input type="password" id="password" name="password" placeholder="Contraseña" pattern=".{5,100}" required title="Minimo 5 carateres y  maximo 50">
+    <input type="password" style="color:white;" id="password" name="password" placeholder="Contraseña" pattern=".{4,100}" required title="Minimo 5 carateres y  maximo 50">
   </p>
   </div>
   <p class="p-container">

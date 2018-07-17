@@ -12,56 +12,39 @@ class validacion {
 
     // creamos la función
     function mostrar_ocultar() {
-
-
         if ($_SESSION['enabled'] == 1) {
-
-
             if ($_SESSION['tipo'] == "administrador") {
-                $identificadorempresa == $_SESSION['id_empresa'];
-                echo "Tus opciones como administrador son: ";
-                echo "<li><a href='../Controller/Nuevo_usu_controller.php'>Agregar nueva Empresa</a></li>";
-                echo "<li><a href='../Controller/Emp_Activas_controller.php'>Validar Empresa</a></li>";
-                echo "<li><a href='../Controller/Emp_Desactivadas_controller.php'>Validar Empresa</a></li>";
+                echo '<script language = javascript>self.location ="../Controller/Emp_Activas_controller.php";
+		</script>';
             } else if ($_SESSION['tipo'] == "empresa") {
-                echo "Tus opciones como empresa son: ";
-                echo "<li><a href='ControladorSitios.php'>Administrar Sitios</a></li>";
-                echo "<li><a href='cambiaPass_controller.php'>Cambia contraseña</a></li>";
+                ?>
+                <nav class = "navbar navbar-expand-lg navbar-dark bg-dark" style = "margin:24px 0;">
+                    <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
+                    <button class = "navbar-toggler navbar-toggler-right" type = "button" data-toggle = "collapse" data-target = "#navb">
+                        <span class = "navbar-toggler-icon"></span>
+                    </button>
+                    <div class = "collapse navbar-collapse" id = "navb">
+                        <ul class = "navbar-nav mr-auto">
+                            <li class = "nav-item">
+                                <a class = "nav-link" href = "../Controller/ControladorSitios.php">Ver Sitios</a>
+                            </li>
+                            <li class = "nav-item">
+                                <a class = "nav-link" href = "../Controller/add_Sitios_controller.php">Nuevo Sitio</a>
+                            </li>
+                            <li class = "nav-item">
+                                <a class = "nav-link" href = "../Controller/cambiaPass_controller.php">Cambiar Contraseña</a>
+                            </li>
+                        </ul>
+                        <form class = "form-inline my-2 my-lg-0" action = "../Controller/cerrarSession.php">
+                            <button class = "btn btn-warning my-2 my-sm-0" type = "submit">Cerrar Sesion</button>
+                        </form>
+                    </div>
+                </nav>
+
+
+                <?php
             }
         } else if ($_SESSION['enabled'] == NULL) {
-        
-        if ($tipodeusuario == "administrador") {
-            echo '<script language = javascript>self.location ="../Controller/Emp_Activas_controller.php";
-		</script>';
-        } else if ($tipodeusuario == "empresa") {?>
-                 <nav class = "navbar navbar-expand-lg navbar-dark bg-dark" style = "margin:24px 0;">
-                    <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']);?></a>
-            <button class = "navbar-toggler navbar-toggler-right" type = "button" data-toggle = "collapse" data-target = "#navb">
-            <span class = "navbar-toggler-icon"></span>
-            </button>
-            <div class = "collapse navbar-collapse" id = "navb">
-            <ul class = "navbar-nav mr-auto">
-            <li class = "nav-item">
-                <a class = "nav-link" href = "../Controller/ControladorSitios.php">Ver Sitios</a>
-            </li>
-            <li class = "nav-item">
-                <a class = "nav-link" href = "../Controller/add_Sitios_controller.php">Nuevo Sitio</a>
-            </li>
-            <li class = "nav-item">
-                <a class = "nav-link" href = "../Controller/cambiaPass_controller.php">Cambiar Contraseña</a>
-            </li>
-            
-            </ul>
-            <form class = "form-inline my-2 my-lg-0" action = "../Controller/cerrarSession.php">
-            <button class = "btn btn-warning my-2 my-sm-0" type = "submit">Cerrar Sesion</button>
-            </form>
-            </div>
-            </nav>
-
-          <?php
-        }
-    }else if ($_SESSION['enabled'] == NULL) {
-
             echo '<script language = javascript>
 	alert("Tu cuenta todavia no se encuentra habilitada.")
 		</script>';
@@ -130,7 +113,7 @@ class validacion {
         $horaInicial = date("h");
         $minutoAnadir = 60;
         $segundos_horaInicial = strtotime($horaInicial);
-        $segundos_minutoAnadir = $horaInicial  * 60;
+        $segundos_minutoAnadir = $horaInicial * 60;
         $nuevaHora = date("h:i", $segundos_horaInicial + $segundos_minutoAnadir);
         //Se genera el numero aleatorio, $segundos_horaInicial + $segundos_minutoAnadir
         return $segundos_minutoAnadir;
@@ -157,5 +140,3 @@ class validacion {
     }
 
 }
-
-
