@@ -3,17 +3,62 @@
 <html lang="es">
 
     <head>
-        <meta charset="UTF-8" />
-        <title>Proyecto Campeche 360</title>
+        <meta charset="UTF-8">
+        <title>Proyecto Campeche</title>
+    
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  
+        
     </head>
     <body>
+<<<<<<< HEAD
         <?php list($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $terminos_y_condiciones,$limite_codigos) = $secupon ?>
+=======
+        <nav class = "navbar navbar-expand-lg navbar-dark bg-dark" style = "margin:24px 0;">
+                    <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']);?></a>
+            <button class = "navbar-toggler navbar-toggler-right" type = "button" data-toggle = "collapse" data-target = "#navb">
+            <span class = "navbar-toggler-icon"></span>
+            </button>
+            <div class = "collapse navbar-collapse" id = "navb">
+            <ul class = "navbar-nav mr-auto">
+            <li class = "nav-item">
+                <a class = "nav-link" href = "../Controller/IniciodeSesion.php">Principal</a>
+            </li>
+
+            <li class = "nav-item">
+                <a class = "nav-link" href = "../Controller/crtCupones.php">Cupones</a>
+            </li>
+            <li class = "nav-item">
+                <a class = "nav-link" href = "../view/Addcupon.php">Agregar cupon</a>
+            </li>
+            </ul>
+              <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
+                  <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
+              </form>
+          </div>
+      </nav>       
+
+>>>>>>> b79fd595bcbcadcda7f375ffffdda2a73b046838
     <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>   
+
     <center><h1>Actualizar Cupon</h1></center>
     <center><form method="post" action="../Controller/crtacCupon.php" name="form1" enctype="multipart/form-data">
             <div>
+<<<<<<< HEAD
                 <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
 ?>" required></span>
+=======
+
+                <span><label>Identificador de la empresa:</label></span>
+
+                <span><input type="text" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];?>" disabled="true" ></span>
+
+>>>>>>> b79fd595bcbcadcda7f375ffffdda2a73b046838
             </div>
             <div>
                 <span><input type="hidden" name="id_cupon" id="id_cupon" value="<?php echo $id_cupon;

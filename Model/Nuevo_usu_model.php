@@ -3,14 +3,14 @@
 class Nuevo_usu_model{
     private $db;
     private $sector;
-    private  $pas;
+    private $pas;
 
 
     public function __construct(){
         $this->db=Conectar::con();
         $this->sector=array();
         $this->id=array();
-        $this->idplan=array();
+        $this->idmembresia =array();
         $this->rango=array();
         
     }
@@ -68,6 +68,7 @@ class Nuevo_usu_model{
         $precios=(int)$_POST['rangos'];
         $tel1=(int)$_POST['tel1'];
         $tel2=(int)$_POST['tel2'];
+        $cel=(int)$_POST['cel'];
         $dir= htmlspecialchars($_POST['dir']);
         $owner=$_POST['propietario'];
         $numE=(int)$_POST['numempleados'];
@@ -81,14 +82,16 @@ class Nuevo_usu_model{
         $pass=password_hash($passaux, PASSWORD_DEFAULT);
        // $pass=password_hash('empresa1', PASSWORD_DEFAULT);
       //$pass=$this->gen_pass($email);
-         $sqlAuxMembresia = ("SELECT p.id_plan FROM plan p WHERE p.nombre='".$membresia."'");
+         $sqlAuxMembresia = ("SELECT p.id_membresia FROM membresia p WHERE p.nombre='".$membresia."'");
            $Mres=$this->db->query($sqlAuxMembresia);
-            $idplan=$Mres->fetch_row();
+            $idmembresia = $Mres->fetch_row();
         $sqlinsert1=("INSERT INTO users (username, password) VALUES ('".$email."','".$pass."')");
         $agregado=$this->db->query($sqlinsert1);
         if($agregado){
 
-        $sqlinsert= ("INSERT INTO empresa (id_plan, id_sector, id_rango_ventas, descripcion, telefono1, telefono2, direccion, nombre, numero_empleados, propietario, tamano) VALUES (".$idplan[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.")");
+        $sqlinsert= ("INSERT INTO empresa (id_membresia, id_sector, id_rango_ventas, descripcion, telefono, extension,celular, "
+                . "direccion, nombre, numero_empleados, propietario, tamano) "
+                . "VALUES (".$idmembresia[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.",".$cel.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.")");
 
 
         $agregado=$this->db->query($sqlinsert);  

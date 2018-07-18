@@ -45,6 +45,9 @@
                 <td><strong>Modificar Contenido del Sitio</strong></td>
             </tr>
             <?php
+            require_once '../scripts/Validaciones.php';
+            $validacion = new validacion();
+            $aux = $validacion->campo_vacio($pd);
             for ($i = 0; $i < count($pd); $i++) {
                 ?>
                 <tr>

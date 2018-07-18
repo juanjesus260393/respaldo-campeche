@@ -28,7 +28,21 @@ private $empresas;
         return $this->sector;
     }
     
-    
+    public function get_Rangos(){
+        
+        $sqlconsultaRangos = ("SELECT R.id_rango_ventas, R.descripcion FROM rango_ventas R WHERE 1");
+        
+        $resRangos=$this->db->query($sqlconsultaRangos);
+        while($filaR=$resRangos->fetch_row()){
+            $this->rango[]=$filaR;
+            
+        }
+        
+        $resRangos->close();
+        //$this->db->close();
+        
+        return $this->rango;
+    }
 
   public function gen_pass($correo){
       $cadena_base =  $correo;
@@ -53,14 +67,15 @@ private $empresas;
         $dir= htmlspecialchars($_POST['dir']);
         $owner=$_POST['propietario'];
         $numE=(int)$_POST['numempleados'];
-        
+        $precios=(int)$_POST['rangos'];
         $desc= htmlspecialchars($_POST['desc']);
         $tamano=(int)$_POST['tam'];
+         $membresia=$_POST['membresia'];
         
-        $venta=(int)$_POST['ventas'];
-        $min=(int)$_POST['min'];
-        $max=(int)$_POST['max'];
-        $pass=$this->gen_pass($email);
+          $sqlAuxMembresia = ("SELECT p.id_plan FROM plan p WHERE p.nombre='".$membresia."'");
+           $Mres=$this->db->query($sqlAuxMembresia);
+            $idplan=$Mres->fetch_row();
+        
         if($usubfset==$email){ 
             $agregado=1;
         } else {
@@ -68,10 +83,10 @@ private $empresas;
         $agregado=$this->db->query($sqlinsert1);
         }
         if($agregado){
-        $sqlinsert= ("UPDATE empresa SET id_plan=1, id_sector='".$sector."'"
+        $sqlinsert= ("UPDATE empresa SET id_plan=".$idplan[0].", id_sector=".$sector.", id_rango_ventas=".$precios
                 . ", descripcion='".$desc."', telefono1=".$tel1.", telefono2=".$tel2.", direccion='".$dir."', "
-                . "nombre='".$nombre."', numero_empleados=".$numE.", propietario='".$owner."', tamano=".$tamano.", "
-                . "ventas_mensuales=".$venta.", monto_min=".$min.", monto_max=".$max." WHERE id_empresa=".$idEU."");
+                . "nombre='".$nombre."', numero_empleados=".$numE.", propietario='".$owner."', tamano=".$tamano." "
+                ." WHERE id_empresa=".$idEU."");
         $agregado=$this->db->query($sqlinsert);  
         if($agregado){
             
@@ -98,9 +113,12 @@ private $empresas;
   public function get_empresas($usu_set){
         
         $sqlconsulta = ("SELECT U.username, E.nombre, S.id_sector, S.nombre, E.telefono1, E.telefono2, E.direccion, "
-                . "E.propietario, E.numero_empleados, E.descripcion, E.tamano, E.ventas_mensuales, E.monto_min, "
-                . "E.monto_max, U.enabled, EU.id_empresa FROM usuario_empresa EU INNER JOIN empresa E ON EU.id_empresa=E.id_empresa "
+                . "E.propietario, E.numero_empleados, E.descripcion, E.tamano, U.enabled, EU.id_empresa, "
+                . "RV.id_rango_ventas, RV.descripcion, P.id_plan, P.nombre "
+                . "FROM usuario_empresa EU INNER JOIN empresa E ON EU.id_empresa=E.id_empresa "
                 . "INNER JOIN sector S ON E.id_sector=S.id_sector INNER JOIN users U ON EU.username=U.username "
+                . "INNER JOIN rango_ventas RV ON E.id_rango_ventas=RV.id_rango_ventas "
+                . "INNER JOIN plan P ON E.id_plan=P.id_plan "
                 . "WHERE EU.username='".$usu_set."'");
         
         $resultado=$this->db->query($sqlconsulta);
@@ -130,7 +148,7 @@ private $empresas;
         $update=$this->db->query($sqlupdate); 
         if($update){
                  
-                echo ("<script> alert('Usuario modificado con Exito'); location.href ='../Controller/set_usu_controller1.php';</script>");
+                echo ("<script> alert('Usuario modificado con Exito'); location.href ='../Controller/Emp_Activas_controller.php';</script>");
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
     }
     

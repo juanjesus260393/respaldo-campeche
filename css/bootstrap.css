@@ -3014,8 +3014,10 @@ input[type="button"].btn-block {
 .dropdown-toggle:empty::after {
   margin-left: 0;
 }
-
-.dropdown-menu {
+.dropdown:hover>.dropdown-menu {
+ display: block;
+}
+.dropdown-menu{
   position: absolute;
   top: 100%;
   left: 0;

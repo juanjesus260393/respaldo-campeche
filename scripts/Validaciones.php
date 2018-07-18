@@ -40,8 +40,6 @@ class validacion {
                         </form>
                     </div>
                 </nav>
-
-
                 <?php
             }
         } else if ($_SESSION['enabled'] == NULL) {

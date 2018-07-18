@@ -4,12 +4,14 @@ require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
 
 class Paquetes {
+    private $platillo;
+    private $dbh;
 
     public function lista_paquetes() {
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select p.nombre, p.status, p.id_paquete, e.descripcion from (paquete p inner join empresa_paquete e on p.id_paquete = e.idpaquete) inner join empresa on empresa.id_empresa = " . $_SESSION['idemp'] . " group by nombre;";
         if ($this->dbh->query($sql) == NULL) {
-            return null;
+            $this->platillo[] = null;
         } else {
             foreach ($this->dbh->query($sql) as $res) {
                 $this->platillo[] = $res;

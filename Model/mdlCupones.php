@@ -6,18 +6,20 @@ require_once('../scripts/Validaciones.php');
 
 class obtener_cupon {
 
+    private $platillo;
+    private $dbh;
+
     public function lista_cupones() {
-        //Se llama a la case conectar del archivo conexion.php
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
-        //Se declara la variable identificador el cual obtendra el id de la empresa el cual se obtiene del metodo lista_ojetos_revisados
-        //Se recibe l identificador de la empresa del metodo lista de objetos revisados
-        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.vigencia_inicio, c.terminos_y_condiciones, c.limite_codigos from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
-        foreach ($this->dbh->query($sql) as $res) {
-            $this->platillo[] = $res;
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.vigencia_inicio, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
+        if (empty($this->dbh->query($sql))) {
+            $this->platillo[] = NULL;
+        } else {
+            foreach ($this->dbh->query($sql) as $res) {
+                $this->platillo[] = $res;
+            }
         }
-        //return $this->platillo;
         return $this->platillo;
-        $this->dbh = null;
     }
 
     public function registrar_cupon() {
@@ -29,6 +31,7 @@ class obtener_cupon {
         $na = new validacion();
         $idro = $na->generar_aleatorio();
         $iie = $na->generar_alfanumerico();
+        $iive = $na->generar_alfanumerico();
         //Fecha de creacion y hora 
         $fa = $na->fecha_actual();
         $status = 'C';
@@ -51,14 +54,22 @@ class obtener_cupon {
             $nombreimagen = "";
         }
         $nombres = $nombreimagen;
+        $nombreimagen2 = $_FILES['id_imagen_vista_previa']['name'];
+        $nombreimagen2 = $iive . ".jpg";
+        if (move_uploaded_file($_FILES['id_imagen_vista_previa']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen2")) {
+            $msg = "El archivo ha sido cargado correctamente.<br>";
+        } else {
+            $nombreimagen2 = "";
+        }
+        $nombres2 = $nombreimagen2;
         $vigencia_inicio = $_POST['vigencia_inicio'];
         $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
         $limite_codigos = $_POST['limite_codigos'];
         //Se genera el identificador del cupon
         $idcu = $na->generar_aleatorio();
-        $sql2 = "INSERT INTO cupon (id_cupon,id_revision_objeto,titulo,descripcion_corta,descripcion_larga,id_imagen_extra,vigencia_inicio,vigencia_fin,terminos_y_condiciones,limite_codigos)
-        VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$nombres','$vigencia_inicio','$vigencia_fin','$terminos_y_condiciones','$limite_codigos')";
+        $sql2 = "INSERT INTO cupon (id_cupon,id_revision_objeto,titulo,descripcion_corta,descripcion_larga,id_imagen_vista_previa,id_imagen_extra,vigencia_inicio,vigencia_fin,terminos_y_condiciones,limite_codigos)
+        VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$nombres2','$nombres','$vigencia_inicio','$vigencia_fin','$terminos_y_condiciones','$limite_codigos')";
         if (!mysqli_query($pd, $sql2)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -75,6 +86,7 @@ class obtener_cupon {
         $id_revision_objeto = $_GET["id_revision_objeto"];
         $id_cupon = $_GET["id_cupon"];
         $imagen = $_GET["id_imagen_extra"];
+        $imagen2 = $_GET["id_imagen_vista_previa"];
         $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
         $Eliminar2 = "Delete from cupon where id_cupon = " . $id_cupon . " and id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $Eliminar2)) {
@@ -117,7 +129,7 @@ class obtener_cupon {
             $terminos_y_condiciones = $fila['terminos_y_condiciones'];
             $limite_codigos = $fila['limite_codigos'];
         }
-        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta,$descripcion_larga, $id_imagen_extra,$terminos_y_condiciones, $limite_codigos);
+        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $terminos_y_condiciones, $limite_codigos);
     }
 
     public function actualizar_cupon() {

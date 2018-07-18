@@ -7,6 +7,9 @@ include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 
 class Videos {
 
+    private $platillo;
+    private $dbh;
+
     public function lista_videos() {
 //Se llama a la case conectar del archivo conexion.php
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
@@ -14,13 +17,12 @@ class Videos {
 //Se recibe l identificador de la empresa del metodo lista de objetos revisados
         $sql = "select v.id_video, v.id_revision_objeto, v.titulo, v.descripcion, v.precio, v.fecha_subida, v.id_img_preview, v.id_video_archivo, v.visualizaciones from (video v inner join revision_objeto on v.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
         if ($this->dbh->query($sql) == NULL) {
-            return null;
+            $this->platillo[] = NULL;
         } else {
             foreach ($this->dbh->query($sql) as $res) {
                 $this->platillo[] = $res;
             }
         }
-//return $this->platillo;
         return $this->platillo;
     }
 
@@ -42,6 +44,7 @@ class Videos {
         $this->titulo = $_POST['titulo'];
         $this->descripcion = $_POST['descripcion'];
         $this->precio = $_POST['precio'];
+        $limite = "09:59";
         //Subir video
         $nombrevideo = $this->iva . ".mp4";
         //Primero se sube el video
@@ -49,6 +52,8 @@ class Videos {
             $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
             $getID3 = new getID3;
             $file = $getID3->analyze($filename);
+            $tiempo_video = $file['playtime_string'];
+            $endtime = gmdate('i:s', strtotime('00:' . $tiempo_video));
             //Una ves que se yha subido se comprueba la resolucion del mismo
             if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
                 //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
@@ -61,9 +66,9 @@ class Videos {
                 "</body></html>";
                 exit;
             }
-            if ($file['playtime_string'] > "10:00") {
+            if ($endtime > $limite) {
                 //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
-                $ruta = "C:/xampp/htdocs/pruebascodigo/";
+                $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
                 unlink($ruta . $nombrevideo);
                 echo '<script language = javascript> alert("El video tiene que durar menos de 10 minutos.") </script>';
                 //Regresamos a la pagina anterior
@@ -159,6 +164,7 @@ class Videos {
         $nombreanteriori = $_POST["id_imagen_anterior"];
         $nombrevideo = $_FILES['id_video_archivo']['name'];
         $nombreanteriorv = $_POST["id_video_antetior"];
+        $limite = "09:59";
         if ($nombrevideo == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
             unlink($ruta . $nombreanteriorv);
@@ -171,6 +177,8 @@ class Videos {
                 $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
                 $getID3 = new getID3;
                 $file = $getID3->analyze($filename);
+                $file = $getID3->analyze($filename);
+                $tiempo_video = $file['playtime_string'];
                 //Una ves que se yha subido se comprueba la resolucion del mismo
                 if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
                     //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
@@ -183,9 +191,9 @@ class Videos {
                     "</body></html>";
                     exit;
                 }
-                if ($file['playtime_string'] > "10:00") {
+                if ($endtime > $limite) {
                     //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
-                    $ruta = "C:/xampp/htdocs/pruebascodigo/";
+                    $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
                     unlink($ruta . $nombrevideo);
                     echo '<script language = javascript> alert("El video tiene que durar menos de 10 minutos.") </script>';
                     //Regresamos a la pagina anterior
