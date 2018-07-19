@@ -53,7 +53,7 @@
                 printf('   <input type="text" size="40" name="empresa" value="' . $info[1] . '">');
                 
                 printf('<span ><label>Membresias</label>');
-                switch ($info['15']){
+                switch ($info[16]){
                     case 1:
                 printf('    <label class="btn btn-outline-primary">');
                 printf('     <input type="radio"  name="membresia" class="" value="BASICA" checked>');
@@ -115,35 +115,47 @@
                     printf("<option value='" . $sec[0] . "'>" . $sec[1] . "</option>");
                 }
                 printf("</select>");
-                printf(' <label>Telefono 1</label>');
-                printf('    <input type="text" size="20" name="tel1" value="' . $info[4] . '">');
-                printf('  <label>Telefono 2</label>');
-                printf('    <input type="text" size="20" name="tel2" value="' . $info[5] . '">');
+                printf(' <label>Telefono</label>');
+                printf('    <input type="text" size="20" name="tel1" value="' . $info[4] .'" onkeypress="soloNum()">');
+                printf('  <label>Extension</label>');
+                printf('    <input type="text" size="20" name="tel2" value="' . $info[5] .'" onkeypress="soloNum()">');
+                printf("<label>Celular</label>");
+                printf('<input type="text" size="20" name="cel" value="'.$info[6].'"valueypress="soloNum()"');
                 printf('  <br>');
                 printf('     <label>Direccion</label>');
                 printf('  <br>');
-                printf('     <textarea name="dir" rows="3" cols="35">' . $info[6] . '</textarea>');
+                printf('     <textarea name="dir" rows="3" cols="35">' . $info[7] . '</textarea>');
                 printf('  <label>Propietario</label>');
-                printf('       <input type="text" size="35" name="propietario" value="' . $info[7] . '">');
+                printf('       <input type="text" size="35" name="propietario" value="' . $info[8] . '">');
                 printf('  <label>Numero de Empleados</label>');
-                printf('     <input type="text" size="5" name="numempleados" value="' . $info[8] . '">');
+                printf('     <input type="text" size="5" name="numempleados" value="' . $info[9] . '">');
                 printf('    <br>');
                 printf('      <label>Descripcion </label>');
                 printf(' <br>');
-                printf('   <textarea name="desc" rows="10" cols="80" >' . $info[9] . '</textarea>');
+                printf('   <textarea name="desc" rows="10" cols="80" >' . $info[10] . '</textarea>');
+                printf('<label>Facebook</label >');
+                printf('<input type="text" size="40" value="'.$info[18].'" name="facebook">');
+                printf(' <label>Twitter</label>');
+                printf(' <input type="text" size="40" value="'.$info[19].'" name="twitter">');
+                printf('   <label>Instagram</label>');
+                printf('  <input type="text" size="40" value="'.$info[20].'" name="instagram">');
+                printf('    <label>Youtube</label>');
+                printf('  <input type="text" size="40" value="'.$info[21].'" name="youtube">');
+                printf('    <label>Google +</label>');
+                printf('   <input type="text" size="40" value="'.$info[22].'" name="googleplus">');
                 printf('<br>');
                 printf('    <label>Tamaño</label>');
-                printf('  <input type="text" size="20" name="tam" value="' . $info[10] . '">');
+                printf('  <input type="text" size="20" name="tam" value="' . $info[11] . '">');
                 printf('   <br>');
                 printf('  <label>Ventas mensuales</label>');
                 printf("<select required name='rangos'>");
-                printf("<option value='" . $info[13] . "'>" . $info[14] . "</option>");
+                printf("<option value='" . $info[14] . "'>" . $info[15] . "</option>");
                 foreach ($rangos as $costo) {
                     printf("<option value='" . $costo[0] . "'>" . $costo[1] . "</option>");
                 }
                 printf("</select>");
                 printf('    <br><br>');
-                if ($info[11] == 1) {
+                if ($info[12] == 1) {
                     printf('  <label><h3>-------Ya Esta Habilitado-------</h3></label>');
                     printf('  <br>');
                     printf('  <br>');
@@ -154,7 +166,7 @@
                     printf('  <br>');
                     printf(' <input type="checkbox" name="habilitar" > Habilitar usuario<br>');
                 }
-                printf("<input type='hidden' name='userr' value='" . $info[12] . "'>");
+                printf("<input type='hidden' name='userr' value='" . $info[13] . "'>");
                 //  printf("<input type='hidden' name='user_to_set' value='".$dato[4]."'>");
                 printf('  <br>');
                 printf('  <br>');

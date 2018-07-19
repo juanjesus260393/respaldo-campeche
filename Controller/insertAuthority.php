@@ -72,7 +72,7 @@ $email=$_POST['email'];
 $nombre=$_POST['nombre'];
       // $pass=$this->gen_pass($email);
          
-        $sqlinsert1=("INSERT INTO users (username, password) VALUES ('".$email."','".$pass."')");
+        $sqlinsert1=("INSERT INTO users (username, password) VALUES ('".$email."','".$pass."', 1)");
         $agregado=$db->query($sqlinsert1);
         $sqlinsert2=("INSERT INTO authorities (username, authority) VALUES ('".$email."','".$nombre."')");
         $agregado2=$db->query($sqlinsert2);

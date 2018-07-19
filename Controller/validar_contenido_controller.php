@@ -14,6 +14,7 @@ else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='administrador'){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
 require_once("../Model/validar_contenido_model.php");
+$cto_cupones=new vaidar_contenido_model();
 
  
 //Llamada a la vista

@@ -72,7 +72,11 @@ class Nuevo_usu_model{
         $dir= htmlspecialchars($_POST['dir']);
         $owner=$_POST['propietario'];
         $numE=(int)$_POST['numempleados'];
-        
+        $facebook=$_POST['facebook'];
+        $twitter=$_POST['twitter'];
+        $instagram=$_POST['instagram'];
+        $youtube=$_POST['youtube'];
+        $google=$_POST['googleplus'];
         $desc= htmlspecialchars($_POST['desc']);
         $tamano=(int)$_POST['tam'];
         $membresia=$_POST['membresia'];
@@ -90,8 +94,10 @@ class Nuevo_usu_model{
         if($agregado){
 
         $sqlinsert= ("INSERT INTO empresa (id_membresia, id_sector, id_rango_ventas, descripcion, telefono, extension,celular, "
-                . "direccion, nombre, numero_empleados, propietario, tamano) "
-                . "VALUES (".$idmembresia[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.",".$cel.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.")");
+                . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus) "
+                . "VALUES (".$idmembresia[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.","
+                .$cel.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.""
+                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."')");
 
 
         $agregado=$this->db->query($sqlinsert);  

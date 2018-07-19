@@ -88,6 +88,7 @@
                      }
                      printf("</select>");
                     ?>
+            <br>
             <label>Telefono</label>
             <input type="text" size="20" name="tel1" onkeypress="soloNum()">
             <label>Extension</label>
@@ -106,6 +107,16 @@
             <label>Descripcion </label>
             <br>
             <textarea name="desc" rows="10" cols="80"  maxlength="499" placeholder="Escriba una descripcion larga ..."></textarea>
+            <label>Facebook</label>
+            <input type="text" size="40" name="facebook">
+            <label>Twitter</label>
+            <input type="text" size="40" name="twitter">
+            <label>Instagram</label>
+            <input type="text" size="40" name="instagram">
+            <label>Youtube</label>
+            <input type="text" size="40" name="youtube">
+            <label>Google +</label>
+            <input type="text" size="40" name="googleplus">
             <br>
             <label>Tamaño</label>
             <input type="text" size="20" name="tam">

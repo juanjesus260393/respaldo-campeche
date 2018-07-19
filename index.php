@@ -26,6 +26,9 @@ if(isset($_SESSION['loggedin'])){
             $_SESSION['enabled']=NULL;
             $_SESSION['idemp']=NULL;
             $_SESSION['tipo']=NULL;
+            $_SESSION['total']=NULL;
+            $_SESSION['numCupones']=NULL;
+            $_SESSION['numVideos']=NULL;
 }
        ?>
 

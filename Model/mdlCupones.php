@@ -11,7 +11,7 @@ class obtener_cupon {
 
     public function lista_cupones() {
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
-        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.vigencia_inicio, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
         if (empty($this->dbh->query($sql))) {
             $this->platillo[] = NULL;
         } else {
@@ -105,6 +105,16 @@ class obtener_cupon {
             mysqli_close($pd);
             header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
         }
+        if ($imagen2 == "") {
+            mysqli_close($pd);
+            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        } else {
+            //Se elimina la imagen 
+            $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
+            unlink($ruta2 . $imagen2);
+            mysqli_close($pd);
+            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        }
     }
 
     public function buscar_cupon() {
@@ -126,10 +136,11 @@ class obtener_cupon {
             $descripcion_corta = $fila['descripcion_corta'];
             $descripcion_larga = $fila['descripcion_larga'];
             $id_imagen_extra = $fila['id_imagen_extra'];
+            $id_imagen_vista_previa = $fila['id_imagen_vista_previa'];
             $terminos_y_condiciones = $fila['terminos_y_condiciones'];
             $limite_codigos = $fila['limite_codigos'];
         }
-        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $terminos_y_condiciones, $limite_codigos);
+        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $id_imagen_vista_previa ,$terminos_y_condiciones, $limite_codigos);
     }
 
     public function actualizar_cupon() {
@@ -141,23 +152,39 @@ class obtener_cupon {
         //se compara si el parametro id_imagen_ extra esta regresando vacia
         $na = new validacion();
         $iie = $na->generar_alfanumerico();
-        $nombreimagen = $_FILES['id_imagen_extra']['name'];
+        $iip = $na->generar_alfanumerico();
+        $nombreimagen = $_FILES['id_imagen_vista_previa']['name'];
         $nombreanterior = $_POST["id_imagen_anterior"];
         if ($nombreimagen == "") {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
             unlink($ruta . $nombreanterior);
         } else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
             unlink($ruta . $nombreanterior);
-            $nombreimagen = $_FILES['id_imagen_extra']['name'];
+            $nombreimagen = $_FILES['id_imagen_vista_previa']['name'];
             $nombreimagen = $iie . ".jpg";
-            if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen")) {
+            if (move_uploaded_file($_FILES['id_imagen_vista_previa']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen")) {
                 $msg = "El archivo ha sido cargado correctamente.<br>";
             } else {
                 die();
             }
         }
-        $id_empresa = $_POST["id_empresa"];
+        $nombreimagen2 = $_FILES['id_imagen_extra']['name'];
+        $nombreanterior2 = $_POST["id_imagen_anterior2"];
+          if ($nombreimagen2 == "") {
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            unlink($ruta . $nombreanterior2);
+        } else {
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            unlink($ruta . $nombreanterior2);
+            $nombreimagen2 = $_FILES['id_imagen_extra']['name'];
+            $nombreimagen2 = $iip . ".jpg";
+            if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen2")) {
+                $msg = "El archivo ha sido cargado correctamente.<br>";
+            } else {
+                die();
+            }
+        }
         $id_revision_objeto = $_POST["id_revision_objeto"];
         $id_cupon = $_POST["id_cupon"];
         $titulo = $_POST['titulo'];
@@ -175,12 +202,13 @@ class obtener_cupon {
         $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
         $nombre = $nombreimagen;
+        $nombre2 = $nombreimagen2;
         $limite_codigos = $_POST['limite_codigos'];
         $actulizacion1 = "update revision_objeto set fecha_actualizacion = " . $fecha_actual . "  where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = " . $_SESSION['idemp'] . "";
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
-        $actulizacion2 = "update cupon set titulo = '$titulo', descripcion_corta = '$descripcion_corta', descripcion_larga = '$descripcion_larga', id_imagen_extra = '$nombre' ,vigencia_inicio = '$vigencia_inicio',vigencia_fin = '$vigencia_fin' , terminos_y_condiciones =  '$terminos_y_condiciones' , limite_codigos =  '$limite_codigos' where id_cupon = " . $id_cupon . " AND id_revision_objeto = " . $id_revision_objeto . "";
+        $actulizacion2 = "update cupon set titulo = '$titulo', descripcion_corta = '$descripcion_corta', descripcion_larga = '$descripcion_larga', id_imagen_vista_previa = '$nombre' , id_imagen_extra = '$nombre2',vigencia_inicio = '$vigencia_inicio',vigencia_fin = '$vigencia_fin' , terminos_y_condiciones =  '$terminos_y_condiciones' , limite_codigos =  '$limite_codigos' where id_cupon = " . $id_cupon . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
         }

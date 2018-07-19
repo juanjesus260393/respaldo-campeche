@@ -38,7 +38,7 @@
                 <a class="dropdown-item" href="../Controller/Nuevo_usu_controller.php">Nueva Empresa</a>
                 <a class="dropdown-item" href="../Controller/Emp_Desactivadas_controller.php">Empresas Deshabilitadas</a>
                 <?php 
-                            if($_SESSION['username']=='master@admin.com'){
+                            if($_SESSION['username']=='juan@gmail.com'){
                             printf('<a class="dropdown-item" href="../Controller/insertAuthority.php">Agregar Administrador</a>');}
                         ?>
             </div>
