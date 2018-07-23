@@ -130,7 +130,7 @@ class validacion {
         if ($parametro == NULL) {
             echo '<script language = javascript>
 	alert("No tienes contenido registrado.")
-           self.location = "https://localhost/campeche-web2/Controller/ControladorSitios.php"
+          
 	</script>';
         } else {
             return $parametro;

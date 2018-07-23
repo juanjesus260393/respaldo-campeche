@@ -36,7 +36,7 @@
     <center><h1>Flyers y Banners</h1></center> 
     <center><table border="1">
             <tr>
-                <td><strong>Nombre de la imagen</strong></td>
+                <td><strong>Imagen</strong></td>
                 <td><strong>Estado del Publicidad</strong></td>
                 <td><strong>Tipo de publicidad</strong></td>
                 <td><strong>Eliminar</strong></td>
@@ -55,7 +55,7 @@
             for ($i = 0; $i < count($llenar); $i++) {
                 ?>
                 <tr>
-                    <td><?php echo $lflyerybanners[$i]["id_img"]; ?></td>
+                    <td><?php echo ('<img src="../Imagenes/Publicidad/' . $lflyerybanners[$i]["id_img"] . '" width="152" height="118">'); ?></td>
                     <td><?php
                         switch ($lflyerybanners[$i]["status"]) {
                             case 'C':
@@ -78,7 +78,7 @@
                                 echo 'Banner';
                                 break;
                         }
-                        ?>
+                        ?></td>
                         <?php
                         //Lista de parametros por medio de los cuales se actualizara el cupon
                         $idpub = $lflyerybanners[$i]["id_ad"];
@@ -87,7 +87,7 @@
                         ?>
                     <td> <?php echo '<a href="../Controller/crtePublicidad.php?id_revision_objeto=' . $idrob . '&id_ad=' . $idpub . '&id_img=' . $img . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este cupon?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
                     <td><form method="post" action="../Controller/crtsPublicidad.php">
-    <?php echo "<input type='hidden' id='id_ad' name='id_ad' value='$idpub'> <input type='submit' value='Actualizar'>" ?>
+                            <?php echo "<input type='hidden' id='id_ad' name='id_ad' value='$idpub'> <input type='submit' value='Actualizar'>" ?>
                         </form></td>
                 </tr>
                 <?php

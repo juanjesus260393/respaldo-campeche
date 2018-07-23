@@ -39,7 +39,7 @@
     <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>   
 
     <center><h1>Actualizar Publicidad</h1></center>
-    <center><form method="post" action="../Controller/crtacCupon.php" name="form1" enctype="multipart/form-data">
+    <center><form method="post" action="../Controller/crtacPublicidad.php" name="form1" enctype="multipart/form-data">
             <div>
                 <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
         ?>" required></span>
@@ -53,23 +53,39 @@
         ?>" required></span>
             </div>
             <div>
-                <span><label>*Tipo de publicidad:</label></span>
-                <span><input type="text" id="tipo" name="tipo" value="<?php echo $tipo;
-        ?>" maxlength="99" required></span>
+                <span><label>Tipo de publicidad Antetior:</label></span>
+                <span> <?php
+                    switch ($tipo) {
+                        case 'F':
+                            echo '<input value= "Flyer" disabled="true">';
+                            break;
+                        case 'B':
+                            echo '<input value= "Banner" disabled="true">';
+                            break;
+                    }
+                    ?>  </span>
+                <div>
+                    <span><label>*Selecciona el Nuevo Tipo de Publicidad:</label></span>
+                                        <input type="radio" id="contactChoice1"
+                           name="contact" value="F" required >
+                    <label for="contactChoice1">Flyer</label>
+                    <input type="radio" id="contactChoice2"
+                           name="contact" value="B">
+                    <label for="contactChoice2">Banner</label>
+                                    </div>
             </div>
             <div>
                 <span><label>*Imagen de la Publicidad:</label></span>
-                <span><input type="file" id="id_imagen_vista_previa" accept=".jpg" name="id_imagen_vista_previa" ></span>
+                <span><input type="file" id="id_img" accept=".jpg" name="id_img" required=""></span>
                 <span><label>Imagen Anterior:</label></span>
-            <?php    echo ('<td><img src="../Imagenes/Publicidad/'.$id_img.'"/ width="152" height="118"></td>');  ?>
-                <img src='../Imagenes/Publicidad/'.$row['imagen'].'"' class="img-responsive" width="152" height="118">
-                <span><input type="hidden" id="id_imagen_anterior" name="id_imagen_anterior" value="<?php echo $id_img;
-        ?>"></span>
+                <?php echo ('<span><img src="../Imagenes/Publicidad/' . $id_img . '"/ width="152" height="118"></span>'); ?>
+                <span><input type="hidden" id="idimagenanterior" name="idimagenanterior" value="<?php echo $id_img;
+                ?>"></span>
             </div>
             <div>
-                <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres actualizar este cupon?')) {
+                <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres actualizar esta publicidad?')) {
                             return false
-                        }" value="Actualizar Cupon" ></span>
+                        }" value="Actualizar Publicidad" ></span>
             </div>
         </form></center>
 </body>

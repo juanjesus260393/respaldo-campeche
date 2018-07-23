@@ -48,7 +48,7 @@
             <div>
                 <span><label>*Tipo de Publicidad:</label></span>
                 <input type="radio" id="contactChoice1"
-                       name="contact" value="F">
+                       name="contact" value="F" required>
                 <label for="contactChoice1">Flyer</label>
                 <input type="radio" id="contactChoice2"
                        name="contact" value="B">
