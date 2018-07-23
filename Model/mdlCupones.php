@@ -21,17 +21,39 @@ class obtener_cupon {
         }
         return $this->platillo;
     }
-
+    public function obtener_codigos() {
+        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        $sql = "select * from cupon";
+        if (empty($this->dbh->query($sql))) {
+            $this->platillo[] = NULL;
+        } else {
+            foreach ($this->dbh->query($sql) as $res) {
+                $this->platillo[] = $res;
+            }
+        }
+        return $this->platillo;
+    }
     public function registrar_cupon() {
         //Se llama a la clase conectar y a la funcion conectar 
         $conn = new Conectar();
         //se llama a la funcion con para obtener la variable conexion la cual sera utilizada para ejecutar la sentencia sql
         $pd = $conn->con();
         //Primero se genera el identificador de la revision del objeto
+        //Contador de los registros para verificar si  permite ingresar mas registros dependiendo del  tipo de membresia que tiene cada empresa
+        $query = "SELECT count(*) as total from cupon ";
+
+        if ($result = mysqli_query($pd, $query)) {
+
+            $data = mysqli_fetch_assoc($result);
+
+            echo $data['total'];
+        }
+        mysqli_close($connect);
         $na = new validacion();
         $idro = $na->generar_aleatorio();
         $iie = $na->generar_alfanumerico();
         $iive = $na->generar_alfanumerico();
+
         //Fecha de creacion y hora 
         $fa = $na->fecha_actual();
         $status = 'C';
@@ -140,7 +162,7 @@ class obtener_cupon {
             $terminos_y_condiciones = $fila['terminos_y_condiciones'];
             $limite_codigos = $fila['limite_codigos'];
         }
-        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $id_imagen_vista_previa ,$terminos_y_condiciones, $limite_codigos);
+        return array($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $id_imagen_vista_previa, $terminos_y_condiciones, $limite_codigos);
     }
 
     public function actualizar_cupon() {
@@ -171,7 +193,7 @@ class obtener_cupon {
         }
         $nombreimagen2 = $_FILES['id_imagen_extra']['name'];
         $nombreanterior2 = $_POST["id_imagen_anterior2"];
-          if ($nombreimagen2 == "") {
+        if ($nombreimagen2 == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
             unlink($ruta . $nombreanterior2);
         } else {

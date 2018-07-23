@@ -22,13 +22,13 @@ class obtener_usuario {
         //Si el nombre de usuario no existe en la tabla authorities
         if (!$fila1[0]) {
             //Se busca en la tabla empresa
-            $consultaue = "SELECT * FROM usuario_empresa WHERE username='" . $username . "'";
+            $consultaue = "SELECT u.id_empresa, u.username, e.id_membresia FROM usuario_empresa u inner join empresa e on u.id_empresa = e.id_empresa where u.username = '" . $username . "' group by u.id_empresa";
             $resultado2 = mysqli_query($cone1, $consultaue) or die(mysqli_error());
             $fila2 = mysqli_fetch_array($resultado2);
             //Si no se encuentra en la tabla empresa ni en la tabla authorities
             if (!$fila2[0]) {
-                $_SESSION['loggedin']=FALSE;
-            session_destroy();
+                $_SESSION['loggedin'] = FALSE;
+                session_destroy();
                 echo '<script language = javascript>
 	alert("Verifique que el usuario se encuentre registrado.")
            self.location = "../index.php"
@@ -44,6 +44,7 @@ class obtener_usuario {
                 $idempresa = $fila2['id_empresa'];
                 $nombreusuario = $fila2['username'];
                 $tipodeusuario = "empresa";
+                $idmembresia = $fila2['id_membresia'];
             }
         }
         //Si el nombre de usuario existe en la tabla authorities
@@ -52,9 +53,10 @@ class obtener_usuario {
             $idempresa = $fila1['authority'];
             $tipodeusuario = "administrador";
             $nombreusuario = $fila1['username'];
+            $idmembresia = $fila1['username'];
         }
         //Se define un arreglo el cuando tendra el nombre de usuario y tipo de usuario
-        return array($nombreusuario, $tipodeusuario, $idempresa);
+        return array($nombreusuario, $tipodeusuario, $idempresa,$idmembresia);
     }
 
     //Se define la funcion busquedad de usuario la cual realiza el inicio de sesion para acceder al menu principal
@@ -91,13 +93,14 @@ class obtener_usuario {
             //Se llama a la clase obtener usuario 
             $obu = new obtener_usuario();
             //Se recibe el array de la funcion admin_usuario
-            list($un, $tp, $im) = $obu->tipo_usuario();
+            list($un, $tp, $im, $imem) = $obu->tipo_usuario();
 
             $_SESSION['username'] = $un;
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['enabled'] = $fila['enabled'];
             $_SESSION['idemp'] = $im;
             $_SESSION['tipo'] = $tp;
+            $_SESSION['id_membresia'] = $imem;
         }
         return array($tp, $im);
     }

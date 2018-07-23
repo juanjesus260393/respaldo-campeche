@@ -20,6 +20,7 @@
         $val = new validacion ();
         //Se llama al metodo habilitado
         //$estatus = $val->habilitado($ena);
+        //echo $_SESSION['id_membresia'];
         ?>
         <!-- Se recibe el nombre de usuario debido a que las opciones cambiaran dependiendo del tipo de usuario--> 
         <!-- Funcion para habilitar un div si el tipo de usuario es empresa o administrador--> 
