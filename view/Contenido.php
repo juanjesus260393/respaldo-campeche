@@ -17,7 +17,7 @@
         <?php echo "<li><a href='../Controller/crtcVideos.php'>Videos</a>   <a href='../view/Addvideo.php'><img src='../Controller/img/agregar.png'/>Agregar video</a></li>" ?>
         <?php echo "<li><a href='../Controller/crtcPaquetes.php'>Paquetes</a>   <a href='../view/Addpaquete.php'><img src='../Controller/img/agregar.png'/>Agregar Paquete</a></li>" ?>
         <?php echo "<li><a href='../Controller/crtcFlyers.php'>Flyers y Banners</a>   <a href='../view/Addflyerybanner.php'><img src='../Controller/img/agregar.png'/>Agregar Flyer o Banner</a></li>" ?>
-         <?php echo "<li><a href='../Controller/crtcFlyers.php'>Visualizacion de Estadisticas de canjeo de Cupones</a></li>" ?>
+         <?php echo "<li><a href='../Controller/crtEstadisticacupones.php'>Visualizacion de Estadisticas de canjeo de Cupones por Dia</a></li>" ?>
                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalFlyer">Que es un Flyer???</button>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalBanner">Que es un Banner???</button>
         <!-- Modal Flyer -->
