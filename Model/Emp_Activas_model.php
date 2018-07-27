@@ -9,7 +9,9 @@ class Emp_Activas_model{
     }
     public function get_empresas(){
         
-        $sqlconsulta = ("SELECT E.id_empresa, E.nombre, E.descripcion, S.nombre, U.username FROM usuario_empresa EU INNER JOIN empresa E ON EU.id_empresa=E.id_empresa INNER JOIN sector S ON E.id_sector=S.id_sector INNER JOIN users U ON EU.username=U.username WHERE U.enabled=1 ");
+        $sqlconsulta = ("SELECT E.id_empresa, E.nombre, E.descripcion, S.nombre, U.username , E.id_membresia "
+                . "FROM usuario_empresa EU INNER JOIN empresa E ON EU.id_empresa=E.id_empresa "
+                . "INNER JOIN sector S ON E.id_sector=S.id_sector INNER JOIN users U ON EU.username=U.username WHERE U.enabled=1 ");
         
         $resultado=$this->db->query($sqlconsulta);
         while($filas=$resultado->fetch_row()){

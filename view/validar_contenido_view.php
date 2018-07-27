@@ -14,7 +14,7 @@
   </head>
    
     
-    <body>
+  <body>
         
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
   <a class="navbar-brand" href="">Administrador</a>
@@ -45,12 +45,14 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Validar
+                Validar <span> <?php printf($totalPendientes); ?></span>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="">Cupones</a>
+                
+                <a class="dropdown-item" href="">Sitios <span> <?php printf($nS); ?></span></a>
+                <a class="dropdown-item" href="">Cupones   <span> <?php printf($nC); ?></span></a>
                 <a class="dropdown-item" href="">Videos</a>
-                <a class="dropdown-item" href="">Audioguia</a>
+               
             </div>
         </li>
     </ul>

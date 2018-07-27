@@ -17,48 +17,49 @@
     <body>
         
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
-  <a class="navbar-brand" href="">Administrador</a>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+            <a class="navbar-brand" href="">Administrador</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-  <div class="collapse navbar-collapse" id="navb">
-    <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-            <a class="nav-link " href="../Controller/Emp_Activas_controller.php">
-                HOME
-            </a>
-            
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Empresas
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="../Controller/Nuevo_usu_controller.php">Nueva Empresa</a>
-                <a class="dropdown-item" href="../Controller/Emp_Desactivadas_controller.php">Empresas Deshabilitadas</a>
-                <?php 
-                            if($_SESSION['username']=='juan@gmail.com'){
-                            printf('<a class="dropdown-item" href="../Controller/insertAuthority.php">Agregar Administrador</a>');}
-                        ?>
+            <div class="collapse navbar-collapse" id="navb">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="../Controller/Emp_Activas_controller.php">
+                            HOME
+                        </a>
+
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Empresas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/Nuevo_usu_controller.php">Nueva Empresa</a>
+                            <a class="dropdown-item" href="../Controller/Emp_Desactivadas_controller.php">Empresas Deshabilitadas</a>
+                            <?php
+                            if ($_SESSION['username'] == 'juan@gmail.com') {
+                                printf('<a class="dropdown-item" href="../Controller/insertAuthority.php">Agregar Administrador</a>');
+                            }
+                            ?>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Validar
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/validar_contenido_controller.php">Cupones</a>
+                            <a class="dropdown-item" href="">Videos</a>
+                            <a class="dropdown-item" href="">Audioguia</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
+                    <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
+                </form>
             </div>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Validar
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="../Controller/validar_contenido_controller.php">Cupones</a>
-                <a class="dropdown-item" href="">Videos</a>
-                <a class="dropdown-item" href="">Audioguia</a>
-            </div>
-        </li>
-    </ul>
-      <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
-          <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
-    </form>
-  </div>
-</nav>        
+        </nav>        
  
         
 
@@ -70,7 +71,8 @@
                     <th width='220' align='center'>Nombre</th>
                     <th width='500' align='center'>Descripción</th>
                     <th width='220' align='center'>Sector</th>
-                    <th width='220' align='center'></th>
+                    <th width='220' align='center'>Membresia</th>
+                            <th width='220' align='center'></th>
                  </tr>
 
                      
@@ -85,7 +87,19 @@
                 . "<td height='80' align='center'> %s </td>"
                 . "<td height='80' align='center'> %s </td>"
                 . "<td height='80' align='center'>%s </td>", $dato[0], $dato[1], $dato[2], $dato[3]);
-        
+        printf("<td height='80' align='center'>");
+        switch ($dato[5]){
+                    case 1:
+                printf('         <img src="../Controller/img/Mbasica.png" alt="Basica" height="50" width="60" class="">');
+                break;
+                    case 2:
+                printf('         <img src="../Controller/img/MPremium.png" alt="Premium" height="50" width="60" class="">');
+                break;
+                    case 3:
+                printf('          <img src="../Controller/img/M360.png" alt="360" height="50" width="60">');
+                break;
+                }
+        printf("</td>");
         printf("<td height='80' align='center'>"
                 . "<table>"
                 ."<td>"

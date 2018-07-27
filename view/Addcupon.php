@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php session_start();
+ require_once('../scripts/Validaciones.php');
+$na = new validacion();
+$idro = $na->registros_cupon();
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>

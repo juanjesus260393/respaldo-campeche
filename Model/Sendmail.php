@@ -22,9 +22,9 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('isidro.biker@gmail.com.com', 'Mailer');
-    //$mail->addAddress('isidro.biker@gmail.com', 'isidro');
-    $mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
+    $mail->addAddress('isidro.biker@gmail.com', 'isidro');
+    //$mail->addAddress('guilmon333@gmail.com', 'juan');
    // $mail->addAddress($usuario, '');
     //// Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional

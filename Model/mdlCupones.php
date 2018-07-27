@@ -9,8 +9,12 @@ class obtener_cupon {
     private $platillo;
     private $dbh;
 
+    public function __construct() {
+        $this->dbh = Conectar::con();
+    }
+
     public function lista_cupones() {
-        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
         if (empty($this->dbh->query($sql))) {
             $this->platillo[] = NULL;
@@ -21,6 +25,26 @@ class obtener_cupon {
         }
         return $this->platillo;
     }
+
+    public function lista_cupones_caducados() {
+        $fa = date('Y-m-d');
+        $ftma = strtotime('+5 day', strtotime($fa));
+        $ftma = date('Y-m-d', $ftma);
+        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        $sql = "SELECT c.titulo, c.vigencia_fin FROM cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto 
+inner join empresa e on r.id_empresa = e.id_empresa inner join usuario_empresa u on e.id_membresia = u.id_empresa where
+c.vigencia_fin = '$ftma' group by c.titulo;";
+
+        if (empty($this->dbh->query($sql))) {
+            $this->platillo[] = NULL;
+        } else {
+            foreach ($this->dbh->query($sql) as $res) {
+                $this->platillo[] = $res;
+            }
+        }
+        return $this->platillo;
+    }
+
     public function obtener_codigos() {
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select * from revision_objeto";
@@ -33,6 +57,7 @@ class obtener_cupon {
         }
         return $this->platillo;
     }
+
     public function registrar_cupon() {
         //Se llama a la clase conectar y a la funcion conectar 
         $conn = new Conectar();

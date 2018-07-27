@@ -13,7 +13,7 @@ else if($_SESSION['loggedin']==TRUE){
 require_once ("../Model/conexion.php");
 require_once("../Model/cambiaPass_model.php");
 require_once("../Model/Sendmail.php");
-if(isset($_POST['submit'])){
+if(isset($_POST['si'])){
     $a=new cambiaPass_model();
     $nwp=$a->setPass();
     

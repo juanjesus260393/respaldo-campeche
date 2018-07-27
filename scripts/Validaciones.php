@@ -11,6 +11,22 @@ class validacion {
       } */
 
 // creamos la función
+private $platillo;
+    public function lista_cupones_caducados() {
+        $fa = date('Y-m-d');
+        $ftma = strtotime('+5 day', strtotime($fa));
+        $ftma = date('Y-m-d', $ftma);
+        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        $sql = "SELECT c.titulo, c.vigencia_fin, c.limite_codigos FROM cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto 
+inner join empresa e on r.id_empresa = e.id_empresa inner join usuario_empresa u on e.id_membresia = u.id_empresa where
+c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.titulo";
+            foreach ($this->dbh->query($sql) as $res) {
+                $this->platillo[] = $res;
+                
+            }
+        return $this->platillo;
+    }
+
     function mostrar_ocultar() {
         if ($_SESSION['enabled'] == 1) {
             if ($_SESSION['tipo'] == "administrador") {
@@ -18,25 +34,44 @@ class validacion {
 		</script>';
             } else if ($_SESSION['tipo'] == "empresa") {
                 ?>
-                <nav class = "navbar navbar-expand-lg navbar-dark bg-dark" style = "margin:24px 0;">
+
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
                     <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
-                    <button class = "navbar-toggler navbar-toggler-right" type = "button" data-toggle = "collapse" data-target = "#navb">
-                        <span class = "navbar-toggler-icon"></span>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class = "collapse navbar-collapse" id = "navb">
-                        <ul class = "navbar-nav mr-auto">
-                            <li class = "nav-item">
-                                <a class = "nav-link" href = "../Controller/ControladorSitios.php">Ver Sitios</a>
+
+                    <div class="collapse navbar-collapse" id="navb">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link " href="../Controller/IniciodeSesion.php" >
+                                    HOME
+                                </a>
+
                             </li>
-                            <li class = "nav-item">
-                                <a class = "nav-link" href = "../Controller/add_Sitios_controller.php">Nuevo Sitio</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    Sitios
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
+                                    <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
+
+                                </div>
                             </li>
-                            <li class = "nav-item">
-                                <a class = "nav-link" href = "../Controller/cambiaPass_controller.php">Cambiar Contraseña</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    Validar
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="">Cupones</a>
+                                    <a class="dropdown-item" href="">Videos</a>
+                                    <a class="dropdown-item" href="">Audioguia</a>
+                                </div>
                             </li>
                         </ul>
-                        <form class = "form-inline my-2 my-lg-0" action = "../Controller/cerrarSession.php">
-                            <button class = "btn btn-warning my-2 my-sm-0" type = "submit">Cerrar Sesion</button>
+                        <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
+                            <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
                         </form>
                     </div>
                 </nav>
@@ -113,18 +148,188 @@ class validacion {
             printf("Conexión fallida: %s\n", mysqli_connect_error());
             exit();
         }
-        if ($id_mem == "3") {
-            echo 'Primera validacion<br>';
+        if ($_SESSION['id_membresia'] == "3") {
 //Obtener cantidad de registros en base a una empresa
             $nrpm = '4';
 //Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
-            $result = $mysqli->query("select c.id_cupon from (cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = '1' and r.fecha_creacion group by r.id_revision_objeto");
+            $result = $mysqli->query("select c.id_cupon from (cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = " . $_SESSION['idemp'] . " group by r.id_revision_objeto");
             $row_cnt = $result->num_rows;
             $nrbd = $row_cnt;
-            if ($nrbd < $nrpm) {
-                echo 'Todavia puedes subir contenido <br>';
-            } else {
-                echo 'Ya no puedes subir contenido <br>';
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Solo puedes subir 4 Cupones, si deseas agregar otro, primero elimina alguno de los que tienes registrados") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        if ($_SESSION['id_membresia'] == "2") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '2';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select c.id_cupon from (cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = " . $_SESSION['idemp'] . " group by r.id_revision_objeto");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Solo puedes subir 2 Cupones, si deseas agregar otro, primero elimina alguno de los que tienes registrados") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        if ($_SESSION['id_membresia'] == "1") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '0';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select c.id_cupon from (cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = " . $_SESSION['idemp'] . " group by r.id_revision_objeto");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Para Agregar cupones necesitas cambiar el tipo de membresia") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+    }
+
+    public function registros_video() {
+        $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+        if (mysqli_connect_errno()) {
+            printf("Conexión fallida: %s\n", mysqli_connect_error());
+            exit();
+        }
+        if ($_SESSION['id_membresia'] == "3") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '3';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select c.id_video from (video c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = " . $_SESSION['idemp'] . " group by r.id_revision_objeto");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Solo puedes subir 3 Videos, si deseas agregar otro, primero elimina alguno de los que tienes registrados") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        if ($_SESSION['id_membresia'] == "2") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '1';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select c.id_video from (video c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = " . $_SESSION['idemp'] . " group by r.id_revision_objeto");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Solo puedes subir 2 Videos, si deseas agregar otro, primero elimina alguno de los que tienes registrados") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        if ($_SESSION['id_membresia'] == "1") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '0';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select c.id_video from (video c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto) inner join empresa e on e.id_empresa = r.id_empresa where e.id_empresa = " . $_SESSION['idemp'] . " group by r.id_revision_objeto");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Para Agregar Videos necesitas cambiar de membresia") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+    }
+
+    public function registros_paquete() {
+        $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+        if (mysqli_connect_errno()) {
+            printf("Conexión fallida: %s\n", mysqli_connect_error());
+            exit();
+        }
+        if ($_SESSION['id_membresia'] == "1") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '0';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select p.id_paquete, p.nombre, p.status, e.descripcion from paquete p inner join empresa_paquete e on p.id_paquete = e.idpaquete where e.idempresa = " . $_SESSION['idemp'] . " group by nombre;");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Para Agregar Paquetes necesitas cambiar de membresia") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+    }
+
+    public function registros_publicidad() {
+        $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+        if (mysqli_connect_errno()) {
+            printf("Conexión fallida: %s\n", mysqli_connect_error());
+            exit();
+        }
+        if ($_SESSION['id_membresia'] == "3") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '4';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select a.id_ad, a.id_revision_objeto, a.tipo, a.id_img, revision_objeto.status from (ad a inner join revision_objeto on a.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by id_ad;");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Solo puedes subir 4 flyers o Banners, si deseas agregar otro, primero elimina alguno de los que tienes registrados") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        if ($_SESSION['id_membresia'] == "2") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '2';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select a.id_ad, a.id_revision_objeto, a.tipo, a.id_img, revision_objeto.status from (ad a inner join revision_objeto on a.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by id_ad;");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Solo puedes subir 2 flyers o Banners si deseas agregar otro, primero elimina alguno de los que tienes registrados") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
+        }
+        if ($_SESSION['id_membresia'] == "1") {
+//Obtener cantidad de registros en base a una empresa
+            $nrpm = '0';
+//Obtener la cantidad de Registros entre el registro del primer cupon y la fecha de termino del mes actual
+            $result = $mysqli->query("select a.id_ad, a.id_revision_objeto, a.tipo, a.id_img, revision_objeto.status from (ad a inner join revision_objeto on a.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by id_ad;");
+            $row_cnt = $result->num_rows;
+            $nrbd = $row_cnt;
+            if ($nrbd >= $nrpm) {
+                echo '<script language = javascript> alert("Para Agregar Flyers o Banners necesitas cambiar el tipo de membresia") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
             }
         }
     }

@@ -18,5 +18,18 @@ class validar_contenido_model{
         
         return $cuponesPendientes;
  
-}}
+}
+    public function get_num_sitios(){
+        
+        $selectsitio = ("SELECT S.id_sitio FROM sitio S INNER JOIN revision_informacion rI ON S.id_sitio=rI.id_sitio WHERE rI.status='C' OR rI.status='P' ");
+        
+        $res2=$this->db->query($selectsitio);
+        $sitiosPendientes=$res2->num_rows;
+        
+        
+        return $sitiosPendientes;
+ 
+}
+   
+    }
     

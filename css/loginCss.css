@@ -2,17 +2,18 @@
 
 body {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+	 background-image: url("https://a.travel-assets.com/findyours-php/viewfinder/images/res60/245000/245378-Campeche.jpg");
+	 background-repeat: no-repeat;
+	 width:100%; 
   color:white;
-  font-size:12px;
-  background:#333;
-}
+  font-size:12px;}
 .username{
     color: white;
 }
 form {
- 	background:#111; 
+ 	background:#222; 
   width:300px;
-  margin:30px auto;
+  margin:150px auto;
   border-radius:0.4em;
   border:1px solid #191919;
   overflow:hidden;

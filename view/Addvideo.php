@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require_once('../scripts/Validaciones.php');
+$na = new validacion();
+$idro = $na->registros_video();
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>

@@ -41,7 +41,6 @@
                 <td><strong>Terminos y Condiciones</strong></td>
                 <td><strong>Status</strong></td>
                 <td><strong>Eliminar</strong></td>
-                <td><strong>Actualizar</strong></td>
             </tr>
             <?php
             $lcupones;
@@ -80,9 +79,7 @@
                     $img2 = $lcupones[$i]["id_imagen_vista_previa"];
                     ?>
                     <td> <?php echo '<a href="../Controller/crteCupon.php?id_revision_objeto=' . $idrob . '&id_cupon=' . $idcup . '&id_imagen_extra=' . $img . '&id_imagen_vista_previa=' . $img2 . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este cupon?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
-                    <td><form method="post" action="../Controller/crtsCupon.php">
-                            <?php echo "<input type='hidden' id='id_cupon' name='id_cupon' value='$idcup'> <input type='submit' value='Actualizar'>" ?>
-                        </form></td>
+                
                 </tr>
                 <?php
             }
