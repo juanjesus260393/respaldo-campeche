@@ -35,6 +35,14 @@ if(isset($_SESSION['loggedin'])){
       <form method="post" name="Iniciodesesion" action="Controller/IniciodeSesion.php">
   <h1>Bienvenido Inicia Sesion</h1>
   <div class="inset">
+	<div class="row">
+    	<div class="col-12">
+	<center>
+	<img src="Imagenes/web/ic_launcher.png" style="width:80px;">
+	</center>
+	</div>
+
+	</div>
   <p>
     <label for="username">Correo</label>
     <input type="text" style="color:white;" name="username" id="username" placeholder="Nombre de usuario" pattern=".{5,50}" required title="Minimo 5 carateres y  maximo 50">

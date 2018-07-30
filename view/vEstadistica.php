@@ -12,7 +12,7 @@
     <body>
         <div class="contendor">
             <div id="consulta">
-                <h1>Cantidad de Cupones Canjeados por dia</h1><hr>
+                <h1>Cantidad de Cupones Canjeados Por Promocion</h1><hr>
                 <table>
                     <thead>
                         <tr>
@@ -26,9 +26,10 @@
                         <?php
                         include("../model/conexion.php");
                         $con = new Conectar();
+                        $fa = date('Y-m-d');
                         $conexion = $con->con();
-                        $query = 'select c.titulo,c.limite_codigos, count(q.id_codigo_qr) as total from turista t inner join codigo_qr q on t.username = q.turista_username
-inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto where  r.id_empresa = 5 and q.canjeado = 5 and c.vigencia_inicio >= 2018-07-24  and  c.vigencia_fin <= 2018-07-24 group by c.id_cupon;';
+                        $query = "select c.vigencia_inicio,c.vigencia_fin,c.titulo,c.limite_codigos,count(q.id_codigo_qr) as total from turista t inner join codigo_qr q on t.username = q.turista_username
+inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto where (c.vigencia_inicio <= '$fa' and c.vigencia_fin >= '$fa') and r.id_empresa = " . $_SESSION['idemp'] . " and q.canjeado = 1 group by c.id_cupon;";
                         $result = mysqli_query($conexion, $query);
                         $c = 0;
                         $a = 0;
@@ -44,8 +45,8 @@ inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.
                             $a++;
                             echo "<tr><td>" . $titulo[$j];
                             echo "</td><td>" . $cantidadcupones[$j];
-                      
-                            echo "</td><td>" . number_format(($cuponescanjeados[$j]*100) / $cantidadcupones[$j]) . "%";
+
+                            echo "</td><td>" . number_format(($cuponescanjeados[$j] * 100) / $cantidadcupones[$j]) . "%";
                             $por[$j] = round(($cuponescanjeados[$j] * 100) / $cantidadcupones[$j], 1);
                             echo "</td><td>" . $cuponescanjeados[$j];
                         }
@@ -86,7 +87,7 @@ inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.
                             type: 'column'
                         },
                         title: {
-                            text: 'Cantidad de Cupones que han sido Cambiados por dia'
+                            text: 'Cantidad de Cupones que han sido Cambiados por Promocion'
                         },
                         xAxis: {
                             categories: categories
