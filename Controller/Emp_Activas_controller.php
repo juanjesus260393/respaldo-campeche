@@ -17,6 +17,13 @@ require_once("../Model/Emp_Activas_model.php");
 $emp=new Emp_Activas_model();
 $datos=$emp->get_empresas();
 
+require_once("../Model/validar_contenido_model.php");
+$cto_pendientes=new validar_contenido_model();
+
+$_SESSION['nC']=$cto_pendientes->get_num_cupones();
+$_SESSION['nS']=$cto_pendientes->get_num_sitios();
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS'];
+
  if(isset($_POST['desactivar'])){
      $quita=$emp->disabled_emp($_POST['user_disabled']);
      

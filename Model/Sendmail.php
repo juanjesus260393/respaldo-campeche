@@ -24,7 +24,7 @@ try {
     //Recipients
     $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
-    //$mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress('guilmon333@gmail.com', 'juan');
    // $mail->addAddress($usuario, '');
     //// Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional

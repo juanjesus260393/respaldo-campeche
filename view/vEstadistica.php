@@ -12,11 +12,11 @@
     <body>
         <div class="contendor">
             <div id="consulta">
-                <h1>Cantidad de Cupones Canjeados Por Promocion</h1><hr>
+                <h1>Cupones Canjeados Durante la Promocion</h1><hr>
                 <table>
                     <thead>
                         <tr>
-                            <th>Titulo</th>
+                            <th>Titulo del Cupon</th>
                             <th>Cantidad de cupones</th>
                             <th>Porcentaje Cupones Canjeados</th>
                             <th>Total de Cupones Canjeados</th>
@@ -87,7 +87,7 @@ inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.
                             type: 'column'
                         },
                         title: {
-                            text: 'Cantidad de Cupones que han sido Cambiados por Promocion'
+                            text: 'Porcentaje de Cupones que han sido Cambiados Durante la Promocion'
                         },
                         xAxis: {
                             categories: categories

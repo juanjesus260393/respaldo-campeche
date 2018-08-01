@@ -81,7 +81,7 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
 
         //Fecha de creacion y hora 
         $fa = $na->fecha_actual();
-        $status = 'C';
+        $status = 'A';
         $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,status)
         VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','$status')";
         if (!mysqli_query($pd, $sql)) {
@@ -168,12 +168,12 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
         $conn = new Conectar();
         $pd = $conn->con();
         $id_cupon = $_POST['id_cupon'];
-        $consulta = "SELECT * FROM cupon WHERE id_cupon = '$id_cupon'";
+        $consulta = "SELECT * FROM cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto WHERE c.id_cupon = '$id_cupon' and r.status = 'C' or r.status = 'R';";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         if (!$fila[0]) {
             echo '<script language = javascript>
-	alert("Este cupon no se puede modificar")
+	alert("Este cupon al estar aprobado no puede ser Modificado")
            self.location = "https://localhost/campeche-web2/Controller/crtCupones.php"
 	</script>';
         } else {

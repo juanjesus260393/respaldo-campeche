@@ -16,9 +16,9 @@ require_once ("../Model/conexion.php");
 require_once("../Model/validar_contenido_model.php");
 $cto_pendientes=new validar_contenido_model();
 
-$nC=$cto_pendientes->get_num_cupones();
-$nS=$cto_pendientes->get_num_sitios();
-$totalPendientes=$nC+$nS;
+$_SESSION['nC']=$cto_pendientes->get_num_cupones();
+$_SESSION['nS']=$cto_pendientes->get_num_sitios();
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS'];
  
 //Llamada a la vista
 require_once("../view/validar_contenido_view.php");

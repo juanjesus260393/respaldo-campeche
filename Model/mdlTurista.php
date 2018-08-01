@@ -26,96 +26,126 @@ Class Turista extends model {
         return count($this->Seleccionar($str)) > 0 ? true : false;
     }
 
-    public static function getTourist() {
+    public static function getTourist($username) {
         $fecha_vigencia = new DateTime();
         $fecha_vigencia->modify('+ 1 hour');
         $cadena_fecha_vigencia = $fecha_vigencia->format("d/m/Y H:i:s");
-
-        $user_r['token'] = bin2hex(openssl_random_pseudo_bytes(64));
+        $cadena_fecha_vigenciadb = $fecha_vigencia->format("Y-m-d H:i:s");
+        $token = $user_r['token'] = bin2hex(openssl_random_pseudo_bytes(32));
         $user_r['expire_at'] = $cadena_fecha_vigencia;
         $user_r['user_type'] = 'T';
+        $conn = new Conectar();
+        $pd = $conn->con();
+        $sql = "INSERT INTO token (token,username,vigencia)
+        VALUES('$token','$username','$cadena_fecha_vigenciadb')";
+        if (!mysqli_query($pd, $sql)) {
+            header("HTTP/1.0 409 Conflict");
+        }
         return json_encode($user_r);
     }
 
-    public static function getEnterprise() {
+    public static function getEnterprise($username) {
         $fecha_vigencia = new DateTime();
         $fecha_vigencia->modify('+ 1 hour');
         $cadena_fecha_vigencia = $fecha_vigencia->format("d/m/Y H:i:s");
-
-        $user_r['token'] = bin2hex(openssl_random_pseudo_bytes(64));
+        $cadena_fecha_vigenciadb = $fecha_vigencia->format("Y-m-d H:i:s");
+        $token = $user_r['token'] = bin2hex(openssl_random_pseudo_bytes(32));
         $user_r['expire_at'] = $cadena_fecha_vigencia;
-        $user_r['user_type'] = 'C';
+        $user_r['user_type'] = 'T';
+        $conn = new Conectar();
+        $pd = $conn->con();
+        $sql = "INSERT INTO token (token,username,vigencia)
+        VALUES('$token','$username','$cadena_fecha_vigenciadb')";
+        if (!mysqli_query($pd, $sql)) {
+            header("HTTP/1.0 409 Conflict");
+        }
         return json_encode($user_r);
     }
 
-    public static function searchUpass($user, $pass) {
+    public static function searchpass($user, $pass) {
         $conn = new Conectar();
         $pd = $conn->con();
-        $consultausers = "SELECT username FROM users WHERE username = '" . $user . "' and password = '" . $pass . "'";
-        $resultadoconsultausers = mysqli_query($pd, $consultausers) or die(mysqli_error());
-        $fila = mysqli_fetch_array($resultadoconsultausers);
+        //Primero se obtiene la contraseña que sera comparada
+        $cpass = "SELECT password from users WHERE username = '" . $user . "'";
+        $rcpass = mysqli_query($pd, $cpass) or die(mysqli_error());
+        $fila1 = mysqli_fetch_array($rcpass);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
-        if (!$fila[0]) {
+        if (!$fila1[0]) {
             header("HTTP/1.0 404 Not Found");
         } else {
-            $passw = $fila['username'];
-            echo Turista::defineUser($passw);
+            $passw = $fila1['password'];
+            if (password_verify($pass, $passw)) {
+                $cuser = "SELECT username FROM users WHERE username = '" . $user . "'";
+                $rcuser = mysqli_query($pd, $cuser) or die(mysqli_error());
+                $fila = mysqli_fetch_array($rcuser);
+                //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
+                if (!$fila[0]) {
+                    header("HTTP/1.0 404 Not Found");
+                } else {
+                    $users = $fila['username'];
+                    echo Turista::defineUser($users);
+                }
+            } else {
+                header("HTTP/1.0 404 Not Found");
+            }
         }
     }
 
-    public static function searchUser($user, $pass) {
+    public static function deleteregister($token) {
         $conn = new Conectar();
         $pd = $conn->con();
-        $consultausers = "SELECT username FROM users WHERE username = '" . $user . "' and  password = '" . $pass . "'";
-        $resultadoconsultausers = mysqli_query($pd, $consultausers) or die(mysqli_error());
-        $fila = mysqli_fetch_array($resultadoconsultausers);
+        //Primero se obtiene la contraseña que sera comparada
+        $dtoken = "delete from token where token = '" . $token . "'";
+        $rdtoken = mysqli_query($pd, $dtoken) or die(mysqli_error());
+        $fila1 = mysqli_fetch_array($rdtoken);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
-        if (!$fila[0]) {
-            header("HTTP/1.0 404 Not Found");
+        if (!$fila1[0]) {
+            header("HTTP/1.0 405 Not Found");
         } else {
-            $nombredeusuario = $fila['username'];
-            echo Turista::defineUser($nombredeusuario);
+            exit();
         }
     }
 
     public static function defineUser($user) {
         $conn = new Conectar();
         $pd = $conn->con();
-        $consultatoken = "SELECT t.username, t.token from fullpass_user u inner join token t on u.username = t.username where t.username = '" . $user . "'";
+        $consultatoken = "SELECT u.username from users u  where u.username = '" . $user . "'";
         $resultadoconsultatoken = mysqli_query($pd, $consultatoken) or die(mysqli_error());
         $fila1 = mysqli_fetch_array($resultadoconsultatoken);
         //Si el nombre de usuario no existe en la tabla authorities
         if (!$fila1[0]) {
             //Se busca en la tabla usuario_empresa
-            $consultausuarioempresa = "SELECT u.username from users u inner join usuario_empresa e on u.username = e.username where e.username = '" . $user . ";";
-            $resultadoconsultausuarioempresa = mysqli_query($pd, $consultausuarioempresa) or die(mysqli_error());
-            $fila2 = mysqli_fetch_array($resultadoconsultausuarioempresa);
+            $cuempresa = "SELECT u.username from users u inner join usuario_empresa e on u.username = e.username where e.username = '" . $user . "';";
+            $rcempresa = mysqli_query($pd, $cuempresa) or die(mysqli_error());
+            $fila2 = mysqli_fetch_array($rcempresa);
             //Si no se encuentra en la tabla empresa ni en la tabla authorities
             if (!$fila2[0]) {
                 header("HTTP/1.0 404 Not Found");
             } else {
-                echo Turista::getEnterprise();
+                $usernmc = $fila2['username'];
+                echo Turista::getEnterprise($usernmc);
                 exit();
             }
         } else {
-
-            echo Turista::getTourist();
+            $usernmt = $fila1['username'];
+            echo Turista::getTourist($usernmt);
             exit();
         }
     }
 
     public function login_movil() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("HTTP/1.0 406 Method Not Allowed");
+            header("HTTP/1.0 404 Method Not Allowed");
             exit();
         }
-
         $_POST = json_decode(file_get_contents("php://input"), true);
-
+       
         if (isset($_POST['user']) && isset($_POST['pass'])) {
             $user = $_POST['user'];
             $pass = $_POST['pass'];
-            if (Turista::searchUser($user, $pass) == null) {
+           
+            if (Turista::searchpass($user, $pass) == null) {
+                
                 
             }
             header("HTTP/1.0 401 Unauthorized");
@@ -127,20 +157,19 @@ Class Turista extends model {
 
     public function logout_movil() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("HTTP/1.0 406 Method Not Allowed");
+            header("HTTP/1.0 404 Method Not Allowed");
             exit();
         }
 
         $_POST = json_decode(file_get_contents("php://input"), true);
 
-        if (isset($_POST['user']) && isset($_POST['pass'])) {
-            $user = $_POST['user'];
-            $pass = $_POST['pass'];
-            if (Turista::searchUser($user, $pass) == null) {
+        if (isset($_POST['token'])) {
+            $token = $_POST['token'];
+            if (Turista::deleteregister($token) == null) {
                 
             }
-            //header("HTTP/1.0 401 Unauthorized");
-            //exit();
+            header("HTTP/1.0 401 Unauthorized");
+            exit();
         }
 
         header("HTTP/1.0 400 Bad Request");

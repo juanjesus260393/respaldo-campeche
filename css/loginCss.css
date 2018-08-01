@@ -17,7 +17,8 @@ body {
 form {
  	background:#f1f1f1; 
   width:300px;
-  margin:150px auto;
+  margin:100px auto;
+  margin-bottom:40px;
   border-radius:0.4em;
   border:1px solid #191919;
   overflow:hidden;

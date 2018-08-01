@@ -60,15 +60,17 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.t
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                    Validar
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="">Cupones</a>
-                                    <a class="dropdown-item" href="">Videos</a>
-                                    <a class="dropdown-item" href="">Audioguia</a>
-                                </div>
-                            </li>
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                                    Validar 
+                                                </a>
+                                                <div class="dropdown-menu">
+
+                                                    <a class="dropdown-item" href="">Sitios </a>
+                                                    <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
+                                                    <a class="dropdown-item" href="">Videos</a>
+
+                                                </div>
+                                            </li>
                         </ul>
                         <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
                             <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>

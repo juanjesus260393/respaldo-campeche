@@ -46,12 +46,14 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Validar
+                            Validar <span> <?php printf($_SESSION['totalPendientes']); ?></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../Controller/validar_contenido_controller.php">Cupones</a>
+
+                            <a class="dropdown-item" href="">Sitios <span> <?php printf($_SESSION['nS']); ?></span></a>
+                            <a class="dropdown-item" href="../Controller/validarCupon_controller.php">Cupones   <span> <?php printf($_SESSION['nC']); ?></span></a>
                             <a class="dropdown-item" href="">Videos</a>
-                            <a class="dropdown-item" href="">Audioguia</a>
+
                         </div>
                     </li>
                 </ul>

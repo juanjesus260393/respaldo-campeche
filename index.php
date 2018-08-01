@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>.</title>
+        <title>Bienvenidos</title>
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,18 +45,27 @@ if(isset($_SESSION['loggedin'])){
 	</div>
   <p>
     <label for="username">Correo</label>
-    <input type="text" style="color:white;" name="username" id="username" placeholder="Nombre de usuario" pattern=".{5,50}" required title="Minimo 5 carateres y  maximo 50">
+    <input type="text" name="username" id="username" placeholder="Correo" pattern=".{5,50}" required title="Minimo 5 carateres y  maximo 50">
   </p>
   <p>
     <label for="password">Contraseña</label>
-    <input type="password" style="color:white;" id="password" name="password" placeholder="Contraseña" pattern=".{4,100}" required title="Minimo 5 carateres y  maximo 50">
+    <input type="password" id="password" name="password" placeholder="Contraseña" pattern=".{4,100}" required title="Minimo 5 carateres y  maximo 50">
   </p>
   </div>
   <p class="p-container">
-    <span>Olvidaste tu contraseña</span>
+
     <input type="submit" id="go" value="Iniciar Sesion">
   </p>
 </form>
+<div class="row">
+    	<div class="col-12">
+	<center>
+	 <a href="#">Olvidaste tu contraseña</a>	
+	</center>
+	</div>
 
+	</div>
+
+   
 </body>
 </html>
