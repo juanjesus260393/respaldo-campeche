@@ -89,12 +89,12 @@ class FlyeryBanner {
         $conn = new Conectar();
         $pd = $conn->con();
         $id_ad = $_POST['id_ad'];
-        $consulta = "SELECT * FROM ad WHERE id_ad = '$id_ad'";
+        $consulta = "SELECT * FROM ad c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto WHERE c.id_ad = ' $id_ad' and r.status = 'C' or r.status = 'R'";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         if (!$fila[0]) {
             echo '<script language = javascript>
-	alert("Esta publicidad no se puede modificar")
+	alert("Esta publicidad al estar aprobada no puede ser Modificado")
            self.location = "https://localhost/campeche-web2/Controller/crtcFlyers.php"
 	</script>';
         } else {

@@ -134,12 +134,12 @@ class Videos {
         $conn = new Conectar();
         $pd = $conn->con();
         $id_video = $_POST['id_video'];
-        $consulta = "SELECT * FROM video WHERE id_video = '$id_video'";
+        $consulta = "SELECT * FROM video c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto WHERE c.id_video = '$id_video' and r.status = 'C' or r.status = 'R'";
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         if (!$fila[0]) {
             echo '<script language = javascript>
-	alert("Este video no se puede modificar")
+	alert("Este video no se puede modificar debibo a que ha sido aprovado")
            self.location = "https://localhost/campeche-web2/Controller/crtcVideos.php"
 	</script>';
         } else {

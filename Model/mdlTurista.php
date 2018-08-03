@@ -100,7 +100,7 @@ Class Turista extends model {
         $fila1 = mysqli_fetch_array($rdtoken);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
         if (!$fila1[0]) {
-            header("HTTP/1.0 405 Not Found");
+            header("HTTP/1.0 404 Not Found");
         } else {
             exit();
         }
@@ -133,46 +133,50 @@ Class Turista extends model {
         }
     }
 
+    public static function generateStoken($user, $pass) {
+        $un = "user=" . $user;
+        $ps = "pass=" . $pass;
+        $Ctoken = '391aa86cfb1bfadcb185476cd0f4b203174479c90090780528ffd4b55605f45c';
+        $cadena = $un . "|" . $ps . "|" . $Ctoken;
+        $hashs = hash('sha256', $cadena);
+        $Base64 = base64_encode(hex2bin($hashs));
+        return $Stoken = "C-TOKEN " . $Base64;
+    }
+
     public function login_movil() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("HTTP/1.0 404 Method Not Allowed");
+            header("HTTP/1.0 405 Method Not Allowed");
             exit();
         }
         $_POST = json_decode(file_get_contents("php://input"), true);
-       
         if (isset($_POST['user']) && isset($_POST['pass'])) {
+            //obtener headers
+            $arr = apache_request_headers();
+            $CTOKEN = $arr['Authorization'];
             $user = $_POST['user'];
             $pass = $_POST['pass'];
-           
-            if (Turista::searchpass($user, $pass) == null) {
-                
-                
+            $STOKEN = Turista::generateStoken($user, $pass);
+            if ($CTOKEN == $STOKEN) {
+                if (Turista::searchpass($user, $pass) == null) {
+                    
+                }
             }
             header("HTTP/1.0 401 Unauthorized");
             exit();
         }
-
         header("HTTP/1.0 400 Bad Request");
     }
 
     public function logout_movil() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("HTTP/1.0 404 Method Not Allowed");
-            exit();
+            header("HTTP/1.0 405 Method Not Allowed");
+            
         }
-
         $_POST = json_decode(file_get_contents("php://input"), true);
-
-        if (isset($_POST['token'])) {
-            $token = $_POST['token'];
-            if (Turista::deleteregister($token) == null) {
-                
-            }
-            header("HTTP/1.0 401 Unauthorized");
-            exit();
+        $headers = apache_request_headers();
+        foreach ($headers as $header => $value) {
+            echo "$header: $value <br />\n";
         }
-
-        header("HTTP/1.0 400 Bad Request");
     }
 
 }
