@@ -101,6 +101,7 @@ Class Turista extends model {
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
         if (!$fila1[0]) {
             header("HTTP/1.0 404 Not Found");
+            exit();
         } else {
             exit();
         }
@@ -170,12 +171,20 @@ Class Turista extends model {
     public function logout_movil() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("HTTP/1.0 405 Method Not Allowed");
-            
+            exit();
         }
         $_POST = json_decode(file_get_contents("php://input"), true);
-        $headers = apache_request_headers();
-        foreach ($headers as $header => $value) {
-            echo "$header: $value <br />\n";
+        $arr = apache_request_headers();
+        if($arr != NULL){
+        $CTOKEN = $arr['Authorization'];
+        $Cseparada = preg_split("/[\s,]+/", $CTOKEN, 4);
+        $Stoken = $Cseparada[1];
+        
+        $CHASH = $Cseparada[2];
+        Turista::deleteregister($Stoken);
+        }
+        else{
+        header("HTTP/1.0 400 Bad Request");   
         }
     }
 
