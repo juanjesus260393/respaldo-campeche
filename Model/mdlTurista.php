@@ -168,6 +168,24 @@ Class Turista extends model {
         header("HTTP/1.0 400 Bad Request");
     }
 
+    public static function searchparams($tok) {
+        $conn = new Conectar();
+        $pd = $conn->con();
+        //Primero se obtiene la contraseña que sera comparada
+        $cpass = "select u.username, u.password from users u inner join token t on u.username = t.username where t.token = '" . $tok . "';";
+        $rcpass = mysqli_query($pd, $cpass) or die(mysqli_error());
+        $fila1 = mysqli_fetch_array($rcpass);
+        //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
+        if (!$fila1[0]) {
+            header("HTTP/1.0 404 Not Found");
+            exit();
+        } else {
+            echo $passw = $fila1['password'];
+            $username = $fila1['username'];
+         
+        }
+    }
+
     public function logout_movil() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("HTTP/1.0 405 Method Not Allowed");
@@ -175,16 +193,14 @@ Class Turista extends model {
         }
         $_POST = json_decode(file_get_contents("php://input"), true);
         $arr = apache_request_headers();
-        if($arr != NULL){
-        $CTOKEN = $arr['Authorization'];
-        $Cseparada = preg_split("/[\s,]+/", $CTOKEN, 4);
-        $Stoken = $Cseparada[1];
-        
-        $CHASH = $Cseparada[2];
-        Turista::deleteregister($Stoken);
-        }
-        else{
-        header("HTTP/1.0 400 Bad Request");   
+        if ($arr != NULL) {
+            $CTOKEN = $arr['Authorization'];
+            $Cseparada = preg_split("/[\s,]+/", $CTOKEN, 4);
+            $Stoken = $Cseparada[1];
+            $CHASH = $Cseparada[2];
+            Turista::searchparams($Stoken);
+        } else {
+            header("HTTP/1.0 400 Bad Request");
         }
     }
 
