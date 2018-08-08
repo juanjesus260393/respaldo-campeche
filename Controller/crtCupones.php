@@ -9,7 +9,7 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 	</script>';
 
 }
-else if($_SESSION['loggedin']==TRUE){
+else if($_SESSION['loggedin']==TRUE&&$_SESSION['tipo']=='empresa'){
 //Se llama al modelo sitios
 require_once("C:/xampp/htdocs/campeche-web2/Model/mdlCupones.php");
 //se referencia la clase obtener sitios

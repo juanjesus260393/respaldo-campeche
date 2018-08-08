@@ -10,7 +10,8 @@ class FlyeryBanner {
     private $dbh;
 
     public function lista_flyersybanners() {
-        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        $this->dbh= Conectar::con();
+        //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select a.id_ad, a.id_revision_objeto, a.tipo, a.id_img, revision_objeto.status from (ad a inner join revision_objeto on a.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by id_ad;";
         if (empty($this->dbh->query($sql))) {
             $this->platillo[] = NULL;

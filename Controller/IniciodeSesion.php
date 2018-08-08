@@ -25,7 +25,7 @@ if($_SESSION['loggedin']==NULL){
 
 }
 
-else if($_SESSION['loggedin']==TRUE){
+else if($_SESSION['loggedin']==TRUE&&$_SESSION['tipo']=='empresa'){
     $user=array($_SESSION['tipo'], $_SESSION['idemp']);
      require_once("../view/MenuPrincipal.php");
 }

@@ -13,10 +13,10 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='administrador'){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
-require_once("../Model/validarCupon_model.php");
+require_once("../Model/validarSitios_model.php");
 require_once("../Model/Sendmail.php");
-$cup= new validarCupon_model();
-$cupdatos=$cup->get_cupones();
+$sit= new validarSitios_model();
+$sitios=$sit->get_sitios();
 
 
 require_once("../Model/validar_contenido_model.php");
@@ -62,7 +62,7 @@ return $infocupdato;
 
 
 //Llamada a la vista
-require_once("../view/validarCupon_view.php");
+require_once("../view/validarSitios_view.php");
 }
 else{
     unset($_SESSION);

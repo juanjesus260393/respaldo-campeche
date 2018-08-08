@@ -46,7 +46,7 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
     }
 
     public function obtener_codigos() {
-        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select * from revision_objeto";
         if (empty($this->dbh->query($sql))) {
             $this->platillo[] = NULL;

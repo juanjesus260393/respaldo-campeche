@@ -16,6 +16,7 @@
     <body>
         <?php
         //Se manda a llamar a la clase validaciones para verificar el estado de la empresa
+        require_once ("../Model/conexion.php");
         require_once("../scripts/Validaciones.php");
         $val = new validacion ();
         //Se llama al metodo habilitado
@@ -60,7 +61,7 @@
                 </table></center>
         </div>
 
-
+ 
 
     </body>
 </html>

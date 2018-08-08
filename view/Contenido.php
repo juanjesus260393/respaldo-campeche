@@ -20,6 +20,38 @@
          <?php echo "<li><a href='../Controller/crtEstadisticacupones.php'>Cupones Canjeados Durante la Promocion</a></li>" ?>
                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalFlyer">Que es un Flyer???</button>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalBanner">Que es un Banner???</button>
+        
+        
+        
+        
+                    <div class="modal fade" id="modalFlyer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Un Flyer es:</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                             <div class="modal-body">
+                        <p>Es una pubicidad gráfica de tamaño mediano, utilizada para promocionar un producto o servicio a continuacion se muestra un ejemplo.</p>
+                        <img src="../Imagenes/flyer.jpg" class="img-responsive" width="152" height="118">
+                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        
+
+        
+        
         <!-- Modal Flyer -->
         <div class="modal fade" id="modalFlyer" role="dialog">
             <div class="modal-dialog">

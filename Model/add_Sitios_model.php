@@ -166,7 +166,7 @@ class add_Sitios_model {
         if ($agregado) {
             $sqlinsert2 = ("INSERT INTO revision_informacion (id_revision_informacion, id_sitio"
                     . ", fecha_creacion, status, url_sitio_web, id_imagen_perfil, id_logo, id_carta, ubicacionGIS) VALUES"
-                    . "(" . $idunicoRev . "," . $idunicositio . ",'" . $hoy . "','C','" . $url . "'," . $actual_image_name . "," . $actual_logo_name . "," . $actual_carta_name . ""
+                    . "(" . $idunicoRev . "," . $idunicositio . ",'" . $hoy . "','C','" . $url . "','" . $actual_image_name . ".jpg','" . $actual_logo_name . ".jpg','" . $actual_carta_name . ".pdf'"
                     . "," . $point . ")");
             $revagregada = $this->db->query($sqlinsert2);
             if ($revagregada) {

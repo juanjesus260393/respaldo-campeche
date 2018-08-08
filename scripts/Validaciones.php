@@ -1,4 +1,5 @@
 <?php
+require_once ("../Model/conexion.php");
 
 class validacion {
     /* public function habilitado($estado) {
@@ -13,10 +14,11 @@ class validacion {
 // creamos la función
 private $platillo;
     public function lista_cupones_caducados() {
+         $this->dbh = Conectar::con();
         $fa = date('Y-m-d');
         $ftma = strtotime('+5 day', strtotime($fa));
         $ftma = date('Y-m-d', $ftma);
-        $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "SELECT c.titulo, c.vigencia_fin, c.limite_codigos FROM cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto 
 inner join empresa e on r.id_empresa = e.id_empresa inner join usuario_empresa u on e.id_membresia = u.id_empresa where
 c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.titulo";
@@ -33,8 +35,8 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.t
                 echo '<script language = javascript>self.location ="../Controller/Emp_Activas_controller.php";
 		</script>';
             } else if ($_SESSION['tipo'] == "empresa") {
+                require_once '../view/modals.php';
                 ?>
-
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
                     <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
@@ -60,23 +62,61 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.t
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                                    Validar 
+                                                <a class="nav-link dropdown-toggle" href="../Controller/crtCupones.php" id="navbardrop" data-toggle="dropdown">
+                                                    Cupones
                                                 </a>
                                                 <div class="dropdown-menu">
-
-                                                    <a class="dropdown-item" href="">Sitios </a>
                                                     <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
-                                                    <a class="dropdown-item" href="">Videos</a>
+                                                    <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon</a>
 
                                                 </div>
-                                            </li>
+                             </li>
+                             <li class="nav-item dropdown">
+                                 <a class="nav-link dropdown-toggle" href="../Controller/crtcVideos.php" id="navbardrop" data-toggle="dropdown">
+                                                    Videos
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
+                                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
+
+                                                </div>
+                             </li>
+                             <li class="nav-item dropdown">
+                                 <a class="nav-link dropdown-toggle" href="../Controller/crtcFlyers.php" id="navbardrop" data-toggle="dropdown">
+                                                    Flyers & Banners
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <button type="button" class="btn dropdown-item" data-toggle="modal" data-target="#modalFlyer">Que es un Flyer???</button>
+                                                    <button type="button" class="btn dropdown-item" data-toggle="modal" data-target="#modalBanner">Que es un Banner???</button>
+                                                    <a class="dropdown-item" href="../Controller/crtcFlyers.php">Flyers & Banners  </a>
+                                                    <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners</a>
+                                                </div>
+                             </li>
+                             <li class="nav-item dropdown">
+                                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                                    Graficas
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="../Controller/crtEstadisticacupones.php">Estadisticas Cupones </a>
+                                                    <a class="dropdown-item" href="#">  </a>
+                                                </div>
+                             </li>
+                             <li class="nav-item dropdown">
+                                 <a class="nav-link" href="../Controller/cambiaPass_controller.php">
+                                                    Cambia Contraseña
+                                                </a>       
+                             </li>
                         </ul>
                         <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
                             <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
                         </form>
                     </div>
                 </nav>
+      
+
+
+
+ 
                 <?php
             }
         } else if ($_SESSION['enabled'] == NULL) {
@@ -145,7 +185,8 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.t
     }
 
     public function registros_cupon() {
-        $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+         $mysqli = Conectar::con();
+       // $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
         if (mysqli_connect_errno()) {
             printf("Conexión fallida: %s\n", mysqli_connect_error());
             exit();
@@ -201,7 +242,8 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.t
     }
 
     public function registros_video() {
-        $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+        $mysqli = Conectar::con();
+        //$mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
         if (mysqli_connect_errno()) {
             printf("Conexión fallida: %s\n", mysqli_connect_error());
             exit();
@@ -281,7 +323,8 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = ".$_SESSION['idemp']." group by c.t
     }
 
     public function registros_publicidad() {
-        $mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+         $mysqli = Conectar::con();
+        //$mysqli = new mysqli("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
         if (mysqli_connect_errno()) {
             printf("Conexión fallida: %s\n", mysqli_connect_error());
             exit();

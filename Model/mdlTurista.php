@@ -97,12 +97,12 @@ Class Turista extends model {
         //Primero se obtiene la contraseña que sera comparada
         $dtoken = "delete from token where token = '" . $token . "'";
         $rdtoken = mysqli_query($pd, $dtoken) or die(mysqli_error());
-        $fila1 = mysqli_fetch_array($rdtoken);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
-        if (!$fila1[0]) {
+        if ($rdtoken == FALSE) {
             header("HTTP/1.0 404 Not Found");
             exit();
         } else {
+            header("HTTP/1.0 202 ACCEPTED");
             exit();
         }
     }
@@ -169,10 +169,11 @@ Class Turista extends model {
     }
 
     public static function searchparams($tok) {
+        $Claveprivada = '391aa86cfb1bfadcb185476cd0f4b203174479c90090780528ffd4b55605f45c';
         $conn = new Conectar();
         $pd = $conn->con();
         //Primero se obtiene la contraseña que sera comparada
-        $cpass = "select u.username, u.password from users u inner join token t on u.username = t.username where t.token = '" . $tok . "';";
+        $cpass = "select u.username from users u inner join token t on u.username = t.username where t.token = '" . $tok . "';";
         $rcpass = mysqli_query($pd, $cpass) or die(mysqli_error());
         $fila1 = mysqli_fetch_array($rcpass);
         //opcion1: Si el usuario NO existe o los datos son INCORRRECTOS
@@ -180,10 +181,20 @@ Class Turista extends model {
             header("HTTP/1.0 404 Not Found");
             exit();
         } else {
-            echo $passw = $fila1['password'];
             $username = $fila1['username'];
-         
+            $cadena = $username . "|" . $tok . "|" . $Claveprivada;
+            $hashs = hash('sha256', $cadena);
+            $Base64 = base64_encode(hex2bin($hashs));
+            return $Shash = $Base64;
         }
+    }
+
+    public static function gethash($HASH, $token) {
+        $Claveprivada = '391aa86cfb1bfadcb185476cd0f4b203174479c90090780528ffd4b55605f45c';
+        $cadena = $HASH . "|" . $token . "|" . $Claveprivada;
+        $hashs = hash('sha256', $cadena);
+        $Base64 = base64_encode(hex2bin($hashs));
+        return $Shash = $Base64;
     }
 
     public function logout_movil() {
@@ -192,13 +203,31 @@ Class Turista extends model {
             exit();
         }
         $_POST = json_decode(file_get_contents("php://input"), true);
+        isset($_POST['hash']);
         $arr = apache_request_headers();
         if ($arr != NULL) {
             $CTOKEN = $arr['Authorization'];
+            $CHASHCU = $_POST['hash'];
             $Cseparada = preg_split("/[\s,]+/", $CTOKEN, 4);
             $Stoken = $Cseparada[1];
-            $CHASH = $Cseparada[2];
-            Turista::searchparams($Stoken);
+            $CAHASH = $Cseparada[2];
+            $HASH = "hash=" . $CHASHCU;
+            //Se verifica si el has del encabezado coincide
+            $CHASHCA = Turista::gethash($HASH, $Stoken);
+            if ($CAHASH == $CHASHCA) {
+                //Se verifica que el hash enviado por el cuerpo coincida
+                $SHASHCU = Turista::searchparams($Stoken);
+                if ($CHASHCU == $SHASHCU) {
+                    Turista::deleteregister($Stoken);
+                    exit();
+                } else {
+                    header("HTTP/1.0 401 Unauthorized");
+                    exit();
+                }
+            } else {
+                header("HTTP/1.0 401 Unauthorized");
+                exit();
+            }
         } else {
             header("HTTP/1.0 400 Bad Request");
         }

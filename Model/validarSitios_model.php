@@ -1,35 +1,35 @@
 <?php
 
-class validarCupon_model{
+class validarSitios_model{
     private $db;
-    private $cupones;
-     private $icupon;
+    private $sitios;
+     private $isitio;
  
     public function __construct(){
         $this->db=Conectar::con();
-        $this->cupones=array();
-        $this->icupon=array();
+        $this->sitios=array();
+        $this->isitio=array();
     }
-    public function get_cupones(){
+    public function get_sitios(){
         
-        $selectCupones = ("SELECT C.id_cupon, C.id_revision_objeto, C.titulo, C.descripcion_corta, C.descripcion_larga, "
-                . "C.id_imagen_vista_previa, C.id_imagen_extra, DATE(C.vigencia_inicio), DATE(C.vigencia_fin), "
-                . "C.terminos_y_condiciones, C.limite_codigos , rO.status FROM cupon C "
-                . "INNER JOIN revision_objeto rO ON C.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='P' ");
+        $selectSitios = ("SELECT RI.id_logo, S.id_sitio, S.nombre, S.direccion, S.horario, RI.url_sitio_web, RI.status , M.nombre, "
+                . "S.telefono1, S.telefono2, S.capacidad, DATE(RI.fecha_creacion), DATE(RI.fecha_actualizacion), RI.id_imagen_perfil, "
+                . "RI.id_carta, RI.ubicacionGIS "
+                . "FROM sitio S INNER JOIN revision_informacion RI ON S.id_sitio=RI.id_sitio INNER JOIN municipios M ON S.municipios_id=M.id WHERE RI.status='C' OR RI.status='P'");
         
-        $rescup=$this->db->query($selectCupones);
+        $ressit=$this->db->query($selectSitios);
         
 
        
-        while($filas=$rescup->fetch_row()){
-            $this->cupones[]=$filas;
+        while($filas=$ressit->fetch_row()){
+            $this->sitios[]=$filas;
             
         }
         
-        $rescup->close();
+        $ressit->close();
        // $this->db->close();
         
-        return $this->cupones;
+        return $this->sitios;
  
     }
     
