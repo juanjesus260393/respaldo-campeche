@@ -52,6 +52,13 @@ class Paquetes {
         $pd = $conn->con();
         //Se obtienen los parametros de la vista del cupon
         $id_paquete = $_GET["id_paquete"];
+               if ($id_paquete == NULL ) {
+            echo '<script language = javascript> alert("No es un elemento valido de los paquetes") </script>';
+            //Regresamos a la pagina anterior
+            echo "<html><head></head>" .
+            "<body onload=\"javascript:history.back()\">" .
+            "</body></html>";
+        }
         $Eliminar = "Delete from paquete where id_paquete = " . $id_paquete . "";
         $Eliminar2 = "Delete from empresa_paquete where idpaquete = " . $id_paquete . " and idempresa = '" . $_SESSION['idemp'] . "'";
         if (!mysqli_query($pd, $Eliminar2)) {

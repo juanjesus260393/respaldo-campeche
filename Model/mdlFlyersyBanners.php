@@ -65,6 +65,13 @@ class FlyeryBanner {
         //Se obtienen los parametros de la vista del cupon
         $id_revision_objeto = $_GET["id_revision_objeto"];
         $id_ad = $_GET["id_ad"];
+            if ($id_revision_objeto == NULL && $id_ad == NULL) {
+            echo '<script language = javascript> alert("No es un elemento valido de la publicidad") </script>';
+            //Regresamos a la pagina anterior
+            echo "<html><head></head>" .
+            "<body onload=\"javascript:history.back()\">" .
+            "</body></html>";
+        }
         $imagen = $_GET["id_img"];
         $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
         $Eliminar2 = "Delete from ad where id_ad = " . $id_ad . " and id_revision_objeto = " . $id_revision_objeto . "";

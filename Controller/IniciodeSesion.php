@@ -1,11 +1,11 @@
 <?php
 session_start();
-/*
-$_SESSION['loggedin']
+
+$_SESSION['loggedin'];
 $_SESSION['username'];
 $_SESSION['enabled'];
 $_SESSION['idemp'];
-$_SESSION['tipo'];*/
+$_SESSION['tipo'];
 //Se llama al modelo de inicios de sesion
 
 if($_SESSION['loggedin']==NULL){

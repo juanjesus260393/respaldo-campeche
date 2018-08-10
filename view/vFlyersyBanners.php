@@ -13,7 +13,7 @@
     </head>
     <body>
         <?phprequire_once '../view/modals.php'; ?>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
                     <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
                         <span class="navbar-toggler-icon"></span>

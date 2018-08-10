@@ -18,7 +18,7 @@ and open the template in the editor.
     <script src="../js/Validaciones.js"></script>
   </head>
     <body>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
             <a class="navbar-brand" href="">Administrador</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
                 <span class="navbar-toggler-icon"></span>

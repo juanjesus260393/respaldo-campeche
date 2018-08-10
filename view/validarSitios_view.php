@@ -11,7 +11,7 @@ include '../includes/header.php';
 
         <div id="tablesitios" class="">
 
-        <table  style='border: 3px solid black' align='center'>
+        <table  style='border: 1px solid black' align='center'>
 
             <tr align='center'>
                 <th width='120' align='center'>Logo</th>

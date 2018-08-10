@@ -16,6 +16,7 @@ require_once("C:/xampp/htdocs/campeche-web2/Model/mdlCupones.php");
 $cupon = new obtener_cupon();
 //se llama el metodo lista de sitios del cual se obtiene la lista de sitios
 $lcupones = $cupon->lista_cupones();
+$lcupones2 = $cupon->lista_cupones2();
 //Se llama a la vista vista sitios     
  require_once("C:/xampp/htdocs/campeche-web2/view/vCupon.php");
 }

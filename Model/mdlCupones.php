@@ -14,8 +14,9 @@ class obtener_cupon {
     }
 
     public function lista_cupones() {
+        $fa = date('Y-m-d');
         //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
-        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by titulo;";
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " where c.vigencia_fin >= '$fa' group by titulo;";
         if (empty($this->dbh->query($sql))) {
             $this->platillo[] = NULL;
         } else {
@@ -23,6 +24,22 @@ class obtener_cupon {
                 $this->platillo[] = $res;
             }
         }
+
+        return $this->platillo;
+    }
+
+    public function lista_cupones2() {
+        $fa = date('Y-m-d');
+        //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " where c.vigencia_fin <= '$fa' group by titulo;";
+        if (empty($this->dbh->query($sql))) {
+            $this->platillo[] = NULL;
+        } else {
+            foreach ($this->dbh->query($sql) as $res) {
+                $this->platillo[] = $res;
+            }
+        }
+
         return $this->platillo;
     }
 
@@ -64,24 +81,13 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
         //se llama a la funcion con para obtener la variable conexion la cual sera utilizada para ejecutar la sentencia sql
         $pd = $conn->con();
         //Primero se genera el identificador de la revision del objeto
-        //Contador de los registros para verificar si  permite ingresar mas registros dependiendo del  tipo de membresia que tiene cada empresa
-        $query = "SELECT count(*) as total from cupon ";
-
-        if ($result = mysqli_query($pd, $query)) {
-
-            $data = mysqli_fetch_assoc($result);
-
-            echo $data['total'];
-        }
-        mysqli_close($connect);
         $na = new validacion();
         $idro = $na->generar_aleatorio();
         $iie = $na->generar_alfanumerico();
         $iive = $na->generar_alfanumerico();
-
         //Fecha de creacion y hora 
         $fa = $na->fecha_actual();
-        $status = 'A';
+        $status = 'C';
         $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,status)
         VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','$status')";
         if (!mysqli_query($pd, $sql)) {
@@ -124,43 +130,77 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
         header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
     }
 
+    public function buscarcodigoqr($idcupon) {
+        //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
+        $sql = "select id_cupon from codigo_qr where id_cupon = '$idcupon'";
+        if (empty($this->dbh->query($sql))) {
+            $this->platillo[] = NULL;
+        } else {
+            foreach ($this->dbh->query($sql) as $res) {
+                $this->platillo[] = $res;
+            }
+        }
+        return $this->platillo;
+    }
+
     public function eliminar_cupon() {
         //Se llama a la clase conectar y a la funcion conectar 
         $conn = new Conectar();
         //se llama a la funcion con para obtener la variable conexion la cual sera utilizada para ejecutar la sentencia sql
         $pd = $conn->con();
         //Se obtienen los parametros de la vista del cupon
+        //Si el registro esta vacio regresar a la vista de los cupones
+
         $id_revision_objeto = $_GET["id_revision_objeto"];
         $id_cupon = $_GET["id_cupon"];
+        if ($id_revision_objeto == NULL && $id_cupon == NULL) {
+            echo '<script language = javascript> alert("No es un elemento valido de los cupones") </script>';
+            //Regresamos a la pagina anterior
+            echo "<html><head></head>" .
+            "<body onload=\"javascript:history.back()\">" .
+            "</body></html>";
+        }
         $imagen = $_GET["id_imagen_extra"];
         $imagen2 = $_GET["id_imagen_vista_previa"];
-        $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
-        $Eliminar2 = "Delete from cupon where id_cupon = " . $id_cupon . " and id_revision_objeto = " . $id_revision_objeto . "";
-        if (!mysqli_query($pd, $Eliminar2)) {
-            die('Error: ' . mysqli_error($pd));
-        }
-        if (!mysqli_query($pd, $Eliminar)) {
-            die('Error: ' . mysqli_error($pd));
-        }
-        if ($imagen == "") {
-            mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        //primero buscar en la tabla codigo qr
+        $c = new obtener_cupon();
+        $cqr = $c->buscarcodigoqr($id_cupon);
+        if ($cqr == NULL) {
+            $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
+            $Eliminar2 = "Delete from cupon where id_cupon = " . $id_cupon . " and id_revision_objeto = " . $id_revision_objeto . "";
+            if (!mysqli_query($pd, $Eliminar2)) {
+                die('Error: ' . mysqli_error($pd));
+            }
+            if (!mysqli_query($pd, $Eliminar)) {
+                die('Error: ' . mysqli_error($pd));
+            }
+            if ($imagen == "") {
+                mysqli_close($pd);
+                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            } else {
+                //Se elimina la imagen 
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                unlink($ruta . $imagen);
+                mysqli_close($pd);
+                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            }
+            if ($imagen2 == "") {
+                mysqli_close($pd);
+                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            } else {
+                //Se elimina la imagen 
+                $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
+                unlink($ruta2 . $imagen2);
+                mysqli_close($pd);
+                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            }
         } else {
-            //Se elimina la imagen 
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
-            unlink($ruta . $imagen);
-            mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
-        }
-        if ($imagen2 == "") {
-            mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
-        } else {
-            //Se elimina la imagen 
-            $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
-            unlink($ruta2 . $imagen2);
-            mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            echo '<script language = javascript> alert("Este cupon ya tiene codigos Qr generados, no se puede eliminar") </script>';
+            //Regresamos a la pagina anterior
+            echo "<html><head></head>" .
+            "<body onload=\"javascript:history.back()\">" .
+            "</body></html>";
+            exit;
         }
     }
 

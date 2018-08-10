@@ -1,5 +1,6 @@
-<?php session_start();
- require_once('../scripts/Validaciones.php');
+<?php
+session_start();
+require_once('../scripts/Validaciones.php');
 $na = new validacion();
 $idro = $na->registros_cupon();
 ?>
@@ -20,79 +21,79 @@ $idro = $na->registros_cupon();
     </head>
     <body>
 
-                       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
-                    <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
+            <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <div class="collapse navbar-collapse" id="navb">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link " href="../Controller/IniciodeSesion.php" >
-                                    HOME
-                                </a>
+            <div class="collapse navbar-collapse" id="navb">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="../Controller/IniciodeSesion.php" >
+                            HOME
+                        </a>
 
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                    Sitios
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
-                                    <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Sitios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
+                            <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
 
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="../Controller/crtCupones.php" id="navbardrop" data-toggle="dropdown">
-                                                    Cupones
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
-                                                    <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="../Controller/crtCupones.php" id="navbardrop" data-toggle="dropdown">
+                            Cupones
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
+                            <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon</a>
 
-                                                </div>
-                             </li>
-                             <li class="nav-item dropdown">
-                                 <a class="nav-link dropdown-toggle" href="../Controller/crtcVideos.php" id="navbardrop" data-toggle="dropdown">
-                                                    Videos
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
-                                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="../Controller/crtcVideos.php" id="navbardrop" data-toggle="dropdown">
+                            Videos
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
+                            <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
 
-                                                </div>
-                             </li>
-                             <li class="nav-item dropdown">
-                                 <a class="nav-link dropdown-toggle" href="../Controller/crtcFlyers.php" id="navbardrop" data-toggle="dropdown">
-                                                    Flyers & Banners
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtcFlyers.php">Flyers & Banners  </a>
-                                                    <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners</a>
-                                                </div>
-                             </li>
-                             <li class="nav-item dropdown">
-                                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                                    Graficas
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtEstadisticacupones.php">Estadisticas Cupones </a>
-                                                    <a class="dropdown-item" href="#">  </a>
-                                                </div>
-                             </li>
-                              <li class="nav-item dropdown">
-                                 <a class="nav-link" href="../Controller/cambiaPass_controller.php" id="navbardrop" data-toggle="dropdown">
-                                                    Cambia Contraseña
-                                                </a>       
-                             </li>
-                        </ul>
-                        <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
-                            <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
-                        </form>
-                    </div>
-                </nav>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="../Controller/crtcFlyers.php" id="navbardrop" data-toggle="dropdown">
+                            Flyers & Banners
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/crtcFlyers.php">Flyers & Banners  </a>
+                            <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Graficas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../Controller/crtEstadisticacupones.php">Estadisticas Cupones </a>
+                            <a class="dropdown-item" href="#">  </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="../Controller/cambiaPass_controller.php" id="navbardrop" data-toggle="dropdown">
+                            Cambia Contraseña
+                        </a>       
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
+                    <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
+                </form>
+            </div>
+        </nav>
 
     <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>  
     <center><h1>Agregar Cupon</h1></center>
@@ -134,7 +135,7 @@ $idro = $na->registros_cupon();
             </div>
             <div>
                 <span><label>*Limite de cupones:</label></span>
-                <span><input id="limite_codigos" name="limite_codigos" rows="10" cols="40" placeholder="Cantidad de cupones" maxlength="2" required></span>
+                <span><input type="number" id="limite_codigos" name="limite_codigos" rows="10" cols="40" placeholder="Cantidad de cupones" maxlength="2" required></span>
             </div>
             <div>
 

@@ -1,41 +1,11 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="es">
+<?php
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Proyecto Campeche</title>
-        <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <?php list($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_vista_previa, $id_imagen_extra, $terminos_y_condiciones, $limite_codigos) = $secupon ?>
-        <nav class = "navbar navbar-expand-lg navbar-dark bg-dark" style = "margin:24px 0;">
-            <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
-            <button class = "navbar-toggler navbar-toggler-right" type = "button" data-toggle = "collapse" data-target = "#navb">
-                <span class = "navbar-toggler-icon"></span>
-            </button>
-            <div class = "collapse navbar-collapse" id = "navb">
-                <ul class = "navbar-nav mr-auto">
-                    <li class = "nav-item">
-                        <a class = "nav-link" href = "../Controller/IniciodeSesion.php">Principal</a>
-                    </li>
 
-                    <li class = "nav-item">
-                        <a class = "nav-link" href = "../Controller/crtCupones.php">Cupones</a>
-                    </li>
-                    <li class = "nav-item">
-                        <a class = "nav-link" href = "../view/Addcupon.php">Agregar cupon</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
-                    <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
-                </form>
-            </div>
-        </nav>       
+include '../includes/header2.php';
+
+
+?>
+     
     <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>   
 
     <center><h1>Actualizar Cupon</h1></center>
@@ -103,5 +73,10 @@
                         }" value="Actualizar Cupon" ></span>
             </div>
         </form></center>
-</body>
-</html>
+<?php
+
+
+include '../includes/footer.php';
+
+
+?>

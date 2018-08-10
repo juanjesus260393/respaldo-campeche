@@ -108,6 +108,13 @@ class Videos {
         //Se obtienen los parametros de la vista del cupon
         $id_revision_objeto = $_GET["id_revision_objeto"];
         $id_video = $_GET["id_video"];
+         if ($id_revision_objeto == NULL && $id_video == NULL) {
+            echo '<script language = javascript> alert("No es un elemento valido de los videos") </script>';
+            //Regresamos a la pagina anterior
+            echo "<html><head></head>" .
+            "<body onload=\"javascript:history.back()\">" .
+            "</body></html>";
+        }
         $imagen = $_GET["id_img_preview"];
         $video = $_GET["id_video_archivo"];
         $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
@@ -140,7 +147,7 @@ class Videos {
         $fila = mysqli_fetch_array($resultado);
         if (!$fila[0]) {
             echo '<script language = javascript>
-	alert("Este video no se puede modificar debibo a que ha sido aprovado")
+	alert("Este video no se puede modificar debibo a que ha sido aprobado")
            self.location = "https://localhost/campeche-web2/Controller/crtcVideos.php"
 	</script>';
         } else {
