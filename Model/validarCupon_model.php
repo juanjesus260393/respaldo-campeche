@@ -61,9 +61,12 @@ class validarCupon_model{
  
     
     public function acepta_cupon($cupon, $revision) {
+         date_default_timezone_set('America/Mexico_City');
+
+        $hoy = date("Y-m-d H:i:s");
         
         if(isset($revision)){
-        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'A' WHERE C.id_cupon='".$cupon."'");
+        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'A' , Ro.fecha_actualizacion='".$hoy."' WHERE C.id_cupon='".$cupon."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
 

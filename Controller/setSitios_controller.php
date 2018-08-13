@@ -10,13 +10,14 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 	</script>';
 
 }
-else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='administrador'){
+else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='empresa'){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
-require_once("../Model/validarSitios_model.php");
+require_once("../Model/setSitios_model.php");
 require_once("../Model/Sendmail.php");
-$sit= new validarSitios_model();
+$sit= new setSitios_model();
 $sitios=$sit->get_sitios();
+$municipio=$sit->get_municipios();
 
 
 require_once("../Model/validar_contenido_model.php");
@@ -28,36 +29,17 @@ $_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS'];
 
 
 
-if(isset($_GET['opc'])){
-    switch($_GET['opc']){
-        case 'A':
-            if(isset($_GET['sitio'])&&isset($_GET['revision'])){
+if(isset($_POST['seeet'])){
+    
+   $b=$sit->add_sitio();
+   printf("<script>document.location.href='../Controller/setSitios_controller.php'; </script>");
    
-$sitio=$_GET['sitio'];
-$comentario=$_GET['coment'];
-$idrevision=$_GET['revision'];
-
-$accept=$sit->acepta_sitio($cupon, $idrevision, $comentario);
-
-}
-break;
-        case 'R':
-            if(isset($_GET['sitio'])&&isset($_GET['revision'])){
-   
-$comentario=$_GET['coment'];
-$sitio=$_GET['sitio'];
-$idrevision=$_GET['revision'];
-
-$noaccept=$sit->rechaza_sitio($cupon,$comentario, $idrevision);
-            
-            break;
-    }
-}}
+ }
  
 
 
 //Llamada a la vista
-require_once("../view/validarSitios_view.php");
+require_once("../view/setSitios_view.php");
 }
 else{
     unset($_SESSION);

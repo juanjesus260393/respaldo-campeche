@@ -491,6 +491,8 @@ mark,
   height: auto;
 }
 
+
+
 .figure {
   display: inline-block;
 }
@@ -5303,6 +5305,45 @@ button.close {
   border: 0;
   -webkit-appearance: none;
 }
+
+/* -------------FULL WIDTH MODAL-----------------------------------------*/
+
+.modal1-open {
+  overflow: hidden;
+}
+
+.modal1 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+}
+
+.modal1-open .modal1 {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.modal1-dialog2 {
+  position: fixed;
+  margin: 0;
+  width: auto;
+  max-height: 85%;
+  padding: 0;
+}
+
+
+
+
+
+
+/* ffffffffffffffffffffffffffffffffffffffffffffffffff*/
+
+
 
 .modal-open {
   overflow: hidden;

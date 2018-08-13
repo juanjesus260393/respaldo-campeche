@@ -106,6 +106,7 @@
                             printf("<select required name='municipios'>");
                             printf("<option value=''>Seleccionar...</option>");
                             foreach ($municipio as $mpio) {
+                               
                                 printf("<option value='" . $mpio[0] . "'>" . $mpio[1] . "</option>");
                             }
                             printf("</select>");

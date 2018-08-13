@@ -9,7 +9,7 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 	</script>';
 
 }
-else if($_SESSION['loggedin']==TRUE){
+else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='empresa'){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
 require_once("../Model/add_Sitios_model.php");

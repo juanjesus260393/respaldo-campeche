@@ -171,13 +171,13 @@ class add_Sitios_model {
             $revagregada = $this->db->query($sqlinsert2);
             if ($revagregada) {
                 $sqlinsertES = ("INSERT INTO descripcion_idioma (id_revision_informacion, lang_code, descripcion_larga, descripcion_corta) VALUES"
-                        . " (" . $idunicoRev . ", 'ES', '" . $descCortaES . "', '" . $descLargaES . "')");
+                        . " (" . $idunicoRev . ", 'ES', '" . $descLargaES . "', '" . $descCortaES . "')");
                 $agregadoEsp = $this->db->query($sqlinsertES);
                 $sqlinsertEn = ("INSERT INTO descripcion_idioma (id_revision_informacion, lang_code, descripcion_larga, descripcion_corta) VALUES"
-                        . " (" . $idunicoRev . ", 'EN', '" . $descCortaIngles . "', '" . $descLargaIngles . "')");
+                        . " (" . $idunicoRev . ", 'EN', '" . $descLargaIngles . "', '" . $descCortaIngles . "')");
                 $agregadoIng = $this->db->query($sqlinsertEn);
                 $sqlinsertFr = ("INSERT INTO descripcion_idioma (id_revision_informacion, lang_code, descripcion_larga, descripcion_corta) VALUES"
-                        . " (" . $idunicoRev . ", 'FR', '" . $descCortaFrances . "', '" . $descLargaFrances . "')");
+                        . " (" . $idunicoRev . ", 'FR', '" . $descLargaFrances . "', '" . $descCortaFrances . "')");
                 $agregadoFr = $this->db->query($sqlinsertFr);
                 if ($agregadoEsp && $agregadoIng && $agregadoFr) {
                     echo ("<script> alert('Nuevo Sitio agregado'); </script>");

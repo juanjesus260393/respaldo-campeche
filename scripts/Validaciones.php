@@ -35,7 +35,11 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                 echo '<script language = javascript>self.location ="../Controller/Emp_Activas_controller.php";
 		</script>';
             } else if ($_SESSION['tipo'] == "empresa") {
+
                 require_once '../view/modals.php';
+
+                require_once ('../view/modals.php');
+
                 ?>
 
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
@@ -59,6 +63,7 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
                                     <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
+                                    <a class="dropdown-item" href="../Controller/setSitios_controller.php">Modificar Sitio</a>
 
                                 </div>
                             </li>

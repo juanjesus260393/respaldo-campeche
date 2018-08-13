@@ -120,7 +120,8 @@ try {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }}
 
-function sendmailcupon($info){
+function sendmailComentarioAS($usuario, $comentario,$a){
+
 
 $mail = new PHPMailer(true);             
 try {
@@ -150,9 +151,12 @@ try {
     
     switch ($a){
         case 'C':
-        $mail->Subject = 'Comentario Rechazo Cupon ';
-        $mail->Body    = '<h3>Tu Cupon ha sido Rechazado por favor</h3>'
-                                . '<h3>reviza tu información</h3>'
+
+        
+
+        $mail->Subject = 'Comentario Aceptacion';
+        $mail->Body    ='<h3>Aceptado, se va a publicar</h3>'
+
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
