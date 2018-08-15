@@ -30,6 +30,18 @@ class validar_contenido_model{
         return $sitiosPendientes;
  
 }
+
+    public function get_num_videos(){
+        
+        $selectCupon = ("SELECT V.id_video FROM video V INNER JOIN revision_objeto rO ON V.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='P' ");
+        
+        $res=$this->db->query($selectCupon);
+        $videosPendientes=$res->num_rows;
+        
+        
+        return $videosPendientes;
+ 
+}
    
     }
     

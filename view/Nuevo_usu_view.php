@@ -8,7 +8,7 @@ include '../includes/header.php';
  
         <div class="container form-group" id="formulario" >
             <h1 style="text-align:center;">Nueva Empresa</h1>
-            <form  action="../Controller/Nuevo_usu_controller.php" method="post">
+            <form enctype="multipart/form-data" action="../Controller/Nuevo_usu_controller.php" method="post">
             <br><br>
             
             <label>Correo</label>
@@ -43,6 +43,8 @@ include '../includes/header.php';
                      printf("</select>");
                     ?>
             <br>
+            <label>Logo:</label><br>
+             <input type="file" name="idlogo" id="idlogo" accept=".jpg" >
             <label>Telefono</label>
             <input type="text" size="20" name="tel1" onkeypress="soloNum()">
             <label>Extension</label>

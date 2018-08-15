@@ -81,6 +81,36 @@ class Nuevo_usu_model{
         $tamano=(int)$_POST['tam'];
         $membresia=$_POST['membresia'];
         
+        
+         $pathlogo = "../Imagenes/Sitios/logo/";
+        $valid_formatsimg = array("jpg"); 
+        
+        $id_logo = $_FILES['idlogo']['name'];
+        
+       
+        
+        $fileInfoLogo = pathinfo($id_logo);
+        $extLogo = $fileInfoLogo['extension'];
+        if (in_array($extLogo, $valid_formatsimg)) {
+
+            $actual_logo_name = 0;
+
+            $aux = $id_logo . uniqid();
+            $a = str_split($aux);
+
+            $i = 0;
+            for ($i; $i < count($a); $i++) {
+                $actual_logo_name += ord($a[$i]);
+            }
+            $tmp2 = $_FILES['idlogo']['tmp_name'];
+
+            if (move_uploaded_file($tmp2, $pathlogo . $actual_logo_name . "." . $extLogo)) {
+                
+            } else {
+                echo "failed Logo";
+            }
+        }
+        
         $passaux= $this->gen_pass($email);
         sendmail($email, $passaux, 0);
         $pass=password_hash($passaux, PASSWORD_DEFAULT);
@@ -94,10 +124,10 @@ class Nuevo_usu_model{
         if($agregado){
 
         $sqlinsert= ("INSERT INTO empresa (id_membresia, id_sector, id_rango_ventas, descripcion, telefono, extension,celular, "
-                . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus) "
+                . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus, id_logo) "
                 . "VALUES (".$idmembresia[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.","
                 .$cel.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.""
-                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."')");
+                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."', '".$actual_logo_name.".jpg')");
 
 
         $agregado=$this->db->query($sqlinsert);  

@@ -58,7 +58,7 @@ class setSitios_model{
 
 public function get_municipios() {
 
-        $sqlconsulta = ("SELECT m.id, m.nombre FROM municipios m WHERE 1");
+        $sqlconsulta = ("SELECT m.id_municipio, m.nombre FROM municipio m WHERE 1");
 
         $resultado = $this->db->query($sqlconsulta);
         while ($filas = $resultado->fetch_row()) {
@@ -241,7 +241,7 @@ public function get_municipios() {
         $hoy = date("Y-m-d H:i:s");
 
 
-        $sqlinsert = ("UPDATE sitio SET municipios_id='".$municipios."', nombre='".$nombre."', direccion='".$dir."', telefono1=".$tel1
+        $sqlinsert = ("UPDATE sitio SET id_municipio='".$municipios."', nombre='".$nombre."', direccion='".$dir."', telefono1=".$tel1
                 .", telefono2=".$tel2.", capacidad=".$capacidad.", horario='".$hora."' WHERE id_sitio=".$idsitio." ");
         $agregado = $this->db->query($sqlinsert);
         

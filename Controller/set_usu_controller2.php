@@ -18,6 +18,15 @@ require_once("../Model/set_usu_model2.php");
 $Set_usu=new set_usu_model2();
 $sector=$Set_usu->get_sectores();
 $rangos=$Set_usu->get_Rangos();
+
+require_once("../Model/validar_contenido_model.php");
+$cto_pendientes=new validar_contenido_model();
+
+$_SESSION['nC']=$cto_pendientes->get_num_cupones();
+$_SESSION['nS']=$cto_pendientes->get_num_sitios();
+$_SESSION['nV']=$cto_pendientes->get_num_videos();
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV'];
+
 $usu_aux=$_GET['dato'];
 if(isset($usu_aux)){
    

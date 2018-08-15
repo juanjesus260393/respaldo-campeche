@@ -185,6 +185,7 @@ Class Turista extends model {
             $cadena = $username . "|" . $tok . "|" . $Claveprivada;
             $hashs = hash('sha256', $cadena);
             $Base64 = base64_encode(hex2bin($hashs));
+            header("HTTP/1.0 202 OK");
             return $Shash = $Base64;
         }
     }

@@ -24,13 +24,14 @@ $cto_pendientes=new validar_contenido_model();
 
 $_SESSION['nC']=$cto_pendientes->get_num_cupones();
 $_SESSION['nS']=$cto_pendientes->get_num_sitios();
-$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS'];
+$_SESSION['nV']=$cto_pendientes->get_num_videos();
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV'];
 
 
 
 if(isset($_GET['opc'])){
     switch($_GET['opc']){
-        case A:
+        case 'A':
             if(isset($_GET['cupon'])&&isset($_GET['revision'])){
    
 $cupon=$_GET['cupon'];
@@ -40,8 +41,8 @@ $accept=$cup->acepta_cupon($cupon, $idrevision);
 
 }
 break;
-        case R:
-            if(isset($_GET['coment'])&&isset($_GET['cupon'])&&isset($_GET['revision'])){
+        case 'R':
+            if(isset($_GET['cupon'])&&isset($_GET['revision'])){
    
 $comentario=$_GET['coment'];
 $cupon=$_GET['cupon'];

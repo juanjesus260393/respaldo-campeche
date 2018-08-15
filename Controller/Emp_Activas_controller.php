@@ -22,7 +22,8 @@ $cto_pendientes=new validar_contenido_model();
 
 $_SESSION['nC']=$cto_pendientes->get_num_cupones();
 $_SESSION['nS']=$cto_pendientes->get_num_sitios();
-$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS'];
+$_SESSION['nV']=$cto_pendientes->get_num_videos();
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV'];
 
  if(isset($_POST['desactivar'])){
      $quita=$emp->disabled_emp($_POST['user_disabled']);

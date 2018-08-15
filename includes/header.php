@@ -37,6 +37,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="../Controller/Nuevo_usu_controller.php">Nueva Empresa</a>
                             <a class="dropdown-item" href="../Controller/Emp_Desactivadas_controller.php">Empresas Deshabilitadas</a>
+                            <a class="dropdown-item" href="../Controller/Emp_Activas_controller.php">Empresas Activas</a>
                             <?php
                             if ($_SESSION['username'] == 'juan@gmail.com') {
                                 printf('<a class="dropdown-item" href="../Controller/insertAuthority.php">Agregar Administrador</a>');
@@ -52,7 +53,7 @@
 
                             <a class="dropdown-item" href="../Controller/validarSitios_controller.php">Sitios <span> <?php printf($_SESSION['nS']); ?></span></a>
                             <a class="dropdown-item" href="../Controller/validarCupon_controller.php">Cupones   <span> <?php printf($_SESSION['nC']); ?></span></a>
-                            <a class="dropdown-item" href="">Videos</a>
+                            <a class="dropdown-item" href="../Controller/validarVideo_controller.php">Videos <span> <?php printf($_SESSION['nV']); ?></span></a>
 
                         </div>
                     </li>

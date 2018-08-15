@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
@@ -12,12 +13,11 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 else if($_SESSION['loggedin']==TRUE && $_SESSION['tipo']=='administrador'){
 //Llamada al modelo
 require_once ("../Model/conexion.php");
-require_once("../Model/Nuevo_usu_model.php");
+require_once("../Model/validarCupon_model.php");
 require_once("../Model/Sendmail.php");
+$cup= new validarCupon_model();
+$cupdatos=$cup->get_cupones();
 
-$Nuevo_usu=new Nuevo_usu_model();
-$sector=$Nuevo_usu->get_sectores();
-$rangos=$Nuevo_usu->get_Rangos();
 
 require_once("../Model/validar_contenido_model.php");
 $cto_pendientes=new validar_contenido_model();
@@ -27,18 +27,43 @@ $_SESSION['nS']=$cto_pendientes->get_num_sitios();
 $_SESSION['nV']=$cto_pendientes->get_num_videos();
 $_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV'];
 
- if(isset($_POST['submit'])){
-   
-   $b=$Nuevo_usu->add_usuario();
-   if($_POST['habilitar']){
-       $c=$Nuevo_usu->habilitando($b);
-       
-   }
-   
- }
 
- //Llamada a la vista
-require_once("../view/Nuevo_usu_view.php");
+
+if(isset($_GET['opc'])){
+    switch($_GET['opc']){
+        case 'A':
+            if(isset($_GET['cupon'])&&isset($_GET['revision'])){
+   
+$cupon=$_GET['cupon'];
+$idrevision=$_GET['revision'];
+
+$accept=$cup->acepta_cupon($cupon, $idrevision);
+
+}
+break;
+        case 'R':
+            if(isset($_GET['coment'])&&isset($_GET['cupon'])&&isset($_GET['revision'])){
+   
+$comentario=$_GET['coment'];
+$cupon=$_GET['cupon'];
+$idrevision=$_GET['revision'];
+
+$noaccept=$cup->rechaza_cupon($cupon,$comentario, $idrevision);
+            
+            break;
+    }
+}}
+function aux($auxcup) {
+    $cup= new validarCupon_model();
+$infocupdato=$cup->get_info($auxcup);
+
+return $infocupdato;
+}
+ 
+
+
+//Llamada a la vista
+require_once("../view/validarCupon_view.php");
 }
 else{
     unset($_SESSION);

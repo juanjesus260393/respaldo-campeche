@@ -91,7 +91,7 @@ class validarSitios_model{
             
             $insertcomnt=$this->db->query($sqlinsertcoment); 
         if($insertcomnt){
-            sendmailComentario($_SESSION['username'], $coment, 'C');
+            sendmailComentario($_SESSION['username'], $coment, 'S');
         echo ("<script> alert('Cupon Rechazado'); location.href ='../Controller/validarSitios_controller.php';</script>");}
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
         

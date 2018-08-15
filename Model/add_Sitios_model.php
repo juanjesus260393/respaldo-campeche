@@ -18,7 +18,7 @@ class add_Sitios_model {
 
     public function get_municipios() {
 
-        $sqlconsulta = ("SELECT m.id, m.nombre FROM municipios m WHERE 1");
+        $sqlconsulta = ("SELECT m.id_municipio, m.nombre FROM municipio m WHERE 1");
 
         $resultado = $this->db->query($sqlconsulta);
         while ($filas = $resultado->fetch_row()) {
@@ -55,15 +55,14 @@ class add_Sitios_model {
 
 
         $id_perfil = $_FILES['idperfil']['name']; //input file name in this code is file1
-        $id_logo = $_FILES['idlogo']['name'];
+        
         $id_carta = $_FILES['idcarta']['name'];
 
         //$size = $_FILES['id_perfil']['size'];
 
         $fileInfoPerfil = pathinfo($id_perfil);
         $extPerfil = $fileInfoPerfil['extension'];
-        $fileInfoLogo = pathinfo($id_logo);
-        $extLogo = $fileInfoLogo['extension'];
+        
         $fileInfoCarta = pathinfo($id_carta);
         $extCarta = $fileInfoCarta['extension'];
 
@@ -161,7 +160,7 @@ class add_Sitios_model {
         $hoy = date("Y-m-d H:i:s");
 
 
-        $sqlinsert = ("INSERT INTO sitio (id_sitio, id_empresa, municipios_id , nombre, direccion, telefono1, telefono2, capacidad, horario) VALUES (" . $idunicositio . "," . $_SESSION['idemp'] . "," . $municipios . ",'" . $nombre . "', '" . $dir . "'," . $tel1 . "," . $tel2 . "," . $capacidad . ",'" . $hora . "')");
+        $sqlinsert = ("INSERT INTO sitio (id_sitio, id_empresa, id_municipio , nombre, direccion, telefono1, telefono2, capacidad, horario) VALUES (" . $idunicositio . "," . $_SESSION['idemp'] . "," . $municipios . ",'" . $nombre . "', '" . $dir . "'," . $tel1 . "," . $tel2 . "," . $capacidad . ",'" . $hora . "')");
         $agregado = $this->db->query($sqlinsert);
         if ($agregado) {
             $sqlinsert2 = ("INSERT INTO revision_informacion (id_revision_informacion, id_sitio"

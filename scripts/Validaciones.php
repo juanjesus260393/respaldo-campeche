@@ -36,10 +36,11 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
 		</script>';
             } else if ($_SESSION['tipo'] == "empresa") {
 
+
                 require_once '../view/modals.php';
 
-                require_once ('../view/modals.php');
 
+                require_once ('../view/modals.php');
                 ?>
 
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
@@ -189,13 +190,13 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
 
 // creamos la función
                     public function fecha_actual() {
-                        $año_actual = date("y");
+                        $año_actual = date("Y");
                         $mes_actual = date("m");
                         $dia_actual = date("d");
                         $hora_actual = date("h");
                         $minuto_actual = date("i");
                         $segundo_actual = date("s");
-                        $fecha_actual = $año_actual . "-" . $mes_actual . "-" . $dia_actual . " " . $hora_actual . ":" . $minuto_actual . ":" . $segundo_actual;
+                        $fecha_actual = $año_actual."-".$mes_actual. "-".$dia_actual." ".$hora_actual.":".$minuto_actual.":".$segundo_actual;
 //Se genera el numero aleatorio
                         return $fecha_actual;
                     }

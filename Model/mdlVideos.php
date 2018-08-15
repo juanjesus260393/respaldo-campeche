@@ -55,6 +55,7 @@ class Videos {
             $getID3 = new getID3;
             $file = $getID3->analyze($filename);
             $tiempo_video = $file['playtime_string'];
+            $newcadena = '00:' . $tiempo_video;
             $endtime = gmdate('i:s', strtotime('00:' . $tiempo_video));
             //Una ves que se yha subido se comprueba la resolucion del mismo
             if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
@@ -87,10 +88,10 @@ class Videos {
             $msg = "El archivo ha sido cargado correctamente.<br>";
         }
         $this->visualizaciones = '0.0';
-        $insertrevision = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,status)
-        VALUES('$this->iro'," . $_SESSION['idemp'] . ",'$this->fa','$this->status')";
-        $insertvideo = "INSERT INTO video (id_video,id_revision_objeto,titulo,descripcion,precio,fecha_subida,id_img_preview,id_video_archivo,visualizaciones)
-        VALUES('$this->ivi',$this->iro,' $this->titulo','$this->descripcion','$this->precio','  $this->fa','$nombreimagen','$nombrevideo','$this->visualizaciones')";
+        $insertrevision = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)
+        VALUES('$this->iro'," . $_SESSION['idemp'] . ",'$this->fa','0000-00-00','$this->status')";
+        $insertvideo = "INSERT INTO video (id_video,id_revision_objeto,titulo,descripcion,precio,duracion,fecha_subida,id_img_preview,id_video_archivo,visualizaciones)
+        VALUES('$this->ivi',$this->iro,' $this->titulo','$this->descripcion','$this->precio','$newcadena','$this->fa','$nombreimagen','$nombrevideo','$this->visualizaciones')";
         if (!mysqli_query($this->pd, $insertrevision)) {
             die('Error: ' . mysqli_error($this->pd));
         }
@@ -98,7 +99,7 @@ class Videos {
             die('Error: ' . mysqli_error($this->pd));
         }
         mysqli_close($this->pd);
-        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/crtcVideos.php");
     }
 
     public function eliminar_video() {
@@ -135,7 +136,7 @@ class Videos {
             unlink($ruta . $imagen);
             unlink($ruta2 . $video);
             mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            header("Location:https://localhost/campeche-web2/Controller/crtcVideos.php");
         }
     }
 
@@ -186,8 +187,9 @@ class Videos {
                 $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
                 $getID3 = new getID3;
                 $file = $getID3->analyze($filename);
-                $file = $getID3->analyze($filename);
                 $tiempo_video = $file['playtime_string'];
+                $newcadena = '00:' . $tiempo_video;
+                $endtime = gmdate('i:s', strtotime('00:' . $tiempo_video));
                 //Una ves que se yha subido se comprueba la resolucion del mismo
                 if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
                     //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
@@ -248,12 +250,12 @@ class Videos {
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
-        $actulizacion2 = "update video set titulo = '$titulo', descripcion = '$descripcion', precio = '$precio', id_img_preview = '$nombre' ,id_video_archivo = '$nombrevid' where id_video = " . $id_video . " AND id_revision_objeto = " . $id_revision_objeto . "";
+        $actulizacion2 = "update video set titulo = '$titulo', descripcion = '$descripcion', precio = '$precio', duracion = '$newcadena',id_img_preview = '$nombre' ,id_video_archivo = '$nombrevid' where id_video = " . $id_video . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
-        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/crtcVideos.php");
     }
 
 }

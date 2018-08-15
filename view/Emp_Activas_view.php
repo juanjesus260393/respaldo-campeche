@@ -3,7 +3,6 @@
 
 include '../includes/header.php';
 
-
 ?>
       
                  <table style='border: 1px solid black' align='center'>
