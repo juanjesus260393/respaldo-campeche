@@ -129,14 +129,14 @@ class Videos {
         }
         if ($imagen == "") {
             mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
         } else {//Se elimina la imagen y el video
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
             $ruta2 = "C:/xampp/htdocs/campeche-web2/Videos/";
             unlink($ruta . $imagen);
             unlink($ruta2 . $video);
             mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/crtcVideos.php");
+            header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
         }
     }
 
@@ -148,10 +148,11 @@ class Videos {
         $resultado = mysqli_query($pd, $consulta) or die(mysqli_error());
         $fila = mysqli_fetch_array($resultado);
         if (!$fila[0]) {
-            echo '<script language = javascript>
-	alert("Este video no se puede modificar debibo a que ha sido aprobado")
-           self.location = "https://localhost/campeche-web2/Controller/crtcVideos.php"
-	</script>';
+            echo '<script language = javascript> alert("No es un elemento valido de los videos") </script>';
+            //Regresamos a la pagina anterior
+            echo "<html><head></head>" .
+            "<body onload=\"javascript:history.back()\">" .
+            "</body></html>";
         } else {
             $id_video = $fila['id_video'];
             $id_revision_objeto = $fila['id_revision_objeto'];

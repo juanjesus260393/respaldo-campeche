@@ -8,6 +8,8 @@ class obtener_cupon {
 
     private $platillo;
     private $dbh;
+    private $platillo2;
+    private $platillo3;
 
     public function __construct() {
         $this->dbh = Conectar::con();
@@ -16,7 +18,7 @@ class obtener_cupon {
     public function lista_cupones() {
         $fa = date('Y-m-d');
         //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
-        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " where c.vigencia_fin >= '$fa' group by titulo;";
+        $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " where c.vigencia_fin > '$fa' group by titulo;";
         if (empty($this->dbh->query($sql))) {
             $this->platillo[] = NULL;
         } else {
@@ -33,33 +35,32 @@ class obtener_cupon {
         //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select c.id_cupon, c.id_revision_objeto, c.titulo, c.descripcion_corta, c.descripcion_larga, c.id_imagen_extra, c.id_imagen_vista_previa,c.vigencia_fin, c.terminos_y_condiciones, c.limite_codigos, revision_objeto.status from (cupon c inner join revision_objeto on c.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " where c.vigencia_fin <= '$fa' group by titulo;";
         if (empty($this->dbh->query($sql))) {
-            $this->platillo[] = NULL;
+            $this->platillo2[] = NULL;
         } else {
             foreach ($this->dbh->query($sql) as $res) {
-                $this->platillo[] = $res;
+                $this->platillo2[] = $res;
             }
         }
-
-        return $this->platillo;
+        return $this->platillo2;
     }
 
     public function lista_cupones_caducados() {
         $fa = date('Y-m-d');
         $ftma = strtotime('+5 day', strtotime($fa));
-        $ftma = date('Y-m-d', $ftma);
+        $ftm = date('Y-m-d', $ftma);
         $this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "SELECT c.titulo, c.vigencia_fin FROM cupon c inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto 
 inner join empresa e on r.id_empresa = e.id_empresa inner join usuario_empresa u on e.id_membresia = u.id_empresa where
-c.vigencia_fin = '$ftma' group by c.titulo;";
+c.vigencia_fin = '$ftm' group by c.titulo;";
 
         if (empty($this->dbh->query($sql))) {
-            $this->platillo[] = NULL;
+            $this->platillo3[] = NULL;
         } else {
             foreach ($this->dbh->query($sql) as $res) {
-                $this->platillo[] = $res;
+                $this->platillo3[] = $res;
             }
         }
-        return $this->platillo;
+        return $this->platillo3;
     }
 
     public function obtener_codigos() {
@@ -88,8 +89,8 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
         //Fecha de creacion y hora 
         $fa = $na->fecha_actual();
         $status = 'C';
-        $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,status)
-        VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','$status')";
+        $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)
+        VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','0000-00-00','$status')";
         if (!mysqli_query($pd, $sql)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -127,7 +128,7 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
-        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/crtCupones.php");
     }
 
     public function buscarcodigoqr($idcupon) {
@@ -176,23 +177,23 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
             }
             if ($imagen == "") {
                 mysqli_close($pd);
-                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             } else {
                 //Se elimina la imagen 
                 $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
                 unlink($ruta . $imagen);
                 mysqli_close($pd);
-                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             }
             if ($imagen2 == "") {
                 mysqli_close($pd);
-                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             } else {
                 //Se elimina la imagen 
                 $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
                 unlink($ruta2 . $imagen2);
                 mysqli_close($pd);
-                header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             }
         } else {
             echo '<script language = javascript> alert("Este cupon ya tiene codigos Qr generados, no se puede eliminar") </script>';
@@ -300,7 +301,7 @@ c.vigencia_fin = '$ftma' group by c.titulo;";
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
-        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/crtCupones.php");
     }
 
 }

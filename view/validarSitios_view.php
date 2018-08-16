@@ -50,7 +50,7 @@ include '../includes/header.php';
                      data-21='<?php printf($cupdato[21]); ?>' data-22='<?php printf($cupdato[22]); ?>' data-23='<?php printf($cupdato[23]); ?>'>
 
                     <?php
-                    printf("<td align='center'><img src='../Imagenes/Sitios/logo/" . $cupdato[0] . "' alt='" . $cupdato[0] . " imagen no disponible' height='80' width='60' ></td>");
+                    printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . "' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
 
                     printf("<td height='80' align='center'>%s", $cupdato[2]);
                     printf("</td>");
@@ -78,7 +78,7 @@ include '../includes/header.php';
 
 
             <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                <div class="modal-dialog2" role="document">
+                <div class="modal1-dialog2" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Sitio</h5>
@@ -131,11 +131,7 @@ include '../includes/header.php';
                                                 <label>Imagen Perfil:</label><br>
                                                 <img id="idperfil" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
 
-                                            </div>
-                                            <div class="col-2">
-                                                <label>Logo:</label><br>
-                                                <img id="idlogo" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
-                                            </div>
+                                            </div> 
                                             <div class="col-2">
                                                 <label>Carta:</label><br>
                                                 <input class="btn" type="button" data-toggle='modal' id='carta' data-target='#modalPDF' data-14='<?php printf($cupdato[14]); ?>'>
@@ -146,20 +142,20 @@ include '../includes/header.php';
                                             <label class="col-2">Descripcion Corta ESPAÑOL:</label>
                                             <input class="col-4" type="text" id="descripcion_cortaES"  size="25" name="descripcion_corta"  readonly>
                                             <label class="col-2" >Descripcion Larga ESPAÑOL:</label>
-                                            <textarea class="col-4" id="descripcion_largaES" name="descripcion_larga" rows="7" cols="78"  readonly></textarea>
+                                            <textarea class="col-4" id="descripcion_largaES" name="descripcion_larga" rows="5" cols="78"  readonly></textarea>
                                         </div>
 
                                         <div class="row">
                                             <label class="col-2">Descripcion Corta INGLES:</label>
                                             <input class="col-4" type="text" id="descripcion_cortaEN"  size="25" name="descripcion_corta"  readonly>
                                             <label class="col-2" >Descripcion Larga INGLES:</label>
-                                            <textarea class="col-4" id="descripcion_largaEN" name="descripcion_larga" rows="7" cols="78"  readonly></textarea>
+                                            <textarea class="col-4" id="descripcion_largaEN" name="descripcion_larga" rows="5" cols="78"  readonly></textarea>
                                         </div>
                                         <div class="row">
                                             <label class="col-2">Descripcion Corta FRANCES:</label>
                                             <input class="col-4" type="text" id="descripcion_cortaFR"  size="25" name="descripcion_corta"  readonly>
                                             <label class="col-2" >Descripcion Larga FRANCES:</label>
-                                            <textarea class="col-4" id="descripcion_largaFR" name="descripcion_larga" rows="7" cols="78"   readonly></textarea>
+                                            <textarea class="col-4" id="descripcion_largaFR" name="descripcion_larga" rows="5" cols="78"   readonly></textarea>
                                         </div>
 
 
@@ -304,7 +300,7 @@ include '../includes/header.php';
                                                     document.getElementById('tel1').value = dat8;
                                                     document.getElementById('tel2').value = dat9;
                                                     document.getElementById('dir').value = dat3;
-                                                    document.getElementById('idlogo').src = "../Imagenes/Sitios/logo/" + dat0;
+                                                 
                                                     document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13;
                                                     document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14;
                                                     document.getElementById('carta').value = dat14;
@@ -320,7 +316,7 @@ include '../includes/header.php';
 
                                                     document.getElementById('descripcion_largaEN').value = dat19;
                                                     document.getElementById('descripcion_largaES').value = dat21;
-                                                    document.getElementById('descripcion_largaFR').value = dat22;
+                                                    document.getElementById('descripcion_largaFR').value = dat23;
 
 
                                                     marker.setPosition(posi);

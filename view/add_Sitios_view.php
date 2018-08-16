@@ -127,10 +127,7 @@
                                 <label>Imagen Perfil:</label><br>
                                 <input type="file" id="idperfil" accept=".jpg" name="idperfil">
                             </div>
-                            <div>
-                                <label>Logo:</label><br>
-                                <input type="file" id="idlogo" accept=".jpg" name="idlogo">
-                            </div>
+                            
                             <div>
                                 <label>Carta:</label><br>
                                 <input type="file" id="idcarta" accept=".pdf" name="idcarta">

@@ -1,84 +1,51 @@
 <?php
 
-class validarCupon_model{
+class validarFlyers_model{
     private $db;
-    private $cupones;
-     private $icupon;
+    private $flyers;
+
  
     public function __construct(){
         $this->db=Conectar::con();
-        $this->cupones=array();
-        $this->icupon=array();
+        $this->flyers=array();
+        
     }
-    public function get_cupones(){
+    public function get_Flyers(){
         
-        $selectCupones = ("SELECT C.id_cupon, C.id_revision_objeto, C.titulo, C.descripcion_corta, C.descripcion_larga, "
-                . "C.id_imagen_vista_previa, C.id_imagen_extra, DATE(C.vigencia_inicio), DATE(C.vigencia_fin), "
-                . "C.terminos_y_condiciones, C.limite_codigos , rO.status FROM cupon C "
-                . "INNER JOIN revision_objeto rO ON C.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='P' ");
+        $selectFlyers = ("SELECT Ad.tipo, Ad.id_img, E.nombre, Ad.id_ad, rO.id_revision_objeto FROM ad Ad INNER JOIN revision_objeto rO ON Ad.id_revision_objeto=rO.id_revision_objeto INNER JOIN empresa E ON rO.id_empresa=E.id_empresa WHERE rO.status='C' OR rO.status='P'" );
         
-        $rescup=$this->db->query($selectCupones);
-        
-
+        $resFly=$this->db->query($selectFlyers);
        
-        while($filas=$rescup->fetch_row()){
-            $this->cupones[]=$filas;
-            
+        while($filas=$resFly->fetch_row()){
+            $this->flyers[]=$filas; 
         }
         
-        $rescup->close();
+        $resFly->close();
        // $this->db->close();
         
-        return $this->cupones;
+        return $this->flyers;
  
     }
     
-        public function get_info($idcup){
-            
-            
-        $infoCupon = ("SELECT C.id_cupon, C.id_revision_objeto, C.titulo, C.descripcion_corta, C.descripcion_larga, "
-                . "C.id_imagen_vista_previa, C.id_imagen_extra, DATE(C.vigencia_inicio), DATE(C.vigencia_fin), "
-                . "C.terminos_y_condiciones, C.limite_codigos FROM cupon C "
-                . "WHERE C.id_cupon=".$idcup."");
-        
-        $irescup=$this->db->query($infoCupon);
-        
-
-       
-        while($filas2=$irescup->fetch_row()){
-            $this->icupon[]=$filas2;
-            
-        }
-        
-        $irescup->close();
-       // $this->db->close();
-        
-        return $this->icupon;
- 
-    }
-    
-    
- 
-    
-    public function acepta_cupon($cupon, $revision) {
+   public function acepta_FoB($FoB, $coment) {
          date_default_timezone_set('America/Mexico_City');
 
         $hoy = date("Y-m-d H:i:s");
         
-        if(isset($revision)){
-        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'A' , Ro.fecha_actualizacion='".$hoy."' WHERE C.id_cupon='".$cupon."'");
+        if(isset($FoB)){
+        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN ad C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'A' , Ro.fecha_actualizacion='".$hoy."' WHERE C.id_ad='".$FoB."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
 
-                 echo ("<script> alert('Cupon Aceptado'); location.href ='../Controller/validarCupon_controller.php';</script>");
+                 echo ("<script> alert('Cupon Aceptado'); location.href ='../Controller/validarFlyers_controller.php';</script>");
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
         
     }
     
-     public function rechaza_cupon($cupon, $coment, $revision) {
+     public function rechaza_FoB($FoB, $coment, $revision) {
         
-        if(isset($revision)){
-        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'P' WHERE C.id_cupon='".$cupon."'");
+        if(isset($FoB)){
+        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN ad C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'P' WHERE C.id:='".$FoB."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
             

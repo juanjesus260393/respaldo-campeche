@@ -84,7 +84,7 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
-                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
+                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Video</a>
 
                                 </div>
                             </li>
@@ -420,10 +420,6 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                             echo '<script language = javascript>
 	alert("No tienes contenido registrado.")
     	</script>';
-                            echo "<html><head></head>" .
-                            "<body onload=\"javascript:history.back()\">" .
-                            "</body></html>";
-                            exit;
                         } else {
                             return $parametro;
                         }

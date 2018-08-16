@@ -57,7 +57,7 @@
                                                 </a>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
-                                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
+                                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Video</a>
 
                                                 </div>
                              </li>

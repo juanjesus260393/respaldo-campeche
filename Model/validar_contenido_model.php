@@ -42,6 +42,17 @@ class validar_contenido_model{
         return $videosPendientes;
  
 }
+
+ public function get_num_FoB(){        
+        $selectCupon = ("SELECT A.id_ad FROM ad A INNER JOIN revision_objeto rO ON A.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='P' ");
+        
+        $res=$this->db->query($selectCupon);
+        $FoBPendientes=$res->num_rows;
+        
+        
+        return $FoBPendientes;
+ 
+}
    
     }
     

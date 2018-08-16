@@ -48,7 +48,7 @@ class add_Sitios_model {
         $descLargaES = htmlspecialchars($_POST['descripcion_larga']);
 
         $pathperfil = "../Imagenes/Sitios/img/";
-        $pathlogo = "../Imagenes/Sitios/logo/";
+        
         $pathcarta = "../Imagenes/Sitios/carta/";
         $valid_formatsimg = array("jpg"); //extensiones permitidas para imagenes
         $valid_formatscarta = array("pdf"); //extensiones permitidas para cartas
@@ -86,25 +86,7 @@ class add_Sitios_model {
             }
         }
 
-        if (in_array($extLogo, $valid_formatsimg)) {
-
-            $actual_logo_name = 0;
-
-            $aux = $id_logo . uniqid();
-            $a = str_split($aux);
-
-            $i = 0;
-            for ($i; $i < count($a); $i++) {
-                $actual_logo_name += ord($a[$i]);
-            }
-            $tmp2 = $_FILES['idlogo']['tmp_name'];
-
-            if (move_uploaded_file($tmp2, $pathlogo . $actual_logo_name . "." . $extLogo)) {
-                
-            } else {
-                echo "failed Logo";
-            }
-        }
+      
 
         if (in_array($extCarta, $valid_formatscarta)) {
 
@@ -164,8 +146,8 @@ class add_Sitios_model {
         $agregado = $this->db->query($sqlinsert);
         if ($agregado) {
             $sqlinsert2 = ("INSERT INTO revision_informacion (id_revision_informacion, id_sitio"
-                    . ", fecha_creacion, status, url_sitio_web, id_imagen_perfil, id_logo, id_carta, ubicacionGIS) VALUES"
-                    . "(" . $idunicoRev . "," . $idunicositio . ",'" . $hoy . "','C','" . $url . "','" . $actual_image_name . ".jpg','" . $actual_logo_name . ".jpg','" . $actual_carta_name . ".pdf'"
+                    . ", fecha_creacion, status, url_sitio_web, id_imagen_perfil, id_carta, ubicacionGIS) VALUES"
+                    . "(" . $idunicoRev . "," . $idunicositio . ",'" . $hoy . "','C','" . $url . "','" . $actual_image_name . ".jpg','" . $actual_carta_name . ".pdf'"
                     . "," . $point . ")");
             $revagregada = $this->db->query($sqlinsert2);
             if ($revagregada) {

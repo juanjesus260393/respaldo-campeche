@@ -4,14 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlTurista.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlCupones.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/VideosTurista.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Controller/video.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Controller/CrtVideoT.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Controller/image_preview.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlVideos.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Controller/add_Sitios_controller.php</file>
             <file>file:/C:/xampp/htdocs/campeche-web2/Controller/insertAuthority.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/view/Addvideo.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/view/add_Sitios_view.php</file>
         </group>
     </open-files>
 </project-private>

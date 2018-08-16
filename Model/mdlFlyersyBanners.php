@@ -31,8 +31,8 @@ class FlyeryBanner {
         $iie = $na->generar_alfanumerico();
         $fa = $na->fecha_actual();
         $status = 'C';
-        $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,status)
-        VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','$status')";
+        $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_actualizacion,fecha_creacion,status)
+        VALUES('$idro'," . $_SESSION['idemp'] . ",'0000-00-00','$fa','$status')";
         if (!mysqli_query($pd, $sql)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -54,7 +54,7 @@ class FlyeryBanner {
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
-        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/crtcFlyers.php");
     }
 
     public function eliminar_publicidad() {
@@ -83,13 +83,13 @@ class FlyeryBanner {
         }
         if ($imagen == "") {
             mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
         } else {
             //Se elimina la imagen 
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
             unlink($ruta . $imagen);
             mysqli_close($pd);
-            header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+            header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
         }
     }
 
@@ -158,7 +158,7 @@ class FlyeryBanner {
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
-        header("Location:https://localhost/campeche-web2/Controller/ControladorSitios.php");
+        header("Location:https://localhost/campeche-web2/Controller/crtcFlyers.php");
     }
 
 }

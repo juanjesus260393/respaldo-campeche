@@ -54,6 +54,7 @@
                             <a class="dropdown-item" href="../Controller/validarSitios_controller.php">Sitios <span> <?php printf($_SESSION['nS']); ?></span></a>
                             <a class="dropdown-item" href="../Controller/validarCupon_controller.php">Cupones   <span> <?php printf($_SESSION['nC']); ?></span></a>
                             <a class="dropdown-item" href="../Controller/validarVideo_controller.php">Videos <span> <?php printf($_SESSION['nV']); ?></span></a>
+                            <a class="dropdown-item" href="../Controller/validarFlyers_controller.php">Flyers & Banners <span><?php printf($_SESSION['nF']); ?></span></a>
 
                         </div>
                     </li>

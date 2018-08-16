@@ -24,7 +24,8 @@ $cto_pendientes=new validar_contenido_model();
 $_SESSION['nC']=$cto_pendientes->get_num_cupones();
 $_SESSION['nS']=$cto_pendientes->get_num_sitios();
 $_SESSION['nV']=$cto_pendientes->get_num_videos();
-$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV'];
+$_SESSION['nF']=$cto_pendientes->get_num_FoB();
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV']+$_SESSION['nF'];
 
  if(isset($_POST['activar'])){
      $pon=$emp->able_emp($_POST['user_able']);

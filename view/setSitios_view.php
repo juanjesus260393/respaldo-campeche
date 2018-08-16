@@ -96,7 +96,7 @@
         <table style='border: 3px solid black' align='center'>
 
             <tr align='center'>
-                <th width='120' align='center'>Logo</th>
+                <th width='120' align='center'>Imagen</th>
                 <th width='220' align='center'>Nombre</th>
                 <th width='500' align='center'>Direccion</th>
                 <th width='500' align='center'>Status</th>
@@ -120,7 +120,7 @@
                      data-18='<?php printf($cupdato[18]); ?>'>
 
                     <?php
-                    printf("<td align='center'><img src='../Imagenes/Sitios/logo/" . $cupdato[0] . "' alt='" . $cupdato[0] . " imagen no disponible' height='80' width='60' ></td>");
+                    printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . "' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
 
                     printf("<td height='80' align='center'>%s", $cupdato[2]);
                     printf("</td>");
@@ -147,8 +147,8 @@
                 ?>
 
 
-            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog2" role="document">
+            <div class="modal modal1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal1-dialog2" role="document">
                     <div class="modal-content">
                         <form  enctype="multipart/form-data" action="../Controller/setSitios_controller.php" method="post">
                             <div class="modal-header">
@@ -157,7 +157,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal1-body">
 
                                 <div class="container-fluid">
 
@@ -219,23 +219,7 @@
                                                                height: 100%;">
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
-                                                    <label>Logo:</label><br>
-                                                    <img id="idlogo" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
-                                                    <input type="hidden" id="idlogoaux" name="idlogoaux">
-                                                    <div class="choose_file">
-                                                        <button type="button" class="btn btn-outline-dark" style="width: 125px;">Cambia Logo</button>
-                                                        <input type="file" id="idlogoSet" name="idlogoSet" accept=".jpg"   name="idlogoSet" onchange="openFile1(event)"
-                                                               style="-webkit-appearance:none;     
-                                                               position:absolute;
-                                                               top:0;
-                                                               left:0;
-                                                               opacity:0;
-                                                               width: 100%;
-                                                               height: 100%;">
-                                                    </div>
-
-                                                </div>
+                                                
                                                 <div class="col-2">
                                                     <label>Carta:</label><br>
                                                     <input class="btn" type="button" data-toggle='modal' id='carta' name="carta" data-target='#modalPDF' data-14='<?php printf($cupdato[14]); ?>'>
@@ -397,9 +381,7 @@
 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="aprobar">Aprobar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="rechazar">Rechazar</button>
+                                   
                                 </div>
 
 
@@ -473,12 +455,12 @@
                                                     document.getElementById('tel2').value = dat9;
                                                     document.getElementById('dir').value = dat3;
 
-                                                    document.getElementById('idlogo').src = "../Imagenes/Sitios/logo/" + dat0;
+                                                 
                                                     document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13;
                                                     document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14;
 
                                                     document.getElementById('idperfilaux').value = dat13;
-                                                    document.getElementById('idlogoaux').value = dat0;
+                                                  
                                                     document.getElementById('idcartaaux').value = dat14;
                                                     document.getElementById('carta').value = dat14;
                                                     document.getElementById('capacidad').value = dat10;
@@ -523,18 +505,7 @@
                                                 });
 
 
-                                                var openFile1 = function (event) {
-                                                    var input = event.target;
-
-                                                    var reader = new FileReader();
-                                                    reader.onload = function () {
-                                                        var dataURL = reader.result;
-                                                        var output = document.getElementById('idlogo');
-                                                        output.src = dataURL;
-                                                        
-                                                    };
-                                                    reader.readAsDataURL(input.files[0]);
-                                                };
+                                            
                                                 var openFile2 = function (event) {
                                                     var input = event.target;
 

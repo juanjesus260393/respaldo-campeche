@@ -5,8 +5,8 @@ include '../includes/header2.php';
 
 
 ?>
-     
-    <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>   
+     <?php list($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $id_imagen_vista_previa, $terminos_y_condiciones, $limite_codigos) = $secupon ?>
+    <center><h2>Llenar los campos que contienen un * al inicio</h2></center>   
 
     <center><h1>Actualizar Cupon</h1></center>
     <center><form method="post" action="../Controller/crtacCupon.php" name="form1" enctype="multipart/form-data">

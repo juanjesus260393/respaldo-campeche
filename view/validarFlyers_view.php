@@ -10,46 +10,34 @@ include '../includes/header.php';
  <table style='border: 1px solid black' align='center'>
 
             <tr align='center'>
-                <th width='120' align='center'>Titulo</th>
-                <th width='220' align='center'>Descripcion corta</th>
+                <th width='120' align='center'>Empresa</th>
+                <th width='220' align='center'>Tipo</th>
                 <th width='500' align='center'>Imagen</th>
-              <th width='500' align='center'>Status</th>
-                <th width='220' align='center'>Fecha Inicio</th>
-                <th width='220' align='center'>Fecha vigencia</th>
-
+              
             </tr>
 
 
             <?php
-            foreach ($cupdatos as $cupdato) {
+            foreach ($flyBan as $flyersBan) {
                 ?>
 
-                <tr class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' data-whatever='<?php printf($cupdato[0]); ?>'
-                    data-0='<?php printf($cupdato[0]); ?>' data-1='<?php printf($cupdato[1]); ?>' data-2='<?php printf('%s',$cupdato[2]); ?>' data-3='<?php printf('%s',$cupdato[3]); ?>'
-                    data-4='<?php printf($cupdato[4]); ?>' data-5='<?php printf($cupdato[5]); ?>' data-6='<?php printf($cupdato[6]); ?>' data-7='<?php printf($cupdato[7]); ?>' 
-                    data-8='<?php printf($cupdato[8]); ?>' data-9='<?php printf($cupdato[9]); ?>' data-10='<?php printf($cupdato[10]); ?>'>
+                <tr class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' 
+                    data-0='<?php printf($flyersBan[0]); ?>' data-1='<?php printf($flyersBan[1]); ?>' data-2='<?php printf($flyersBan[1]); ?>' 
+                     data-3='<?php printf($flyersBan[3]); ?>' data-4='<?php printf($flyersBan[4]); ?>'>
 
                     <?php
-                         printf("<td height='80' align='center'>%s", $cupdato[2]);
+                         printf("<td height='80' align='center'>%s", $flyersBan[2]);
                     printf("</td>");
-                        
-                      printf("<td height='80' align='center'>%s", $cupdato[3]);
-                    printf("</td>");
-                    
-                    printf("<td align='center'><img src='../Imagenes/Cupones/VistaPrevia/" . $cupdato[5] . "' alt='" . $cupdato[5] . " imagen no disponible' height='80' width='60' ></td>");
-                        
-                    if($cupdato[11]=='C'){
+                     if($flyersBan[0]=='F'){
   
-                        printf("<td height='80' align='center'>Sin Revisar </td>");
-                    }else if($cupdato[11]=='P'){
-                        printf("<td height='80' align='center' style='color: red ;'>Pendiente de corrección </td>");
+                        printf("<td height='80' align='center' style='color: blue ;'>Flyer</td>");
+                    }else if($flyersBan[0]=='B'){
+                        printf("<td height='80' align='center' style='color: red ;'> Banner</td>");
                         
                     }
-               
                     
-                    printf("<td height='80' align='center'>". $cupdato[7]);
-                    printf("</td>");
-                    printf("<td height='80' align='center'>" . $cupdato[8] . "</td>");
+                    printf("<td style='cursor: pointer;' align='center'><img src='../Imagenes/galleria2.png' alt='" . $flyersBan[1] . " imagen no disponible' height='100' width='100' ></td>");
+
                     printf("</tr>");
                 }
                 printf("</table>");
@@ -71,47 +59,16 @@ include '../includes/header.php';
                                     <div class="row no-gutters">
                                         <div class="col-7 ">
                                             <div class='row no-gutters' ><span> 
-                                                <label>Titulo del Cupon:</label>                    
+                                                <label>Empresa :</label>                    
                                                 <input type="text" id="titulo" name="titulo" placeholder="Titulo del Cupon" readonly> 
                                                 </span></div>
-                                            <div class="row">
-                                                <label class="col-3" for="descripcion_larga">Descripcion Larga:</label><span>
-                                                <textarea  id="descripcion_larga" name="descripcion_larga" rows="10" cols="40"  maxlength="490"  readonly></textarea>
-                                                </span></div> 
-                                            <div class="row">
-                                                <label class="col-3" for="descripcion_larga">Terminos y Condiciones</label>
-                                                <textarea  id="terminos_y_condiciones" name="terminos_y_condiciones" rows="10" cols="40"  maxlength="490"  readonly></textarea>
-                                            </div> </div>
-
-                                        <div class="col-5 ">
+                                          
                                             <div class="row"><span>
-                                                    <label class="col-4">Descripcion Corta:</label>
-                                                    <input type="text" id="descripcion_corta" name="descripcion_corta" size="22" readonly>
-                                                </span></div>
-
-
-
-                                            <div class="row"><span>
-                                                    <label class="col-4">Vigencia fin:</label>
-                                                    <input  type="text" id="vigencia_fin"  name="vigencia_fin" size="23" readonly>
-                                                </span></div>
-                                            <div class="row"><span>
-                                                    <label class="col-4">Vigencia inicio:</label>
-                                                    <input  type="text" id="vigencia_inicio"  name="vigencia_inicio" size="22" readonly>
-                                                </span></div>
-                                            <div class="row"><span>
-                                                    <label class="col-4">Limite de cupones:</label>
-                                                    <input id="limite_codigos" name="limite_codigos" size="22" readonly>
-                                                </span></div>
-                                            <div class="row"><span>
-                                                    <label class="col-4">Imagen Vista Previa:</label><span>
-                                                        <img id='ImgVp' style="width: 190px; height: auto;"></span>
+                                                    <label class="col-4">Imagen</label><span>
+                                                        <img id='ImgFB' style="width: 600px; height: auto;"></span>
                                                 </span></div>
                                             <br>
-                                            <div class="row"><span>
-                                                    <label class="col-4">Imagen Del Cupon:</label><span>
-                                                        <img id='ImgC' style="width: 190px; height: auto;" ></span>
-                                                </span></div>
+                                            
                                         </div></div>
                                     <div class="form-group">
                                         <label for="messagetext" class="col-form-label">Comentario de Rechazo</label>
@@ -137,42 +94,30 @@ include '../includes/header.php';
                     var dat2 = button.data('2');
                     var dat3 = button.data('3');
                     var dat4 = button.data('4');
-                    var dat5 = button.data('5');
-                    var dat6 = button.data('6');
-                    var dat7 = button.data('7');
-                    var dat8 = button.data('8');
-                    var dat9 = button.data('9');
-                    var dat10 = button.data('10');
                     // Extract info from data-* attributes
                     document.getElementById('titulo').value = dat2;
-                    document.getElementById('descripcion_corta').value = dat3;
-                    document.getElementById('descripcion_larga').value = dat4;
-                    document.getElementById('vigencia_inicio').value = dat7;
-                    document.getElementById('vigencia_fin').value = dat8;
-                    document.getElementById('limite_codigos').value = dat10;
-                    document.getElementById('ImgVp').src = "../Imagenes/Cupones/VistaPrevia/" + dat5;
-                    document.getElementById('ImgC').src = "../Imagenes/Cupones/" + dat6;
-                    document.getElementById('terminos_y_condiciones').value = dat9;
-
-
-
-
+                    document.getElementById('ImgFB').src = "../Imagenes/Publicidad/" + dat1;
 
                     $('#aprobar').click(function () {
                         var msgtxt = document.getElementById('messagetext').value;
-                        document.location.href = "../Controller/validarCupon_controller.php?opc=A&cupon=" + dat0 +"&revision=" + dat1;
+                        document.location.href = "../Controller/validarFlyers_controller.php?opc=A&FoB=" + dat3 + "&coment=" + msgtxt;
 
                     });
                      $('#rechazar').click(function () {
                         var msgtxt = document.getElementById('messagetext').value;
-                        document.location.href = "../Controller/validarCupon_controller.php?opc=R&cupon=" + dat0 + "&coment=" + msgtxt + "&revision=" + dat1;
+                        document.location.href = "../Controller/validarFlyers_controller.php?opc=R&FoB=" + dat3 + "&coment=" + msgtxt+"&revision="+dat4;
 
                     });
 
 // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
                     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
                     var modal = $(this);
-                    modal.find('.modal-title').text('Cupon  ' + recipient);
+                    if(dat0==='F'){
+                    modal.find('.modal-title').text('Flayer');}
+                else if(dat0==='B'){
+                    modal.find('.modal-title').text('Banner');}
+                
+                
                     //modal.find('.modal-body input').val(recipient);
                 });
             </script>
