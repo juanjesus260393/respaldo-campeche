@@ -110,7 +110,7 @@ Class Turista extends model {
     public static function defineUser($user) {
         $conn = new Conectar();
         $pd = $conn->con();
-        $consultatoken = "SELECT u.username from users u  where u.username = '" . $user . "'";
+        $consultatoken = "SELECT u.username from turista u  where u.username = '" . $user . "'";
         $resultadoconsultatoken = mysqli_query($pd, $consultatoken) or die(mysqli_error());
         $fila1 = mysqli_fetch_array($resultadoconsultatoken);
         //Si el nombre de usuario no existe en la tabla authorities

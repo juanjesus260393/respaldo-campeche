@@ -16,7 +16,7 @@
 
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
             <a class="navbar-brand" href="">Administrador</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
                 <span class="navbar-toggler-icon"></span>
@@ -70,7 +70,7 @@
             $sqlinsert1 = ("INSERT INTO users (username, password, enabled) VALUES ('" . $email . "','" . $pass . "', 1)");
             $agregado = $db->query($sqlinsert1);
 
-            echo $sqlinsert2 = ("INSERT INTO authorities (username, authority) VALUES ('" . $email . "','" . $nombre . "')");
+            $sqlinsert2 = ("INSERT INTO authorities (username, authority) VALUES ('" . $email . "','" . $nombre . "')");
             $agregado2 = $db->query($sqlinsert2);
               die('Error: ' . mysqli_error($db));
         }
