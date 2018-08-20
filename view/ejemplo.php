@@ -1,61 +1,29 @@
 <?php 
-require_once '../includes/header.php';
+
+	require_once '../includes/header.php';
+
 ?>
 
+	
+
         
+	<table style='border: 1px solid black' align='center'>
 
-
-
-
-        <table style='border: 1px solid black' align='center'>
-
-            <tr align='center'>
-                <th width='120' align='center'>Titulo</th>
-                <th width='220' align='center'>Descripcion</th>
-               
-              <th width='500' align='center'>Imagen Previa</th>
-                <th width='220' align='center'>Status</th>
-                 <th width='500' align='center'>Precio</th>
+        	<tr align='center'>
+                	<th width='120' align='center'>Titulo</th>
+	                <th width='220' align='center'>Descripcion</th>       
+              		<th width='500' align='center'>Imagen Previa</th>
+                	<th width='220' align='center'>Status</th>
+                 	<th width='500' align='center'>Precio</th>
                   </tr>
+	</table>
+
+		<button class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal'>
+			Ejemplo
+		</button>
 
 
-            <?php
-            foreach ($viddatos as $cupdato) {
-                ?>
-
-                <tr class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' data-whatever='<?php printf($cupdato[0]); ?>'
-                    data-0='<?php printf($cupdato[0]); ?>' data-1='<?php printf($cupdato[1]); ?>' data-2='<?php printf('%s',$cupdato[2]); ?>' data-3='<?php printf('%s',$cupdato[3]); ?>'
-                    data-4='<?php printf($cupdato[4]); ?>' data-5='<?php printf($cupdato[5]); ?>' data-6='<?php printf($cupdato[6]); ?>' data-7='<?php printf($cupdato[7]); ?>' 
-                    data-8='<?php printf($cupdato[8]); ?>' data-9='<?php printf($cupdato[9]); ?>' data-10='<?php printf($cupdato[10]); ?>' data-11='<?php printf($cupdato[11]); ?>'>
-
-                    <?php
-                         printf("<td height='80' align='center'>%s", $cupdato[1]);
-                    printf("</td>");
-                        
-                      printf("<td height='80' align='center'>%s", $cupdato[2]);
-                    printf("</td>");
-                    
-                    printf("<td align='center'><img src='../Imagenes/Videos/" . $cupdato[5] . "' alt='" . $cupdato[5] . " imagen no disponible' height='80' width='60' ></td>");
-                        
-                    if($cupdato[10]=='C'){
-  
-                        printf("<td height='80' align='center'>Sin Revisar </td>");
-                    }else if($cupdato[10]=='P'){
-                        printf("<td height='80' align='center' style='color: red ;'>Pendiente de corrección </td>");
-                        
-                    }
-               
-                    
-                    printf("<td height='80' align='center'>". $cupdato[3]);
-                    printf("</td>");
- 
-                    printf("</tr>");
-                }
-                printf("</table>");
-                ?>
-
-
-            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -109,8 +77,17 @@ require_once '../includes/header.php';
                         </div>
                     </div>
                 </div>
-            </div>            
-                        <br>
-           <?php 
+            </div>
+
+
+
+
+
+
+
+
+<?php 
+
        require_once '../includes/footer.php';
-           ?>
+
+?>
