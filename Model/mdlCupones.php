@@ -3,6 +3,7 @@
 //se incluye la conexion a la base de datos
 require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
+include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 
 class obtener_cupon {
 
@@ -103,7 +104,21 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
         $nombreimagen = $_FILES['id_imagen_extra']['name'];
         $nombreimagen = $iie . ".jpg";
         if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen")) {
-            $msg = "El archivo ha sido cargado correctamente.<br>";
+            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                unlink($ruta . $nombreimagen);
+                echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
         } else {
             $nombreimagen = "";
         }
@@ -111,7 +126,21 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
         $nombreimagen2 = $_FILES['id_imagen_vista_previa']['name'];
         $nombreimagen2 = $iive . ".jpg";
         if (move_uploaded_file($_FILES['id_imagen_vista_previa']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen2")) {
-            $msg = "El archivo ha sido cargado correctamente.<br>";
+            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen2";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                unlink($ruta . $nombreimagen2);
+                echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
         } else {
             $nombreimagen2 = "";
         }

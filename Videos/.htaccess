@@ -1,0 +1,20 @@
+DirectoryIndex index.php index.cgi index.html
+ErrorDocument 401 "Unauthorized"
+ErrorDocument 403 "Forbidden"
+RewriteEngine On
+
+RewriteRule ^auth(.*)$ campeche/entities/ws_auth.php [NC,L,QSA]    # Process auth request
+RewriteRule ^vod/image_preview/(.+)$ campeche/video/image_preview.php?id=$1 [NC,L,QSA]    # Process image preview request
+RewriteRule ^vod/(.+)$ campeche/video/video.php?id=$1 [NC,L,QSA]    # Process video request
+RewriteRule ^vod$ campeche/entities/ws_video.php [NC,L,QSA]    # Process videos request
+RewriteRule ^places/logo/(.+)$ campeche/entities/ws_logo.php?id=$1 [NC,L,QSA]    # Process logo request
+RewriteRule ^places/profile/(.+)$ campeche/entities/ws_profile.php?id=$1 [NC,L,QSA]    # Process profile image request
+RewriteRule ^places/menu/(.+)$ campeche/entities/ws_menu.php?id=$1 [NC,L,QSA]    # Process menu request
+RewriteRule ^ads$ campeche/entities/ws_ads.php [NC,L,QSA]    # Process advertising request
+RewriteRule ^sitios$ campeche/test/sitios/index.php [NC,L,QSA]    # Process places request
+RewriteRule ^sectors$ campeche/entities/ws_sectors.php [NC,L,QSA]    # Process sectors request
+RewriteRule ^places$ campeche/entities/ws_places.php [NC,L,QSA]    # Process places request
+RewriteRule ^places/(.+)$ campeche/entities/ws_places.php?id=$1 [NC,L,QSA]    # Process places request
+RewriteRule ^coupons$ campeche/entities/ws_coupons.php [NC,L,QSA]    # Process coupons request
+RewriteRule ^coupons/preview/(.+)$ campeche/entities/ws_coupon_preview.php?id=$1 [NC,L,QSA]  # Process coupon preview image request
+RewriteRule ^coupons/extra/(.+)$ campeche/entities/ws_coupon_extra.php?id=$1 [NC,L,QSA]  # Process coupon extra image request

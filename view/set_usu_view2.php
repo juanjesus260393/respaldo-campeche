@@ -13,7 +13,7 @@ include '../includes/header.php';
             foreach ($datos as $info) {
 
 
-                printf('  <form  action="../Controller/Set_usu_controller2.php" method="post">');
+                printf('  <form enctype="multipart/form-data" action="../Controller/Set_usu_controller2.php" method="post">');
                 printf('  <br><br>');
                 printf('<fieldset id="field" disabled>');
                 printf("<input type='hidden' name='usu_before_set' value='" . $info[0] . "'>");
@@ -88,6 +88,8 @@ include '../includes/header.php';
                     printf("<option value='" . $sec[0] . "'>" . $sec[1] . "</option>");
                 }
                 printf("</select>");
+                printf("<br><label>Logo:</label>");
+                printf('<input type="file" name="idlogo" id="idlogo" accept=".jpg" >');
                 printf(' <label>Telefono</label>');
                 printf('    <input type="text" size="20" name="tel1" value="' . $info[4] .'" onkeypress="soloNum()">');
                 printf('  <label>Extension</label>');

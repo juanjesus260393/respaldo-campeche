@@ -162,10 +162,10 @@ Class Turista extends model {
                     
                 }
             }
-            header("HTTP/1.0 401 Unauthorized");
-            exit();
+            //header("HTTP/1.0 401 Unauthorized");
+            //exit();
         }
-        header("HTTP/1.0 400 Bad Request");
+        // header("HTTP/1.0 400 Bad Request");
     }
 
     public static function searchparams($tok) {

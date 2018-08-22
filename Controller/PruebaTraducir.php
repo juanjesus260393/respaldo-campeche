@@ -7,7 +7,7 @@ use \Statickidz\GoogleTranslate;
 $source = 'ES';
 $target1 = 'EN';
 $target2 = 'FR';
-$text = 'hola ¿como estas? esto es una prueba de traducción de texto que se utilizara para las descripciones';
+$text = 'Campeche es uno de los treinta y un estados que, junto con la Ciudad de Mexico, forman los Estados Unidos Mexicanos. Su capital y ciudad mas poblada es San Francisco de Campeche.';
  
 $trans = new GoogleTranslate();
 $result1 = $trans->translate($source, $target1, $text);

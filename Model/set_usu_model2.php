@@ -80,6 +80,36 @@ private $empresas;
           $sqlAuxMembresia = ("SELECT m.id_membresia FROM membresia m WHERE m.nombre='".$membresia."'");
            $Mres=$this->db->query($sqlAuxMembresia);
             $idmembresia=$Mres->fetch_row();
+            
+            
+             $pathlogo = "../Imagenes/Sitios/logo/";
+        $valid_formatsimg = array("jpg"); 
+        
+        $id_logo = $_FILES['idlogo']['name'];
+        
+       
+        
+        $fileInfoLogo = pathinfo($id_logo);
+        $extLogo = $fileInfoLogo['extension'];
+        if (in_array($extLogo, $valid_formatsimg)) {
+
+            $actual_logo_name = 0;
+
+            $aux = $id_logo . uniqid();
+            $a = str_split($aux);
+
+            $i = 0;
+            for ($i; $i < count($a); $i++) {
+                $actual_logo_name += ord($a[$i]);
+            }
+            $tmp2 = $_FILES['idlogo']['tmp_name'];
+
+            if (move_uploaded_file($tmp2, $pathlogo . $actual_logo_name . "." . $extLogo)) {
+                $actual_logo_name=$actual_logo_name.".jpg";
+            } else {
+                echo "failed Logo";
+            }
+        }
         
         if($usubfset==$email){ 
             $agregado=1;
@@ -92,7 +122,7 @@ private $empresas;
                 . ", descripcion='".$desc."', telefono=".$tel1.", extension=".$tel2.", celular=".$cel.", direccion='".$dir."', "
                 . "nombre='".$nombre."', numero_empleados=".$numE.", propietario='".$owner."', tamano=".$tamano.", "
                 . "facebook='".$facebook."', twitter='".$twitter."', instagram='".$instagram."', youtube='".$youtube."', "
-                . "googleplus='".$google."'"
+                . "googleplus='".$google."', id_logo='".$actual_logo_name."' "
                 ." WHERE id_empresa=".$idEU."");
         $agregado=$this->db->query($sqlinsert);  
         if($agregado){

@@ -116,7 +116,7 @@ $idro = $na->registros_publicidad();
             </div>
             <div>
                 <span><label>*Imagen de la Publicidad:</label></span>
-                <span><input type="file" id="id_img" accept=".jpg" name="id_img" required></span>
+                <span><input type="file" id="id_img" onchange= "ValidarImagenf(this)" accept=".jpg" name="id_img" required></span>
             </div>
             <div>
                 <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres registrar esta publicidad?')) {

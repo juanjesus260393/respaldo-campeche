@@ -17,7 +17,7 @@ $idro = $na->registros_cupon();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
 
-        <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
+
     </head>
     <body>
 
@@ -94,7 +94,7 @@ $idro = $na->registros_cupon();
                 </form>
             </div>
         </nav>
-
+        <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
     <center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>  
     <center><h1>Agregar Cupon</h1></center>
     <center><form method="post" action="../Controller/crtAdcupon.php" name="form1" enctype="multipart/form-data">
@@ -116,11 +116,11 @@ $idro = $na->registros_cupon();
             </div>
             <div>
                 <span><label>*Imagen Vista Previa:</label></span>
-                <span><input type="file" id="id_imagen_vista_previa" accept=".jpg" name="id_imagen_vista_previa" required></span>
+                <span><input type="file"  id="id_imagen_vista_previa" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_imagen_vista_previa" required></span>
             </div>
             <div>
                 <span><label>Imagen Del Cupon:</label></span>
-                <span><input type="file" id="id_imagen_extra" accept=".jpg" name="id_imagen_extra"></span>
+                <span><input type="file" id="id_imagen_extra" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_imagen_extra"></span>
             </div>
             <div>
                 <span><label>*Vigencia inicio:</label></span>

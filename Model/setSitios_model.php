@@ -222,6 +222,11 @@ public function get_municipios() {
 
         $descLargaIngles = $trans->translate($source, $target1, $descLargaES);
         $descLargaFrances = $trans->translate($source, $target2, $descLargaES);
+        
+        $descLargaFrances2= str_replace("'", "''", $descLargaFrances);
+        $descCortaFrances2= str_replace("'", "''", $descCortaFrances);
+        $descLargaIngles2= str_replace("'", "''", $descLargaIngles);
+        $descCortaIngles2= str_replace("'", "''", $descCortaIngles);
 
 
 
@@ -254,10 +259,10 @@ public function get_municipios() {
                 $sqlinsertES = ("UPDATE descripcion_idioma SET descripcion_larga='" . $descLargaES . "', descripcion_corta='" . $descCortaES . "'"
                         . "WHERE id_revision_informacion='".$idrev."' AND lang_code='ES'");
                 $agregadoEsp = $this->db->query($sqlinsertES);
-                $sqlinsertEn = ("UPDATE descripcion_idioma SET descripcion_larga='" . $descLargaIngles . "', descripcion_corta='" . $descCortaIngles . "'"
+                $sqlinsertEn = ("UPDATE descripcion_idioma SET descripcion_larga='" . $descLargaIngles2 . "', descripcion_corta='" . $descCortaIngles2 . "'"
                         . "WHERE id_revision_informacion='".$idrev."' AND lang_code='EN'");
                 $agregadoIng = $this->db->query($sqlinsertEn);
-                $sqlinsertFr = ("UPDATE descripcion_idioma SET descripcion_larga='" . $descLargaFrances . "', descripcion_corta='" . $descCortaFrances . "'"
+                $sqlinsertFr = ("UPDATE descripcion_idioma SET descripcion_larga='" . $descLargaFrances2 . "', descripcion_corta='" . $descCortaFrances2 . "'"
                         . "WHERE id_revision_informacion='".$idrev."' AND lang_code='FR'");
                 $agregadoFr = $this->db->query($sqlinsertFr);
                 

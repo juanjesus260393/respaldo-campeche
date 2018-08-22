@@ -16,7 +16,7 @@ include '../includes/header2.php';
             $lcupones;
             $llenar;
             $validacion = new validacion();
-// $aux = $validacion->campo_vacio($lcupones);
+            //$aux = $validacion->campo_vacio($lcupones);
             if ($lcupones == null) {
                 $llenar = [0];
             } else {

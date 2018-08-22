@@ -123,6 +123,13 @@ class add_Sitios_model {
 
         $descLargaIngles = $trans->translate($source, $target1, $descLargaES);
         $descLargaFrances = $trans->translate($source, $target2, $descLargaES);
+        
+        $descLargaFrances2= str_replace("'", "''", $descLargaFrances);
+        $descCortaFrances2= str_replace("'", "''", $descCortaFrances);
+        $descLargaIngles2= str_replace("'", "''", $descLargaIngles);
+        $descCortaIngles2= str_replace("'", "''", $descCortaIngles);
+        
+       
 
 
 
@@ -155,10 +162,10 @@ class add_Sitios_model {
                         . " (" . $idunicoRev . ", 'ES', '" . $descLargaES . "', '" . $descCortaES . "')");
                 $agregadoEsp = $this->db->query($sqlinsertES);
                 $sqlinsertEn = ("INSERT INTO descripcion_idioma (id_revision_informacion, lang_code, descripcion_larga, descripcion_corta) VALUES"
-                        . " (" . $idunicoRev . ", 'EN', '" . $descLargaIngles . "', '" . $descCortaIngles . "')");
+                        . " (" . $idunicoRev . ", 'EN', '" . $descLargaIngles2 . "', '" . $descCortaIngles2 . "')");
                 $agregadoIng = $this->db->query($sqlinsertEn);
                 $sqlinsertFr = ("INSERT INTO descripcion_idioma (id_revision_informacion, lang_code, descripcion_larga, descripcion_corta) VALUES"
-                        . " (" . $idunicoRev . ", 'FR', '" . $descLargaFrances . "', '" . $descCortaFrances . "')");
+                        . " (" . $idunicoRev . ", 'FR', '" . $descLargaFrances2 . "', '" . $descCortaFrances2 . "' )");
                 $agregadoFr = $this->db->query($sqlinsertFr);
                 if ($agregadoEsp && $agregadoIng && $agregadoFr) {
                     echo ("<script> alert('Nuevo Sitio agregado'); </script>");

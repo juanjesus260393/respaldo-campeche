@@ -117,7 +117,7 @@ $idro = $na->registros_video();
             </div>
             <div>
                 <span><label>*Imagen del video:</label></span>
-                <span><input type="file"  id="id_img_preview" accept=".jpg" name="id_img_preview" required></span>
+                <span><input type="file"  onchange= "ValidarImagenvp(this)" id="id_img_preview" accept=".jpg" name="id_img_preview" required></span>
             </div>
             <div>
                 <span><label>*Video:</label></span>

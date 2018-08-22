@@ -196,7 +196,7 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                         $hora_actual = date("h");
                         $minuto_actual = date("i");
                         $segundo_actual = date("s");
-                        $fecha_actual = $año_actual."-".$mes_actual. "-".$dia_actual." ".$hora_actual.":".$minuto_actual.":".$segundo_actual;
+                        $fecha_actual = $año_actual . "-" . $mes_actual . "-" . $dia_actual . " " . $hora_actual . ":" . $minuto_actual . ":" . $segundo_actual;
 //Se genera el numero aleatorio
                         return $fecha_actual;
                     }
@@ -420,6 +420,10 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                             echo '<script language = javascript>
 	alert("No tienes contenido registrado.")
     	</script>';
+                            echo "<html><head></head>" .
+                            "<body onload=\"javascript:history.back()\">" .
+                            "</body></html>";
+                            exit;
                         } else {
                             return $parametro;
                         }
