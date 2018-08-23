@@ -21,7 +21,32 @@ function validateForm()
     }
 
 
-  
+  function ValidarImagenc(obj){
+    var uploadFile = obj.files[0];
+    
+    if (!window.FileReader) {
+        alert('El navegador no soporta la lectura de archivos');
+        return;
+    }
+
+    if (!(/\.(jpg|png|gif)$/i).test(uploadFile.name)) {
+        alert('El archivo a adjuntar no es una imagen');
+    }
+    else {
+        var img = new Image();
+        img.onload = function () {
+            if (this.width.toFixed(0) >= 121 && this.height.toFixed(0) >= 121) {
+                alert('El tamaño de la imagen tiene que ser menor a 120 x 20 selecciona otra por favor');
+            }
+           
+            else {
+                            
+            }
+        };
+        img.src = URL.createObjectURL(uploadFile);
+    
+       }                 
+}
 function ValidarImagenvp(obj){
     var uploadFile = obj.files[0];
     

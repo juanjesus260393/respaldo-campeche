@@ -1,5 +1,25 @@
-
 <?php
+/*
+  utf8ize es una función usada para sanitizar cadenas UTF8 recursivamente.
+
+  Puede probocar errores en php7 pues el paquete xml encode no está preinstalado para ubuntu.
+  Para solucionarlo, se debe instalar instalar php-xml:
+    ~$Ejemplo en ubuntu 16.04: sudo apt-get install php-xml
+  Y posteriormente reiniciar apache con el comando graceful
+  sudo apache2ctl graceful
+*/
+function utf8ize($d) {
+    if (is_array($d)) {
+        foreach ($d as $k => $v) {
+            $d[$k] = utf8ize($v);
+        }
+    } else if (is_string ($d)) {
+        return utf8_encode($d);
+    }
+    return $d;
+}
+
+
 class arr{
 
   static function ObtenerColumnaMuliArray(&$arr, $i){

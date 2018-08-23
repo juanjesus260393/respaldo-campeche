@@ -85,7 +85,21 @@ class Videos {
         $nombreimagen = $this->iip . ".jpg";
         //Subir imagen
         if (move_uploaded_file($_FILES['id_img_preview']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/$nombreimagen")) {
-            $msg = "El archivo ha sido cargado correctamente.<br>";
+            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/$nombreimagen";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
+                unlink($ruta . $nombreimagen);
+                echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
         }
         $this->visualizaciones = '0.0';
         $insertrevision = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)

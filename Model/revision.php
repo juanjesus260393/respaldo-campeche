@@ -2,44 +2,58 @@
 require_once('model.php');
 require_once('../helpers/punto.php' );
 /*
-+--------------+-------------+------+----+
-| Campo        | Tipo        | Null | Key|
-+--------------+-------------+------+----+
-| id           | int(11)     | NO   | PRI|
-| fecha        | varchar(45) | YES  |    |
-| path         | varchar(45) | YES  |    |
-| status       | varchar(45) | YES  |    |
-| titulo       | varchar(45) | YES  |    |
-| descripcion  | varchar(45) | YES  |    |
-| idtipo       | int(11)     | NO   | PRI|
-| idurl        | int(11)     | NO   | PRI|
-| ubicacionGIS | point       | YES  |    |
-+--------------+-------------+------+----+
+describe sitio_info;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| id_sitio          | int(11)      | NO   |     | 0       |       |
+| id_empresa        | int(11)      | NO   |     | NULL    |       |
+| municipios_id     | int(11)      | NO   |     | NULL    |       |
+| nombre            | varchar(100) | NO   |     | NULL    |       |
+| direccion         | varchar(200) | YES  |     | NULL    |       |
+| telefono1         | varchar(15)  | YES  |     | NULL    |       |
+| telefono2         | varchar(15)  | YES  |     | NULL    |       |
+| capacidad         | int(11)      | YES  |     | NULL    |       |
+| horario           | varchar(50)  | YES  |     | NULL    |       |
+| id_sector         | int(11)      | NO   |     | 0       |       |
+| sector            | varchar(200) | YES  |     | NULL    |       |
+| ubicacionGIS      | point        | YES  |     | NULL    |       |
+| id_carta          | varchar(12)  | YES  |     | NULL    |       |
+| lang_code         | char(5)      | NO   |     | NULL    |       |
+| descripcion_larga | varchar(500) | NO   |     | NULL    |       |
+| descripcion_corta | varchar(150) | NO   |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+
 
  */
 class Revision extends model{
    function __construct(){
       $this->LlavePrimaria = ['id'];
-      $this->NombreDeTabla = 'revision';
+      $this->NombreDeTabla = 'sitio_info';
       $this->indices  = [];
       $this->columnas = array(
-                       'id' => null,
-                       'fecha' => null,
-                       'path' => null,
-                       'status' => null,
-                       'titulo' => null,
-                       'descripcion' => null,
-                       'idtipo' => "nombre",
-                       'idurl' => "url",
-                       'ubicacionGIS' => array('ST_Y','ST_X') );
-      $this->Mascaras = array(
-                          array( 'FROM' => 'tipo', 'columna'=>'nombre', 'as'=>'nombre', 'aliasForanea'=>'idtipo', 'llaveForanea'=>'id' ),
-                          array( 'FROM' => 'url', 'columna'=>'url', 'as'=>'url',        'aliasForanea'=>'idurl', 'llaveForanea'=>'id' ) );
+                      'id_sitio'  => null,
+                      'id_empresa'  => null,
+                      'municipios_id'  => null,
+                      'nombre'  => null,
+                      'direccion'  => null,
+                      'telefono1'  => null,
+                      'telefono2'  => null,
+                      'capacidad'  => null,
+                      'horario'  => null,
+                      'id_sector'  => null,
+                      'sector'  => null,
+                      'id_carta'  => null,
+                      'lang_code'  => null,
+                      'descripcion_larga'  => null,
+                      'descripcion_corta'  => null,
+                      'ubicacionGIS' => array(['ST_Y','longitud'],['ST_X','latitud']) );
    }
 
-    public function SeleccionarArea( $centro, $radio ){
+    public function SeleccionarArea( $centro, $radio, $idioma ){
       $opt = $this->getArea( $centro, $radio );
-      $opt = " MBRContains(ST_GeomFromText(".$opt."),ubicacionGIS);";
+      $opt = " MBRContains(ST_GeomFromText(".$opt."),ubicacionGIS) AND ";
+      $opt.= "lang_code=\"$idioma\"";
       /*TO DO: aqui deberían ir las validaciones y reglas de negocio */
       parent::SeleccionarVistas( $opt, false  );
       return $this->registrosEnCache;

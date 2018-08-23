@@ -116,7 +116,7 @@ $idro = $na->registros_cupon();
             </div>
             <div>
                 <span><label>*Imagen Vista Previa:</label></span>
-                <span><input type="file"  id="id_imagen_vista_previa" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_imagen_vista_previa" required></span>
+                <span><input type="file"  id="id_imagen_vista_previa" onchange= "ValidarImagenc(this)" accept=".jpg" name="id_imagen_vista_previa" required></span>
             </div>
             <div>
                 <span><label>Imagen Del Cupon:</label></span>

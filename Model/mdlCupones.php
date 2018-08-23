@@ -130,7 +130,7 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
             $getID3 = new getID3;
             $file = $getID3->analyze($filename);
             //Una ves que se yha subido se comprueba la resolucion del mismo
-            if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+            if ($file['video']['resolution_x'] > 120 && $file['video']['resolution_y'] > 120) {
                 //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
                 $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
                 unlink($ruta . $nombreimagen2);

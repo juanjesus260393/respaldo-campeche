@@ -429,5 +429,19 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
                         }
                     }
 
+                    public function campo_vaciocupon($parametro, $parametro2) {
+                        if ($parametro == NULL && $parametro2 == NULL) {
+                            echo '<script language = javascript>
+	alert("No tienes contenido registrado.")
+    	</script>';
+                            echo "<html><head></head>" .
+                            "<body onload=\"javascript:history.back()\">" .
+                            "</body></html>";
+                            exit;
+                        } else {
+                            return $parametro;
+                        }
+                    }
+
                 }
                 

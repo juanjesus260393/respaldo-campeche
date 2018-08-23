@@ -14,9 +14,10 @@ include '../includes/header2.php';
             </tr>
             <?php
             $lcupones;
+            $lcupones2;
             $llenar;
             $validacion = new validacion();
-            //$aux = $validacion->campo_vacio($lcupones);
+            $aux = $validacion->campo_vaciocupon($lcupones,$lcupones2);
             if ($lcupones == null) {
                 $llenar = [0];
             } else {

@@ -30,20 +30,22 @@ class model {
       $joins = "";
       foreach( $this->columnas as $nombre=>$valor ){
         if(is_array($valor)){
-          $mascaras .= $valor[0]."($this->NombreDeTabla.$nombre) as $valor[0],";
-          $mascaras .= $valor[1]."($this->NombreDeTabla.$nombre) as $valor[1],";
+          $mascaras .= $valor[0][0]."($this->NombreDeTabla.$nombre) as ".$valor[0][1].",";
+          $mascaras .= $valor[1][0]."($this->NombreDeTabla.$nombre) as ".$valor[1][1].",";
         }else
           $mascaras .= "$this->NombreDeTabla.$nombre,";
       }
-      foreach( $this->Mascaras as $llaveForanea=>$campos ){
-         $tablaForeanea = $campos["FROM"];
-         $desde = $campos["FROM"] .".".$campos["llaveForanea"];
-         $nvoVal = $campos["FROM"] .".".$campos["columna"];
-         $contra = $this->NombreDeTabla .".".$campos["aliasForanea"];
+      if( isset($this->Mascaras) ){
+        foreach( $this->Mascaras as $llaveForanea=>$campos ){
+           $tablaForeanea = $campos["FROM"];
+           $desde = $campos["FROM"] .".".$campos["llaveForanea"];
+           $nvoVal = $campos["FROM"] .".".$campos["columna"];
+           $contra = $this->NombreDeTabla .".".$campos["aliasForanea"];
 
-         $joins .= " INNER JOIN $tablaForeanea ON $desde=$contra ";
+           $joins .= " INNER JOIN $tablaForeanea ON $desde=$contra ";
 
-         $mascaras .= "$nvoVal as ".$campos["as"].",";
+           $mascaras .= "$nvoVal as ".$campos["as"].",";
+        }
       }
       $mascaras = substr($mascaras,0,-1);
       $this->registrosEnCache = $db->SeleccionarVistas( $this->NombreDeTabla, $mascaras, $joins ,$this->indices, $opciones );
@@ -53,6 +55,13 @@ class model {
 
    public function Seleccionar($opc = null, $esMultitabla = null) {
       $db = new DataBase;
+      foreach( $this->columnas as $nombre=>$valor ){
+        if(is_array($valor)){
+          $mascaras .= $valor[0]."($this->NombreDeTabla.$nombre) as $valor[0],";
+          $mascaras .= $valor[1]."($this->NombreDeTabla.$nombre) as $valor[1],";
+        }else
+          $mascaras .= "$this->NombreDeTabla.$nombre,";
+      }
       if( is_null($opc) )
          $this->registrosEnCache = $db->Seleccionar($this->NombreDeTabla);
       elseif( is_null($esMultitabla) )

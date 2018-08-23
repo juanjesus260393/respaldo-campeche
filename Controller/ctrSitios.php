@@ -1,22 +1,35 @@
 <?php
-require_once("../Model/revision.php");
+require_once( '../Model/revision.php' );
 require_once( '../helpers/punto.php' );
+require_once( '../helpers/helpers.php' );
 
 class ctrSitios{
-  public function getSitios( $latitud = 19.848611, $longitud = -90.525278, $radio = "2.0" ){
+  public function getSitios( $latitud = 19.848611, $longitud = -90.525278, $radio = "2.0", $idioma ){
     $rev = new Revision();
-
+    if( ! isset($idioma) ){
+      $idioma = "es-es";
+    }
     $p = new Punto();
-    // 19.848611, -90.525278, campeche.
-    // $p->setLatitud( 10.0 )->setLongitud( 10.0 );
+
     $p->setLatitud( $latitud )->setLongitud( $longitud );
-    $res = $rev->SeleccionarArea( $p, $radio);
-    // echo ":o";
-    // print_r($rev->SeleccionarArea( $p, floatval("1") ));
-    // print_r( json_encode($rev->SeleccionarArea( $p, floatval("1") )));
-    // print_r($res);
+
+    $res = $rev->SeleccionarArea( $p, $radio, $idioma );
+    $res = utf8ize( $res );
+
     print_r( json_encode($res,JSON_UNESCAPED_UNICODE) );
-    // echo json_encode($rev->Seleccionar());
+
+  }
+  public function seleccionarSitios(){
+    $rev = new Revision();
+    $rev->SeleccionarArea();
+    $res = $rev->registrosEnCache;
+    utf8ize( $res );
+    // print_r($res);
+    echo( json_encode($res,JSON_UNESCAPED_UNICODE) );
+    echo "<br/>";
+    echo "<br/>";
+    echo "<br/>";
+    echo json_last_error();
   }
 }
 ?>
@@ -26,7 +39,7 @@ class ctrSitios{
 if( $_SERVER['REQUEST_METHOD'] == 'GET' ){
   $test = new ctrSitios();
 
-  $test->getSitios( floatval($_GET['latitud']), floatval($_GET['longitud']), floatval($_GET['radio']) );
+  $test->getSitios( floatval($_GET['latitud']), floatval($_GET['longitud']), floatval($_GET['radio']), $_GET['idioma'] );
 
 }
 

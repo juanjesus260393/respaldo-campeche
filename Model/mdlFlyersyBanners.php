@@ -3,14 +3,14 @@
 //se incluye la conexion a la base de datos
 require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
-
+include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 class FlyeryBanner {
 
     private $platillo;
     private $dbh;
 
     public function lista_flyersybanners() {
-        $this->dbh= Conectar::con();
+        $this->dbh = Conectar::con();
         //$this->dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         $sql = "select a.id_ad, a.id_revision_objeto, a.tipo, a.id_img, revision_objeto.status from (ad a inner join revision_objeto on a.id_revision_objeto = revision_objeto.id_revision_objeto) inner join empresa on revision_objeto.id_empresa = " . $_SESSION['idemp'] . " group by id_ad;";
         if (empty($this->dbh->query($sql))) {
@@ -40,7 +40,21 @@ class FlyeryBanner {
         $nombreimagen = $_FILES['id_img']['name'];
         $nombreimagen = $iie . ".jpg";
         if (move_uploaded_file($_FILES['id_img']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen")) {
-            echo $msg = "El archivo ha sido cargado correctamente.<br>";
+            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if (($file['video']['resolution_x'] > 338 && $file['video']['resolution_y'] > 600) || ($file['video']['resolution_x'] > 728 && $file['video']['resolution_y'] > 90) ) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
+                unlink($ruta . $nombreimagen);
+                echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
         } else {
             echo $msg = "El archivo no ha sido cargado correctamente.<br>";
             $nombreimagen = "";
@@ -65,7 +79,7 @@ class FlyeryBanner {
         //Se obtienen los parametros de la vista del cupon
         $id_revision_objeto = $_GET["id_revision_objeto"];
         $id_ad = $_GET["id_ad"];
-            if ($id_revision_objeto == NULL && $id_ad == NULL) {
+        if ($id_revision_objeto == NULL && $id_ad == NULL) {
             echo '<script language = javascript> alert("No es un elemento valido de la publicidad") </script>';
             //Regresamos a la pagina anterior
             echo "<html><head></head>" .
