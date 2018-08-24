@@ -48,6 +48,7 @@ class add_Sitios_model {
         $descLargaES = htmlspecialchars($_POST['descripcion_larga']);
 
         $pathperfil = "../Imagenes/Sitios/img/";
+        $pathGaleria='../Imagenes/Galeria/';
         
         $pathcarta = "../Imagenes/Sitios/carta/";
         $valid_formatsimg = array("jpg"); //extensiones permitidas para imagenes
@@ -178,6 +179,123 @@ class add_Sitios_model {
         } else {
             printf("Errormessage: %s\n", $this->db->error);
         }
+        
+        
+        
+        if($_FILES['file1']['error']===0){
+   
+    $fileInfofile1 = pathinfo($_FILES['file1']['name']);
+    $extfile1 = $fileInfofile1['extension'];
+    
+    if (in_array($extfile1, $valid_formatsimg)) {
+        
+            $aux1= random_bytes(12);
+            $actual_file1_name= substr(bin2hex( $aux1), 0, 12);
+            
+            $tmp1 = $_FILES['file1']['tmp_name'];
+            if (move_uploaded_file($tmp1, $pathGaleria . $actual_file1_name . "." . $extfile1)) {
+                $insertfile1 = ("INSERT INTO imagen_galeria (id_archivo_imagen, id_revision_informacion) VALUES ('" . $actual_file1_name . "'," .  $idunicoRev. ")");
+                $agregado = $this->db->query($insertfile1);
+                if($agregado){}
+                else{printf("Errormessage: %s\n", $this->db->error);}
+            } else {
+                echo "failed file1";
+            }
+        }
+}
+        if($_FILES['file2']['error']===0){
+   
+    $fileInfofile2 = pathinfo($_FILES['file2']['name']);
+    $extfile2 = $fileInfofile2['extension'];
+    
+    if (in_array($extfile2, $valid_formatsimg)) {
+        
+            $aux2= random_bytes(12);
+            $actual_file2_name= substr(bin2hex( $aux2), 0, 12);
+            
+            $tmp2 = $_FILES['file2']['tmp_name'];
+            if (move_uploaded_file($tmp2, $pathGaleria . $actual_file2_name . "." . $extfile2)) {
+                $insertfile2 = ("INSERT INTO imagen_galeria (id_archivo_imagen, id_revision_informacion) VALUES ('" . $actual_file2_name . "'," .  $idunicoRev. ")");
+                $agregado2 = $this->db->query($insertfile2);
+                if($agregado2){}
+                else{printf("Errormessage: %s\n", $this->db->error);}
+            } else {
+                echo "failed file1";
+            }
+        }
+}
+
+        if($_FILES['file3']['error']===0){
+   
+    $fileInfofile3 = pathinfo($_FILES['file3']['name']);
+    $extfile3 = $fileInfofile3['extension'];
+    
+    if (in_array($extfile3, $valid_formatsimg)) {
+        
+            $aux3= random_bytes(12);
+            $actual_file3_name= substr(bin2hex( $aux3), 0, 12);
+            
+            $tmp3 = $_FILES['file3']['tmp_name'];
+            if (move_uploaded_file($tmp3, $pathGaleria . $actual_file3_name . "." . $extfile3)) {
+                $insertfile3 = ("INSERT INTO imagen_galeria (id_archivo_imagen, id_revision_informacion) VALUES ('" . $actual_file3_name . "'," .  $idunicoRev. ")");
+                $agregado3 = $this->db->query($insertfile3);
+                if($agregado3){}
+                else{printf("Errormessage: %s\n", $this->db->error);}
+            } else {
+                echo "failed file1";
+            }
+        }
+}
+
+        if($_FILES['file4']['error']===0){
+   
+    $fileInfofile4 = pathinfo($_FILES['file4']['name']);
+    $extfile4 = $fileInfofile4['extension'];
+    
+    if (in_array($extfile4, $valid_formatsimg)) {
+        
+            $aux4= random_bytes(12);
+            $actual_file4_name= substr(bin2hex( $aux4), 0, 12);
+            
+            $tmp4 = $_FILES['file4']['tmp_name'];
+            if (move_uploaded_file($tmp4, $pathGaleria . $actual_file4_name . "." . $extfile4)) {
+                $insertfile4= ("INSERT INTO imagen_galeria (id_archivo_imagen, id_revision_informacion) VALUES ('" . $actual_file4_name . "'," .  $idunicoRev. ")");
+                $agregado4 = $this->db->query($insertfile4);
+                if($agregado4){}
+                else{printf("Errormessage: %s\n", $this->db->error);}
+            } else {
+                echo "failed file4";
+            }
+        }
+}
+        
+         if($_FILES['file5']['error']===0){
+   
+    $fileInfofile5 = pathinfo($_FILES['file5']['name']);
+    $extfile5 = $fileInfofile5['extension'];
+    
+    if (in_array($extfile5, $valid_formatsimg)) {
+        
+            $aux5= random_bytes(12);
+            $actual_file5_name= substr(bin2hex( $aux5), 0, 12);
+            
+            $tmp5 = $_FILES['file5']['tmp_name'];
+            if (move_uploaded_file($tmp5, $pathGaleria . $actual_file5_name . "." . $extfile5)) {
+                $insertfile5 = ("INSERT INTO imagen_galeria (id_archivo_imagen, id_revision_informacion) VALUES ('" . $actual_file5_name . "'," .  $idunicoRev. ")");
+                $agregado5 = $this->db->query($insertfile5);
+                if($agregado5){}
+                else{printf("Errormessage: %s\n", $this->db->error);}
+            } else {
+                echo "failed file1";
+            }
+        }
+}
+        
+        
+        
+        
+        
+        
     }
 
 }

@@ -38,6 +38,7 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
                                     <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
+                                    <a class="dropdown-item" href="../Controller/setSitios_controller.php">Modificar Sitio</a>
 
                                 </div>
                             </li>

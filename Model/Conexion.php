@@ -14,8 +14,8 @@ class Conectar {
         
         
 
-     $conexion = mysqli_connect("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
-        //$conexion = mysqli_connect("localhost","root","P4SSW0RD","campeche");
+    // $conexion = mysqli_connect("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
+        $conexion = mysqli_connect("localhost","root","P4SSW0RD","campeche");
 
     // $conexion = mysqli_connect("127.0.0.1:3306", "root", "P4SSW0RD", "campeche");
         //$conexion = mysqli_connect("localhost","root","P4SSW0RD","campeche");
@@ -29,7 +29,7 @@ class Conectar {
         
 
       // $conexion = mysqli_connect("148.204.63.167:3306","root","P4SSW0RD","campeche");
-         //$conexion = mysqli_connect("localhost","root","","campeche");
+        //$conexion = mysqli_connect("localhost","root","","campeche");
         
         
         

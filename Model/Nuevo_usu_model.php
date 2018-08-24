@@ -93,15 +93,18 @@ class Nuevo_usu_model{
         $extLogo = $fileInfoLogo['extension'];
         if (in_array($extLogo, $valid_formatsimg)) {
 
-            $actual_logo_name = 0;
+            
+            
+            
+           $aux= random_bytes(12);
+            
+            $actual_logo_name= substr(bin2hex( $aux), 0, 12);
 
-            $aux = $id_logo . uniqid();
-            $a = str_split($aux);
+           //$a = str_split($aux);
 
-            $i = 0;
-            for ($i; $i < count($a); $i++) {
-                $actual_logo_name += ord($a[$i]);
-            }
+            
+               
+            
             $tmp2 = $_FILES['idlogo']['tmp_name'];
 
             if (move_uploaded_file($tmp2, $pathlogo . $actual_logo_name . "." . $extLogo)) {
@@ -127,7 +130,7 @@ class Nuevo_usu_model{
                 . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus, id_logo) "
                 . "VALUES (".$idmembresia[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.","
                 .$cel.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.""
-                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."', '".$actual_logo_name.".jpg')");
+                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."', '".$actual_logo_name."')");
 
 
         $agregado=$this->db->query($sqlinsert);  

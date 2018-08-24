@@ -1,96 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Nueva Empresa</title>
-        <!--<meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+include '../includes/header2.php';
 
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        
-        
-                               <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
-                    <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navb">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link " href="../Controller/IniciodeSesion.php" >
-                                    HOME
-                                </a>
-
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                    Sitios
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
-                                    <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
-
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="../Controller/crtCupones.php" id="navbardrop" data-toggle="dropdown">
-                                                    Cupones
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
-                                                    <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon</a>
-
-                                                </div>
-                             </li>
-                             <li class="nav-item dropdown">
-                                 <a class="nav-link dropdown-toggle" href="../Controller/crtcVideos.php" id="navbardrop" data-toggle="dropdown">
-                                                    Videos
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
-                                                    <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
-
-                                                </div>
-                             </li>
-                             <li class="nav-item dropdown">
-                                 <a class="nav-link dropdown-toggle" href="../Controller/crtcFlyers.php" id="navbardrop" data-toggle="dropdown">
-                                                    Flyers & Banners
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                   
-                                                    <a class="dropdown-item" href="../Controller/crtcFlyers.php">Flyers & Banners  </a>
-                                                    <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners</a>
-                                                </div>
-                             </li>
-                             <li class="nav-item dropdown">
-                                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                                    Graficas
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="../Controller/crtEstadisticacupones.php">Estadisticas Cupones </a>
-                                                    <a class="dropdown-item" href="#">  </a>
-                                                </div>
-                             </li>
-                              <li class="nav-item dropdown">
-                                 <a class="nav-link" href="../Controller/cambiaPass_controller.php">
-                                                    Cambia Contraseña
-                                                </a>       
-                             </li>
-                        </ul>
-                        <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
-                            <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
-                        </form>
-                    </div>
-                </nav>
+?>
                
-        <div class="container" id="formulario" >
+<div class="container" id="formulario" >
             <form  enctype="multipart/form-data" action="../Controller/add_Sitios_controller.php" method="post">
-                <br><br>
+               <?php include '../includes/modalGaleria.php'; ?>
                 <table class="table" style="width: 100%;">
                     <tr>
                         <td>     
@@ -114,15 +29,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" >
                             <label>Telefono 1</label>
                             <input type="text" size="20" name="tel1" onkeypress="soloNum()">
                             <label>Telefono 2</label>
                             <input type="text" size="20" name="tel2" onkeypress="soloNum()">
-                            <label>Direccion</label>
-
-                            <textarea name="dir" rows="3" cols="35" placeholder="Escriba la direccion..."></textarea>
-
+                            
+                            <div class="row  justify-content-center align-items-center ">
+                                <div class="col-2">
+                                    <label>Direccion</label></div>
+                                <div class="col-6">
+                                    
+                                     <textarea name="dir" rows="3" cols="35" placeholder="Escriba la direccion..."></textarea></div>
+                                <div class="col-4 text-center">
+                                    <input class="btn" type="button" data-toggle='modal' id='gal' name="gal" data-target='#modalGalery' value='Galeria'></div>
+                            </div>
                             <div>
                                 <label>Imagen Perfil:</label><br>
                                 <input type="file" id="idperfil" accept=".jpg" name="idperfil">
@@ -224,8 +145,9 @@
                                         }
                                     });
                                 }
+                                //AIzaSyCX3zRx9Ccv62uYx_DU8ifXfhWh4t5uwp4
                             </script>
-                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX3zRx9Ccv62uYx_DU8ifXfhWh4t5uwp4&callback=initMap"
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtrFuP8Tdg1ix-P3nMqh4TAUa_xqkCo2w&callback=initMap"
                             async defer></script>
                         </td>
 

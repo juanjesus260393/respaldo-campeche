@@ -92,21 +92,25 @@ try {
     switch ($a){
         case 'C':
         $mail->Subject = 'Cupon Rechazado  ';
-        $mail->Body    = '<h3>Tu Cupon ha sido Rechazado por favor</h3>'
+        $mail->Body    = '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/encabezado.png"></p>'
+                . '<h3>Tu Cupon ha sido Rechazado por favor</h3>'
                                 . '<h3>reviza tu información y el motivo de rechazo </h3>'
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>';
+                        . 'Comentario : <h3>'.$comentario.'</h3>'
+                . '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/pie.png"></p>';
             break;
         case 'S':
     $mail->Subject = 'Cupon aceptado ';
-     $mail->Body    = '<h3>Tu Cupon ha sido aceptado </h3>'
+     $mail->Body    = '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/encabezado.png"></p>'
+             . '<h3>Tu Cupon ha sido aceptado </h3>'
                                 . '<h3>reviza tu información</h3>'
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>';
+                        . 'Comentario : <h3>'.$comentario.'</h3>'
+             . '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/pie.png"></p>';
             break;
     }
     $mail->AltBody = 'Esta es la información de tu cuenta'

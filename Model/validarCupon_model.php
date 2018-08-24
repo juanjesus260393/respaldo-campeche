@@ -91,7 +91,9 @@ class validarCupon_model{
                     . "VALUES (".$revision.",'".$coment."','".$hoy."')");
             
             $insertcomnt=$this->db->query($sqlinsertcoment); 
+            
         if($insertcomnt){
+            
             sendmailComentario($_SESSION['username'], $coment, 'C');
         echo ("<script> alert('Cupon Rechazado'); location.href ='../Controller/validarCupon_controller.php';</script>");}
         }else{ printf("Errormessage: %s\n", $this->db->error);}}

@@ -1,8 +1,8 @@
 		<!-- comienza codigo -->
               	</div>
-				<div class="container-fluid">
-	
-<footer class="page-footer font-small blue pt-4">
+				<div class="container-fluid" style="margin-top:40px;">
+	<div style="height:1px; background-color:#000;"></div>
+	<footer class="page-footer font-small blue pt-4" style="background-color:#ffbb33; color:#fff;  position:absolute;  width: 100%;" >
 
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
@@ -36,12 +36,6 @@
               <li>
                 <a href="#!">Link 2</a>
               </li>
-              <li>
-                <a href="#!">Link 3</a>
-              </li>
-              <li>
-                <a href="#!">Link 4</a>
-              </li>
             </ul>
 
           </div>
@@ -59,12 +53,6 @@
               </li>
               <li>
                 <a href="#!">Link 2</a>
-              </li>
-              <li>
-                <a href="#!">Link 3</a>
-              </li>
-              <li>
-                <a href="#!">Link 4</a>
               </li>
             </ul>
 
@@ -84,6 +72,8 @@
     <!-- Copyright -->
 
   </footer>
+	<div style="height:2px; background-color:#000;"></div>
+
 
 </div>			</div>
 		</div>
