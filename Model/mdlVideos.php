@@ -105,7 +105,7 @@ class Videos {
         $insertrevision = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)
         VALUES('$this->iro'," . $_SESSION['idemp'] . ",'$this->fa','0000-00-00','$this->status')";
         $insertvideo = "INSERT INTO video (id_video,id_revision_objeto,titulo,descripcion,precio,duracion,fecha_subida,id_img_preview,id_video_archivo,visualizaciones)
-        VALUES('$this->ivi',$this->iro,' $this->titulo','$this->descripcion','$this->precio','$newcadena','$this->fa','$nombreimagen','$nombrevideo','$this->visualizaciones')";
+        VALUES('$this->ivi',$this->iro,' $this->titulo','$this->descripcion','$this->precio','$newcadena','$this->fa','$this->iip','$this->iva','$this->visualizaciones')";
         if (!mysqli_query($this->pd, $insertrevision)) {
             die('Error: ' . mysqli_error($this->pd));
         }
@@ -131,8 +131,10 @@ class Videos {
             "<body onload=\"javascript:history.back()\">" .
             "</body></html>";
         }
-        $imagen = $_GET["id_img_preview"];
-        $video = $_GET["id_video_archivo"];
+        $extv = '.mp4';
+        $exti = '.jpg';
+        $imagen = $_GET["id_img_preview"].$exti;
+        $video = $_GET["id_video_archivo"].$extv;
         $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
         $Eliminar2 = "Delete from video where id_video = " . $id_video . " and id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $Eliminar2)) {
@@ -185,10 +187,12 @@ class Videos {
         $na = new validacion();
         $iie = $na->generar_alfanumerico();
         $iav = $na->generar_alfanumerico();
+        $extv = '.mp4';
+        $exti = '.jpg';
         $nombreimagen = $_FILES['id_img_preview']['name'];
-        $nombreanteriori = $_POST["id_imagen_anterior"];
+        $nombreanteriori = $_POST["id_imagen_anterior"].$exti;
         $nombrevideo = $_FILES['id_video_archivo']['name'];
-        $nombreanteriorv = $_POST["id_video_antetior"];
+        $nombreanteriorv = $_POST["id_video_antetior"].$extv;
         $limite = "09:59";
         if ($nombrevideo == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
@@ -265,7 +269,7 @@ class Videos {
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
-        $actulizacion2 = "update video set titulo = '$titulo', descripcion = '$descripcion', precio = '$precio', duracion = '$newcadena',id_img_preview = '$nombre' ,id_video_archivo = '$nombrevid' where id_video = " . $id_video . " AND id_revision_objeto = " . $id_revision_objeto . "";
+        $actulizacion2 = "update video set titulo = '$titulo', descripcion = '$descripcion', precio = '$precio', duracion = '$newcadena',id_img_preview = '$iie' ,id_video_archivo = '$iav' where id_video = " . $id_video . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
         }

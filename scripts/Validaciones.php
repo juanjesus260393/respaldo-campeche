@@ -161,7 +161,7 @@ c.vigencia_fin <= '$ftma' and e.id_empresa = " . $_SESSION['idemp'] . " group by
 // creamos la función generar alfa numerico
                     public function generar_alfanumerico() {
 //Se declara la longitud del numero aleatorio que se generara
-                        $rango = 7;
+                        $rango = 9;
                         $longitud = $rango;
                         $key = '';
 //Se establece el numero de patrones que se utilizara

@@ -4,6 +4,7 @@
 require_once('Conexion.php');
 require_once('../scripts/Validaciones.php');
 include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
+
 class FlyeryBanner {
 
     private $platillo;
@@ -44,7 +45,7 @@ class FlyeryBanner {
             $getID3 = new getID3;
             $file = $getID3->analyze($filename);
             //Una ves que se yha subido se comprueba la resolucion del mismo
-            if (($file['video']['resolution_x'] > 338 && $file['video']['resolution_y'] > 600) || ($file['video']['resolution_x'] > 728 && $file['video']['resolution_y'] > 90) ) {
+            if (($file['video']['resolution_x'] > 338 && $file['video']['resolution_y'] > 600) || ($file['video']['resolution_x'] > 728 && $file['video']['resolution_y'] > 90)) {
                 //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
                 $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
                 unlink($ruta . $nombreimagen);
@@ -63,7 +64,7 @@ class FlyeryBanner {
         $this->visualizaciones = '0.0';
         $idad = $na->generar_aleatorio();
         $sql2 = "INSERT INTO ad (id_ad,id_revision_objeto,tipo,id_img,visualizaciones)
-        VALUES('$idad','$idro','$tipo','$nombres','$this->visualizaciones')";
+        VALUES('$idad','$idro','$tipo','$iie','$this->visualizaciones')";
         if (!mysqli_query($pd, $sql2)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -86,7 +87,8 @@ class FlyeryBanner {
             "<body onload=\"javascript:history.back()\">" .
             "</body></html>";
         }
-        $imagen = $_GET["id_img"];
+        $ext = '.jpg';
+        $imagen = $_GET["id_img"] . $ext;
         $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
         $Eliminar2 = "Delete from ad where id_ad = " . $id_ad . " and id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $Eliminar2)) {
@@ -138,8 +140,9 @@ class FlyeryBanner {
         $na = new validacion();
         $iie = $na->generar_alfanumerico();
         $tipo = $_POST['contact'];
+        $ext = '.jpg';
         $nombreimagen = $_FILES['id_img']['name'];
-        $nombreanterior = $_POST["idimagenanterior"];
+        $nombreanterior = $_POST["idimagenanterior"] . $ext;
         if ($nombreimagen == "") {
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
             unlink($ruta . $nombreanterior);
@@ -167,7 +170,7 @@ class FlyeryBanner {
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
-        $actulizacion2 = "update ad set tipo = '$tipo', id_img = '$nombreimagen' where id_ad = " . $id_ad . " AND id_revision_objeto = " . $id_revision_objeto . "";
+        $actulizacion2 = "update ad set tipo = '$tipo', id_img = '$iie' where id_ad = " . $id_ad . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
         }

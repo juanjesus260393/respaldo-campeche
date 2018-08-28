@@ -111,7 +111,8 @@
             for ($i = 0; $i < count($llenar); $i++) {
                 ?>
                 <tr>
-                    <td><?php echo ('<img src="../Imagenes/Publicidad/' . $lflyerybanners[$i]["id_img"] . '" width="152" height="118">'); ?></td>
+                    
+                    <td><?php $ext = '.jpg'; echo ('<img src="../Imagenes/Publicidad/' . $lflyerybanners[$i]["id_img"] . '.jpg" width="152" height="118">'); ?></td>
                     <td><?php
                         switch ($lflyerybanners[$i]["status"]) {
                             case 'C':

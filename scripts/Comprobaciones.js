@@ -36,7 +36,7 @@ function validateForm()
         var img = new Image();
         img.onload = function () {
             if (this.width.toFixed(0) >= 121 && this.height.toFixed(0) >= 121) {
-                alert('El tamaño de la imagen tiene que ser menor a 120 x 20 selecciona otra por favor');
+                alert('El tamaño de la imagen tiene que ser menor a 120 x 120 selecciona otra por favor');
             }
            
             else {

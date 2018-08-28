@@ -78,7 +78,7 @@
                 <span><label>*Imagen de la Publicidad:</label></span>
                 <span><input type="file" id="id_img" accept=".jpg" name="id_img" required=""></span>
                 <span><label>Imagen Anterior:</label></span>
-                <?php echo ('<span><img src="../Imagenes/Publicidad/' . $id_img . '"/ width="152" height="118"></span>'); ?>
+                <?php echo ('<span><img src="../Imagenes/Publicidad/' . $id_img . '.jpg"/ width="152" height="118"></span>'); ?>
                 <span><input type="hidden" id="idimagenanterior" name="idimagenanterior" value="<?php echo $id_img;
                 ?>"></span>
             </div>
