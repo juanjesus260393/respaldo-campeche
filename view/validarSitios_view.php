@@ -47,7 +47,9 @@ include '../includes/header.php';
                      data-8='<?php printf($cupdato[8]); ?>' data-9='<?php printf($cupdato[9]); ?>' data-10='<?php printf($cupdato[10]); ?>' data-11='<?php printf($cupdato[11]); ?>'
                      data-13='<?php printf($cupdato[13]); ?>' data-14='<?php printf($cupdato[14]); ?>' data-15='<?php printf($cupdato[15]); ?>' data-16='<?php printf($cupdato[16]); ?>'
                       data-17='<?php printf($cupdato[17]); ?>' data-18='<?php printf($cupdato[18]); ?>' data-19='<?php printf($cupdato[19]); ?>' data-20='<?php printf($cupdato[20]); ?>'
-                     data-21='<?php printf($cupdato[21]); ?>' data-22='<?php printf($cupdato[22]); ?>' data-23='<?php printf($cupdato[23]); ?>'>
+                     data-21='<?php printf($cupdato[21]); ?>' data-22='<?php printf($cupdato[22]); ?>' data-23='<?php printf($cupdato[23]); ?>' data-24='<?php printf($cupdato[24]); ?>'
+                     data-25='<?php printf($cupdato[25]); ?>' data-26='<?php printf($cupdato[26]); ?>' data-27='<?php printf($cupdato[27]); ?>'
+                     data-28='<?php printf($cupdato[28]); ?>' data-29='<?php printf($cupdato[29]); ?>'>
 
                     <?php
                     printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . "' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
@@ -121,7 +123,7 @@ include '../includes/header.php';
                                         </div>
 
 
-                                        <div class="row">
+                                        <div class="row justify-content-center align-items-center">
 
                                             <label for="dir" class="col-2">Direccion</label>
                                             <textarea class="col-4" name="dir" rows="3" cols="35" id="dir" readonly></textarea>
@@ -136,6 +138,9 @@ include '../includes/header.php';
                                                 <label>Carta:</label><br>
                                                 <input class="btn" type="button" data-toggle='modal' id='carta' data-target='#modalPDF' data-14='<?php printf($cupdato[14]); ?>'>
                                             </div>
+                                            <div class="col-2 text-center  h-100 justify-content-center align-items-center">
+                                                    <input class="btn" type="button"  data-toggle='modal' id='gal' name="gal" data-target='#ValidarmodalGalery'  value='Galeria'>
+                                                </div>
                                         </div>
 
                                         <div class="row">
@@ -240,7 +245,7 @@ include '../includes/header.php';
                 </div>
             </div>
 
-
+<?php include '../includes/Validar_modalGaleria.php'; ?>
             <div class="modal h-100" id="modalPDF">
                 <div class="modal-dialog modal-lg h-100">
                     <div class="modal-content" style="height: 95%;">
@@ -290,6 +295,12 @@ include '../includes/header.php';
                                                     var dat21 = button.data('21');
                                                     var dat22 = button.data('22');
                                                     var dat23 = button.data('23');
+                                                    
+                                                    var dat25 = button.data('25');
+                                                    var dat26 = button.data('26');
+                                                    var dat27 = button.data('27');
+                                                    var dat28 = button.data('28');
+                                                    var dat29 = button.data('29');
 
                                                     var posi = new google.maps.LatLng({lat: dat15, lng: dat16});
 
@@ -317,6 +328,13 @@ include '../includes/header.php';
                                                     document.getElementById('descripcion_largaEN').value = dat19;
                                                     document.getElementById('descripcion_largaES').value = dat21;
                                                     document.getElementById('descripcion_largaFR').value = dat23;
+                                                    
+                                                    document.getElementById('img1').src = "../Imagenes/Galeria/" + dat25;
+                                                    document.getElementById('img2').src = "../Imagenes/Galeria/" + dat26;
+                                                    document.getElementById('img3').src = "../Imagenes/Galeria/" + dat27;
+                                                    document.getElementById('img4').src = "../Imagenes/Galeria/" + dat28;
+                                                    document.getElementById('img5').src = "../Imagenes/Galeria/" + dat29;
+                                                    document.getElementById('imgp1').src = "../Imagenes/Galeria/" + dat25;
 
 
                                                     marker.setPosition(posi);

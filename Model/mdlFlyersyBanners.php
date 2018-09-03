@@ -39,6 +39,7 @@ class FlyeryBanner {
         }
         $tipo = $_POST['contact'];
         $nombreimagen = $_FILES['id_img']['name'];
+        $id_url = $_POST['url_sitio'];
         $nombreimagen = $iie . ".jpg";
         if (move_uploaded_file($_FILES['id_img']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen")) {
             $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen";
@@ -63,8 +64,8 @@ class FlyeryBanner {
         $nombres = $nombreimagen;
         $this->visualizaciones = '0.0';
         $idad = $na->generar_aleatorio();
-        $sql2 = "INSERT INTO ad (id_ad,id_revision_objeto,tipo,id_img,visualizaciones)
-        VALUES('$idad','$idro','$tipo','$iie','$this->visualizaciones')";
+        $sql2 = "INSERT INTO ad (id_ad,id_revision_objeto,tipo,id_img,url_sitio,visualizaciones)
+        VALUES('$idad','$idro','$tipo','$iie','$id_url','$this->visualizaciones')";
         if (!mysqli_query($pd, $sql2)) {
             die('Error: ' . mysqli_error($pd));
         }
@@ -126,8 +127,9 @@ class FlyeryBanner {
             $id_revision_objeto = $fila['id_revision_objeto'];
             $tipo = $fila['tipo'];
             $id_img = $fila['id_img'];
+            $url_sitio = $fila['url_sitio'];
         }
-        return array($id_ad, $id_revision_objeto, $tipo, $id_img);
+        return array($id_ad, $id_revision_objeto, $tipo, $id_img, $url_sitio);
     }
 
     public function actualizar_publicidad() {
@@ -143,21 +145,26 @@ class FlyeryBanner {
         $ext = '.jpg';
         $nombreimagen = $_FILES['id_img']['name'];
         $nombreanterior = $_POST["idimagenanterior"] . $ext;
-        if ($nombreimagen == "") {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
-            unlink($ruta . $nombreanterior);
-        } else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
-            unlink($ruta . $nombreanterior);
-            $nombreimagen = $_FILES['id_img']['name'];
-            $nombreimagen = $iie . ".jpg";
-            if (move_uploaded_file($_FILES['id_img']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen")) {
-                $msg = "El archivo ha sido cargado correctamente.<br>";
-            } else {
-                die();
+        // se sube la imagen y se valida su resolucion
+        $nombreimagen = $iie . ".jpg";
+        if (move_uploaded_file($_FILES['id_img']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen")) {
+            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/$nombreimagen";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+              if (($file['video']['resolution_x'] > 338 && $file['video']['resolution_y'] > 600) || ($file['video']['resolution_x'] > 728 && $file['video']['resolution_y'] > 90)) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
+                unlink($ruta . $nombreimagen);
+                echo "<script>
+                alert('La resolucion de la imagen tiene que ser menor a 1280 x 720');
+                window.location= '../Controller/crtcVideos.php'
+    </script>";
+                exit();
             }
         }
         $id_revision_objeto = $_POST["id_revision_objeto"];
+        $url_sitio = $_POST["url_sitio"];
         $id_ad = $_POST["id_ad"];
         $año_actual = date("Y");
         $mes_actual = date("m");
@@ -170,12 +177,14 @@ class FlyeryBanner {
         if (!mysqli_query($pd, $actulizacion1)) {
             die('Error: ' . mysqli_error($pd));
         }
-        $actulizacion2 = "update ad set tipo = '$tipo', id_img = '$iie' where id_ad = " . $id_ad . " AND id_revision_objeto = " . $id_revision_objeto . "";
+        $actulizacion2 = "update ad set tipo = '$tipo', id_img = '$iie', url_sitio = '$url_sitio' where id_ad = " . $id_ad . " AND id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $actulizacion2)) {
             die('Error: ' . mysqli_error($pd));
         }
         mysqli_close($pd);
         header("Location:https://localhost/campeche-web2/Controller/crtcFlyers.php");
+        $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Publicidad/";
+        unlink($ruta . $nombreanterior);
     }
 
 }

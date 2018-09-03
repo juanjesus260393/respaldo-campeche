@@ -7,7 +7,7 @@ include '../includes/header2.php';
 ?>
      <?php list($id_cupon, $id_revision_objeto, $titulo, $descripcion_corta, $descripcion_larga, $id_imagen_extra, $id_imagen_vista_previa, $terminos_y_condiciones, $limite_codigos) = $secupon ?>
     <center><h2>Llenar los campos que contienen un * al inicio</h2></center>   
-
+        <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
     <center><h1>Actualizar Cupon</h1></center>
     <center><form method="post" action="../Controller/crtacCupon.php" name="form1" enctype="multipart/form-data">
             <div>
@@ -39,13 +39,13 @@ include '../includes/header2.php';
             </div> 
             <div>
                 <span><label>*Imagen Vista Previa:</label></span>
-                <span><input type="file" id="id_imagen_vista_previa" accept=".jpg" name="id_imagen_vista_previa" ></span>
+                <span><input type="file" id="id_imagen_vista_previa" onchange= "ValidarImagenc(this)" accept=".jpg" name="id_imagen_vista_previa" ></span>
                 <span><input type="hidden" id="id_imagen_anterior" name="id_imagen_anterior" value="<?php echo $id_imagen_vista_previa;
         ?>"></span>
             </div>
             <div>
                 <span><label>Imagen del cupon</label></span>
-                <span><input type="file" id="id_imagen_extra" accept=".jpg" name="id_imagen_extra" ></span>
+                <span><input type="file" id="id_imagen_extra" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_imagen_extra" ></span>
                 <span><input type="hidden" id="id_imagen_anterior2" name="id_imagen_anterior2" value="<?php echo $id_imagen_extra;
         ?>"></span>
             </div>

@@ -105,7 +105,7 @@ Class videosturista {
         $consultaue = "select v.titulo, v.descripcion, date_format(v.fecha_subida, '%d/%m/%Y') as fecha_subida, sector.nombre as sector, empresa.nombre as empresa,
  v.precio,v.duracion,v.visualizaciones as vistas,v.id_video_archivo as id_video,v.id_img_preview as id_imagen_vista_previa,
 empresa.id_logo as id_logo_empresa from video v inner join revision_objeto r on v.id_revision_objeto = r.id_revision_objeto inner join 
-empresa on r.id_empresa = empresa.id_empresa inner join sector on empresa.id_sector = sector.id_sector limit $limite;";
+empresa on r.id_empresa = empresa.id_empresa inner join sector on empresa.id_sector = sector.id_sector where r.status = 'A' limit $limite;";
         $resultado2 = mysqli_query($dbh, $consultaue) or die(mysqli_error());
         foreach ($resultado2 as $res) {
             $videos[] = $res;

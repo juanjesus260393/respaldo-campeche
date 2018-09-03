@@ -29,12 +29,19 @@ $_SESSION['nF']=$cto_pendientes->get_num_FoB();
 $_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV']+$_SESSION['nF'];
 
  if(isset($_POST['submit'])){
+     
+   if(isset($_POST['habilitar'])){
+   if($_POST['habilitar']){
+       $a=1;
    
-   $b=$Nuevo_usu->add_usuario();
+   
+   }}else {$a=0;}
+   $b=$Nuevo_usu->add_usuario($a);
+   if(isset($_POST['habilitar'])){
    if($_POST['habilitar']){
        $c=$Nuevo_usu->habilitando($b);
        
-   }
+   }}
    
  }
 

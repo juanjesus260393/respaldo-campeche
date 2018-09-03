@@ -85,44 +85,12 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
         //Primero se genera el identificador de la revision del objeto
         $na = new validacion();
         $idro = $na->generar_aleatorio();
-        $iie = $na->generar_alfanumerico();
         $iive = $na->generar_alfanumerico();
         //Fecha de creacion y hora 
         $fa = $na->fecha_actual();
-        $status = 'C';
-        $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)
-        VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','0000-00-00','$status')";
-        if (!mysqli_query($pd, $sql)) {
-            die('Error: ' . mysqli_error($pd));
-        }
-        //A su vez se realiza la insersion en la tabla cupon
-        //Se reciben los parametros de la vista de registros
         $titulo = $_POST['titulo'];
         $descripcion_corta = $_POST['descripcion_corta'];
         $descripcion_larga = $_POST['descripcion_larga'];
-        //Ruta donde se guardaran las imagenes de los cupones
-        $nombreimagen = $_FILES['id_imagen_extra']['name'];
-        $nombreimagen = $iie . ".jpg";
-        if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen")) {
-            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen";
-            $getID3 = new getID3;
-            $file = $getID3->analyze($filename);
-            //Una ves que se yha subido se comprueba la resolucion del mismo
-            if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
-                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
-                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
-                unlink($ruta . $nombreimagen);
-                echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
-                //Regresamos a la pagina anterior
-                echo "<html><head></head>" .
-                "<body onload=\"javascript:history.back()\">" .
-                "</body></html>";
-                exit;
-            }
-        } else {
-            $nombreimagen = "";
-        }
-        $nombres = $nombreimagen;
         $nombreimagen2 = $_FILES['id_imagen_vista_previa']['name'];
         $nombreimagen2 = $iive . ".jpg";
         if (move_uploaded_file($_FILES['id_imagen_vista_previa']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen2")) {
@@ -132,7 +100,7 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
             //Una ves que se yha subido se comprueba la resolucion del mismo
             if ($file['video']['resolution_x'] > 120 && $file['video']['resolution_y'] > 120) {
                 //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
-                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
                 unlink($ruta . $nombreimagen2);
                 echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
                 //Regresamos a la pagina anterior
@@ -141,15 +109,47 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
                 "</body></html>";
                 exit;
             }
-        } else {
-            $nombreimagen2 = "";
         }
         $nombres2 = $nombreimagen2;
+        //Ruta donde se guardaran las imagenes de los cupones
+        $nombreimagen = $_FILES['id_imagen_extra']['name'];
+        if ($nombreimagen == null) {
+            $iie = '';
+        } else {
+            $iie = $na->generar_alfanumerico();
+            $nombreimagen = $iie . ".jpg";
+            if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen")) {
+                $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen";
+                $getID3 = new getID3;
+                $file = $getID3->analyze($filename);
+                //Una ves que se yha subido se comprueba la resolucion del mismo
+                if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                    $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                    unlink($ruta . $nombreimagen);
+                    $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
+                    unlink($ruta2 . $nombreimagen2);
+                    echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
+                    //Regresamos a la pagina anterior
+                    echo "<html><head></head>" .
+                    "<body onload=\"javascript:history.back()\">" .
+                    "</body></html>";
+                    exit;
+                }
+            }
+        }
+
         $vigencia_inicio = $_POST['vigencia_inicio'];
         $vigencia_fin = $_POST['vigencia_fin'];
         $terminos_y_condiciones = $_POST['terminos_y_condiciones'];
         $limite_codigos = $_POST['limite_codigos'];
         //Se genera el identificador del cupon
+        $status = 'C';
+        $sql = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)
+        VALUES('$idro'," . $_SESSION['idemp'] . ",'$fa','0000-00-00','$status')";
+        if (!mysqli_query($pd, $sql)) {
+            die('Error: ' . mysqli_error($pd));
+        }
         $idcu = $na->generar_aleatorio();
         $sql2 = "INSERT INTO cupon (id_cupon,id_revision_objeto,titulo,descripcion_corta,descripcion_larga,id_imagen_vista_previa,id_imagen_extra,vigencia_inicio,vigencia_fin,terminos_y_condiciones,limite_codigos)
         VALUES('$idcu','$idro','$titulo','$descripcion_corta','$descripcion_larga','$iive','$iie','$vigencia_inicio','$vigencia_fin','$terminos_y_condiciones','$limite_codigos')";
@@ -191,9 +191,9 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
             "</body></html>";
         }
         $ext = '.jpg';
-        $imagen = $_GET["id_imagen_extra"].$ext;
-        $imagen2 = $_GET["id_imagen_vista_previa"].$ext;
-        
+        $imagen = $_GET["id_imagen_extra"] . $ext;
+        $imagen2 = $_GET["id_imagen_vista_previa"] . $ext;
+
         //primero buscar en la tabla codigo qr
         $c = new obtener_cupon();
         $cqr = $c->buscarcodigoqr($id_cupon);
@@ -214,17 +214,17 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
                 $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
                 unlink($ruta . $imagen);
                 mysqli_close($pd);
-               header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             }
             if ($imagen2 == "") {
                 mysqli_close($pd);
-                 header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             } else {
                 //Se elimina la imagen 
                 $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
                 unlink($ruta2 . $imagen2);
                 mysqli_close($pd);
-                 header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
+                header("Location:https://localhost/campeche-web2/Controller/IniciodeSesion.php");
             }
         } else {
             echo '<script language = javascript> alert("Este cupon ya tiene codigos Qr generados, no se puede eliminar") </script>';
@@ -270,41 +270,68 @@ c.vigencia_fin = '$ftm' group by c.titulo;";
         //Primero se reciben los parametros de la vista actualizar cupon
         //se compara si el parametro id_imagen_ extra esta regresando vacia
         $na = new validacion();
-        $iie = $na->generar_alfanumerico();
-        $iip = $na->generar_alfanumerico();
         $ext = '.jpg';
         $nombreimagen = $_FILES['id_imagen_vista_previa']['name'];
-        $nombreanterior = $_POST["id_imagen_anterior"].$ext;
-        if ($nombreimagen == "") {
+        $nombreanterior = $_POST["id_imagen_anterior"] . $ext;
+        //La imagen de vista previa no puede venir vacia
+        if ($nombreimagen == null) {
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
             unlink($ruta . $nombreanterior);
         } else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
-            unlink($ruta . $nombreanterior);
+            $iie = $na->generar_alfanumerico();
             $nombreimagen = $_FILES['id_imagen_vista_previa']['name'];
             $nombreimagen = $iie . ".jpg";
             if (move_uploaded_file($_FILES['id_imagen_vista_previa']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen")) {
-                $msg = "El archivo ha sido cargado correctamente.<br>";
-            } else {
-                die();
+                $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/$nombreimagen";
+                $getID3 = new getID3;
+                $file = $getID3->analyze($filename);
+                //Una ves que se yha subido se comprueba la resolucion del mismo
+                if ($file['video']['resolution_x'] > 120 && $file['video']['resolution_y'] > 120) {
+                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                    $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
+                    unlink($ruta . $nombreimagen);
+                    echo "<script>
+                alert('La resolucion de la imagen tiene que ser menor a 1280 x 720');
+                window.location= '../Controller/crtCupones.php'
+    </script>";
+                    exit();
+                }
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
+                unlink($ruta . $nombreanterior);
             }
         }
         $nombreimagen2 = $_FILES['id_imagen_extra']['name'];
-        $nombreanterior2 = $_POST["id_imagen_anterior2"].$ext;
-        if ($nombreimagen2 == "") {
+        $nombreanterior2 = $_POST["id_imagen_anterior2"] . $ext;
+        if ($nombreimagen2 == NULL) {
+            $iip = '';
             $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
             unlink($ruta . $nombreanterior2);
         } else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
-            unlink($ruta . $nombreanterior2);
-            $nombreimagen2 = $_FILES['id_imagen_extra']['name'];
+            $iip = $na->generar_alfanumerico();
             $nombreimagen2 = $iip . ".jpg";
             if (move_uploaded_file($_FILES['id_imagen_extra']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen2")) {
-                $msg = "El archivo ha sido cargado correctamente.<br>";
-            } else {
-                die();
+                $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/$nombreimagen2";
+                $getID3 = new getID3;
+                $file = $getID3->analyze($filename);
+                //Una ves que se yha subido se comprueba la resolucion del mismo
+                if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                    $ruta2 = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                    unlink($ruta2 . $nombreimagen2);
+                    $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/VistaPrevia/";
+                    unlink($ruta . $nombreimagen);
+                    echo "<script>
+                alert('La resolucion de la imagen tiene que ser menor a 1280 x 720');
+                window.location= '../Controller/crtCupones.php'
+    </script>";
+                    exit();
+                } else {
+                    $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Cupones/";
+                    unlink($ruta . $nombreanterior2);
+                }
             }
         }
+
         $id_revision_objeto = $_POST["id_revision_objeto"];
         $id_cupon = $_POST["id_cupon"];
         $titulo = $_POST['titulo'];

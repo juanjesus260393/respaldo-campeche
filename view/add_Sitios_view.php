@@ -42,7 +42,8 @@ include '../includes/header2.php';
                                     
                                      <textarea name="dir" rows="3" cols="35" placeholder="Escriba la direccion..."></textarea></div>
                                 <div class="col-4 text-center">
-                                    <input class="btn" type="button" data-toggle='modal' id='gal' name="gal" data-target='#modalGalery' value='Galeria'></div>
+                                    <input class="btn" type="button" data-toggle='modal' id='gal' name="gal" data-target='#modalGalery' value='Galeria'>
+                                </div>
                             </div>
                             <div>
                                 <label>Imagen Perfil:</label><br>

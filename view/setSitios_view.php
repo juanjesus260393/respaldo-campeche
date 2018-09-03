@@ -1,97 +1,7 @@
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
-
-        <title>Proyecto Campeche</title>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <link href="../css/bootstrap-grid.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-    </head>
-
-
-    <body>
-
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
-            <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navb">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link " href="../Controller/IniciodeSesion.php" >
-                            HOME
-                        </a>
-
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Sitios
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../Controller/ControladorSitios.php">Ver Sitios</a>
-                            <a class="dropdown-item" href="../Controller/add_Sitios_controller.php">Agregar Sitios</a>
-
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="../Controller/crtCupones.php" id="navbardrop" data-toggle="dropdown">
-                            Cupones
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
-                            <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon</a>
-
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="../Controller/crtcVideos.php" id="navbardrop" data-toggle="dropdown">
-                            Videos
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../Controller/crtcVideos.php">Videos  </a>
-                            <a class="dropdown-item" href="../view/Addvideo.php">Agregar Cupon</a>
-
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="../Controller/crtcFlyers.php" id="navbardrop" data-toggle="dropdown">
-                            Flyers & Banners
-                        </a>
-                        <div class="dropdown-menu">
-
-                            <a class="dropdown-item" href="../Controller/crtcFlyers.php">Flyers & Banners  </a>
-                            <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Graficas
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../Controller/crtEstadisticacupones.php">Estadisticas Cupones </a>
-                            <a class="dropdown-item" href="#">  </a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="../Controller/cambiaPass_controller.php">
-                            Cambia Contraseña
-                        </a>       
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0" action="../Controller/cerrarSession.php">
-                    <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesion</button>
-                </form>
-            </div>
-        </nav>
-
+<?php
+include '../includes/header2.php';
+?>
+<div> 
 
         <table style='border: 3px solid black' align='center'>
 
@@ -117,7 +27,8 @@
                      data-13='<?php printf($cupdato[13]); ?>' data-14='<?php printf($cupdato[14]); ?>' data-15='<?php printf($cupdato[15]); ?>' data-16='<?php printf($cupdato[16]); ?>'
                      data-17='<?php printf($cupdato[17]); ?>' data-19='<?php printf($cupdato[19]); ?>' data-20='<?php printf($cupdato[20]); ?>' data-21='<?php printf($cupdato[21]); ?>'
                      data-22='<?php printf($cupdato[22]); ?>' data-23='<?php printf($cupdato[23]); ?>' data-24='<?php printf($cupdato[24]); ?>'
-                     data-18='<?php printf($cupdato[18]); ?>'>
+                     data-18='<?php printf($cupdato[18]); ?>' data-25='<?php printf($cupdato[25]); ?>' data-26='<?php printf($cupdato[26]); ?>' data-27='<?php printf($cupdato[27]); ?>'
+                     data-28='<?php printf($cupdato[28]); ?>' data-29='<?php printf($cupdato[29]); ?>'>
 
                     <?php
                     printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . "' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
@@ -145,12 +56,13 @@
 
                 printf("</table>");
                 ?>
-
+           
 
             <div class="modal modal1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
                 <div class="modal1-dialog2" role="document">
                     <div class="modal-content">
-                        <form  enctype="multipart/form-data" action="../Controller/setSitios_controller.php" method="post">
+                        <form  enctype="multipart/form-data" id="setsitiosform" action="../Controller/setSitios_controller.php" method="post">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Sitio</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -160,7 +72,7 @@
                             <div class="modal1-body">
 
                                 <div class="container-fluid">
-
+                                    
 
 
                                     <div class="row form-group">
@@ -197,7 +109,7 @@
                                             </div>
 
 
-                                            <div class="row">
+                                            <div class="row justify-content-center align-items-center">
 
                                                 <label for="dir" class="col-2">Direccion</label>
                                                 <textarea class="col-4" name="dir" rows="3" cols="35" id="dir" required></textarea>
@@ -237,6 +149,14 @@
                                                                height: 100%;">
                                                     </div>
 
+                                                </div>
+                                                <div class="col-2 text-center  h-100 justify-content-center align-items-center">
+                                                    <input class="btn" type="button"  data-toggle='modal' id='gal' name="gal" data-target='#SetmodalGalery'  value='Galeria'>
+                                                    <input type="hidden" id="imgh1" name="imgh1">
+                                                    <input type="hidden" id="imgh2" name="imgh2">
+                                                    <input type="hidden" id="imgh3" name="imgh3">
+                                                    <input type="hidden" id="imgh4" name="imgh4">
+                                                    <input type="hidden" id="imgh5" name="imgh5">
                                                 </div>
                                             </div>
 
@@ -389,7 +309,7 @@
                 </div>
             </div>
         </div>
-
+<?php include '../includes/Set_modalGaleria.php'; ?>
 
         <div class="modal h-100" id="modalPDF">
             <div class="modal-dialog modal-lg h-100">
@@ -441,6 +361,12 @@
                                                     var dat22 = button.data('22');
                                                     var dat23 = button.data('23');
                                                     var dat24 = button.data('24');
+                                                    
+                                                    var dat25 = button.data('25');
+                                                    var dat26 = button.data('26');
+                                                    var dat27 = button.data('27');
+                                                    var dat28 = button.data('28');
+                                                    var dat29 = button.data('29');
 
                                                     var posi = new google.maps.LatLng({lat: dat15, lng: dat16});
 
@@ -458,7 +384,7 @@
                                                  
                                                     document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13;
                                                     document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14;
-
+                                                    
                                                     document.getElementById('idperfilaux').value = dat13;
                                                   
                                                     document.getElementById('idcartaaux').value = dat14;
@@ -482,9 +408,19 @@
                                                     map.setCenter(posi);
                                                     map.setZoom(15);
 
-
-
-
+                                                    document.getElementById('img1').src = "../Imagenes/Galeria/" + dat25;
+                                                    document.getElementById('img2').src = "../Imagenes/Galeria/" + dat26;
+                                                    document.getElementById('img3').src = "../Imagenes/Galeria/" + dat27;
+                                                    document.getElementById('img4').src = "../Imagenes/Galeria/" + dat28;
+                                                    document.getElementById('img5').src = "../Imagenes/Galeria/" + dat29;
+                                                    document.getElementById('imgp1').src = "../Imagenes/Galeria/" + dat25;
+                                                    
+                                                    document.getElementById('imgh1').value = dat25;
+                                                    document.getElementById('imgh2').value = dat26;
+                                                    document.getElementById('imgh3').value = dat27;
+                                                    document.getElementById('imgh4').value = dat28;
+                                                    document.getElementById('imgh5').value = dat29;
+                                                    
 
                                                     $('#aprobar').click(function () {
                                                         var msgtxt = document.getElementById('messagetext').value;
@@ -535,7 +471,17 @@
                                                        
                                                         document.getElementById('carta').value = file3[file3.length - 1];
                                                 });
-        </script>
+                                                
+                                                $("#SetmodalGalery").on('show.bs.modal', function () {
+            $("#exampleModal").css('z-index', '5');
+           
+        });
+         $("#SetmodalGalery").on('hide.bs.modal', function () {
+            $("#exampleModal").css('z-index', '1050');
+           
+        });
 
-</body>
-</html>
+        </script>
+<?php
+include '../includes/footer.php';
+?>

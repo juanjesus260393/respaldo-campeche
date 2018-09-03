@@ -28,7 +28,11 @@ $_SESSION['nF']=$cto_pendientes->get_num_FoB();
 $_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV']+$_SESSION['nF'];
 
  if(isset($_POST['activar'])){
+     
+     
+      $a=$emp->iniciaMembresia();
      $pon=$emp->able_emp($_POST['user_able']);
+    
      
  }
  

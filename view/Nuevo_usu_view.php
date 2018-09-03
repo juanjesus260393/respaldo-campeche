@@ -12,13 +12,13 @@ include '../includes/header.php';
             <br><br>
             
             <label>Correo</label>
-            <input type="text" size="32" placeholder="ejemplo@correo.com" name="email" />
+            <input type="text" size="32" placeholder="ejemplo@correo.com" name="email" required>
             <label>Nombre de la Empresa</label>
-            <input type="text" size="40" name="empresa">
+            <input type="text" size="40" name="empresa" onkeypress="LetrasyNum()" required>
             <br>
             <span ><label>Membresias</label>
                 <label class="btn btn-outline-primary">
-                    <input type="radio"  name="membresia" class="" value="BASICA">
+                    <input type="radio"  name="membresia" class="" value="BASICA" required>
             
                     <img src="../Controller/img/Mbasica.png" alt="Basica" height="50" width="60" class="">
                 </label>
@@ -44,38 +44,38 @@ include '../includes/header.php';
                     ?>
             <br>
             <label>Logo:</label><br>
-             <input type="file" name="idlogo" id="idlogo" accept=".jpg" >
+             <input type="file" name="idlogo" id="idlogo" accept=".jpg" required>
             <label>Telefono</label>
-            <input type="text" size="20" name="tel1" onkeypress="soloNum()">
+            <input type="text" size="20" name="tel1" onkeypress="soloNum()" required>
             <label>Extension</label>
             <input type="text" size="20" name="tel2" onkeypress="soloNum()">
             <label>Celular</label>
-            <input type="text" size="20" name="cel" onkeypress="soloNum()">
+            <input type="text" size="20" name="cel" onkeypress="soloNum()" >
             <br>
             <label>Direccion</label>
             <br>
-            <textarea name="dir" rows="3" cols="35" placeholder="Escriba la direccion..."></textarea>
+            <textarea name="dir" rows="3" cols="35" placeholder="Escriba la direccion..." required></textarea>
             <label>Propietario</label>
-            <input type="text" size="35" name="propietario">
+            <input type="text" size="35" name="propietario" required>
              <label>Numero de Empleados</label>
-            <input type="text" size="5" name="numempleados">
+            <input type="text" size="5" name="numempleados" required>
             <br>
             <label>Descripcion </label>
             <br>
-            <textarea name="desc" rows="10" cols="80"  maxlength="499" placeholder="Escriba una descripcion larga ..."></textarea>
+            <textarea name="desc" rows="10" cols="80"  maxlength="499" placeholder="Escriba una descripcion larga ..." required></textarea>
             <label>Facebook</label>
-            <input type="text" size="40" name="facebook">
+            <input type="text" size="40" name="facebook" required>
             <label>Twitter</label>
-            <input type="text" size="40" name="twitter">
+            <input type="text" size="40" name="twitter" required>
             <label>Instagram</label>
-            <input type="text" size="40" name="instagram">
+            <input type="text" size="40" name="instagram" required>
             <label>Youtube</label>
-            <input type="text" size="40" name="youtube">
+            <input type="text" size="40" name="youtube" required>
             <label>Google +</label>
-            <input type="text" size="40" name="googleplus">
+            <input type="text" size="40" name="googleplus" required>
             <br>
             <label>Tamaño</label>
-            <input type="text" size="20" name="tam">
+            <input type="text" size="20" name="tam" required>
             <br>
             <label>Rango de costos</label>
             <br>
@@ -89,8 +89,27 @@ include '../includes/header.php';
                      printf("</select>");
                     ?>
             <br>
-            <input type="checkbox" name="habilitar" value="si" checked> Habilitar usuario<br>
-
+            <input type="checkbox" name="habilitar" value="si" checked onchange="mostrarfec(this)"> Habilitar usuario<br>
+            <label id="Lfechafin"> Caducidad Membresia<input type="date" name="fechafin" id="fechafin"  required></label>
+           
+            <script>
+                function mostrarfec(a){
+                    if(a.checked===true){
+                        $('#fechafin').removeClass('d-none');
+                        $('#Lfechafin').removeClass('d-none');
+                        $('#fechafin').Attr('required', 'required');
+                    }else{
+                    $('#fechafin').addClass('d-none');
+                    $('#Lfechafin').addClass('d-none');
+                    
+                   $('#fechafin').removeAttr('required');
+                }
+                    
+                    
+                }
+                
+                
+                </script>
 
           
             <br>

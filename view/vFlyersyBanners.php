@@ -142,7 +142,7 @@
                         $idrob = $lflyerybanners[$i]["id_revision_objeto"];
                         $img = $lflyerybanners[$i]["id_img"];
                         ?>
-                    <td> <?php echo '<a href="../Controller/crtePublicidad.php?id_revision_objeto=' . $idrob . '&id_ad=' . $idpub . '&id_img=' . $img . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar este cupon?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
+                    <td> <?php echo '<a href="../Controller/crtePublicidad.php?id_revision_objeto=' . $idrob . '&id_ad=' . $idpub . '&id_img=' . $img . '" onclick="if (!confirm(\'Estas seguro que quieres eliminar esta publicidad?\')) { return false}"><img src="img/eliminar.jpg"></a>' ?></td>
                     <td><form method="post" action="../Controller/crtsPublicidad.php">
                             <?php echo "<input type='hidden' id='id_ad' name='id_ad' value='$idpub'> <input type='submit' value='Actualizar'>" ?>
                         </form></td>

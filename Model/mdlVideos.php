@@ -93,6 +93,8 @@ class Videos {
                 //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
                 $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
                 unlink($ruta . $nombreimagen);
+                $ruta2 = "C:/xampp/htdocs/campeche-web2/Videos/";
+                unlink($ruta2 . $nombrevideo);
                 echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño") </script>';
                 //Regresamos a la pagina anterior
                 echo "<html><head></head>" .
@@ -133,8 +135,8 @@ class Videos {
         }
         $extv = '.mp4';
         $exti = '.jpg';
-        $imagen = $_GET["id_img_preview"].$exti;
-        $video = $_GET["id_video_archivo"].$extv;
+        $imagen = $_GET["id_img_preview"] . $exti;
+        $video = $_GET["id_video_archivo"] . $extv;
         $Eliminar = "Delete from revision_objeto where id_revision_objeto = " . $id_revision_objeto . " AND id_empresa = '" . $_SESSION['idemp'] . "'";
         $Eliminar2 = "Delete from video where id_video = " . $id_video . " and id_revision_objeto = " . $id_revision_objeto . "";
         if (!mysqli_query($pd, $Eliminar2)) {
@@ -169,6 +171,13 @@ class Videos {
             echo "<html><head></head>" .
             "<body onload=\"javascript:history.back()\">" .
             "</body></html>";
+            $id_video = '';
+            $id_revision_objeto = '';
+            $titulo = '';
+            $descripcion = '';
+            $precio = '';
+            $id_img_preview = '';
+            $id_video_archivo = '';
         } else {
             $id_video = $fila['id_video'];
             $id_revision_objeto = $fila['id_revision_objeto'];
@@ -190,66 +199,62 @@ class Videos {
         $extv = '.mp4';
         $exti = '.jpg';
         $nombreimagen = $_FILES['id_img_preview']['name'];
-        $nombreanteriori = $_POST["id_imagen_anterior"].$exti;
+        $nombreanteriori = $_POST["id_imagen_anterior"] . $exti;
         $nombrevideo = $_FILES['id_video_archivo']['name'];
-        $nombreanteriorv = $_POST["id_video_antetior"].$extv;
+        $nombreanteriorv = $_POST["id_video_antetior"] . $extv;
         $limite = "09:59";
-        if ($nombrevideo == "") {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
-            unlink($ruta . $nombreanteriorv);
-        } else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
-            unlink($ruta . $nombreanteriorv);
-            $nombrevideo = $_FILES['id_video_archivo']['name'];
-            $nombrevideo = $iav . ".mp4";
-            if (move_uploaded_file($_FILES['id_video_archivo']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo")) {
-                $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
-                $getID3 = new getID3;
-                $file = $getID3->analyze($filename);
-                $tiempo_video = $file['playtime_string'];
-                $newcadena = '00:' . $tiempo_video;
-                $endtime = gmdate('i:s', strtotime('00:' . $tiempo_video));
-                //Una ves que se yha subido se comprueba la resolucion del mismo
-                if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
-                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
-                    $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
-                    unlink($ruta . $nombrevideo);
-                    echo '<script language = javascript> alert("La Resolucion no es la indicada selecciona otro video o reduce la calidad del mismo.") </script>';
-                    //Regresamos a la pagina anterior
-                    echo "<html><head></head>" .
-                    "<body onload=\"javascript:history.back()\">" .
-                    "</body></html>";
-                    exit;
-                }
-                if ($endtime > $limite) {
-                    //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
-                    $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
-                    unlink($ruta . $nombrevideo);
-                    echo '<script language = javascript> alert("El video tiene que durar menos de 10 minutos.") </script>';
-                    //Regresamos a la pagina anterior
-                    echo "<html><head></head>" .
-                    "<body onload=\"javascript:history.back()\">" .
-                    "</body></html>";
-                    exit;
-                }
-            } else {
-                die();
+        $nombrevideo = $iav . ".mp4";
+        // se sube el video para realizar las validaciones correspondientes
+        if (move_uploaded_file($_FILES['id_video_archivo']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo")) {
+            $filename = "C:/xampp/htdocs/campeche-web2/Videos/$nombrevideo";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            $tiempo_video = $file['playtime_string'];
+            $newcadena = '00:' . $tiempo_video;
+            $endtime = gmdate('i:s', strtotime('00:' . $tiempo_video));
+            //Una ves que se ya subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1920 && $file['video']['resolution_y'] > 1080) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
+                unlink($ruta . $nombrevideo);
+                echo "<script>
+                alert('La resolucion del video tiene que ser menor a 1920 x 1080');
+                window.location= '../Controller/crtcVideos.php'
+    </script>";
+                exit();
+            }
+            if ($endtime > $limite) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Videos/";
+                unlink($ruta . $nombrevideo);
+                echo "<script>
+                alert('El video tiene que durar menos de 10 minutos');
+                window.location= '../Controller/crtcVideos.php'
+    </script>";
+                exit();
             }
         }
-        if ($nombreimagen == "") {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
-            unlink($ruta . $nombreanteriori);
-        } else {
-            $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
-            unlink($ruta . $nombreanteriori);
-            $nombreimagen = $_FILES['id_img_preview']['name'];
-            $nombreimagen = $iie . ".jpg";
-            if (move_uploaded_file($_FILES['id_img_preview']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/$nombreimagen")) {
-                $msg = "El archivo ha sido cargado correctamente.<br>";
-            } else {
-                die();
+        // se sube la imagen y se valida su resolucion
+        $nombreimagen = $iie . ".jpg";
+        if (move_uploaded_file($_FILES['id_img_preview']['tmp_name'], "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/$nombreimagen")) {
+            $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/$nombreimagen";
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1280 && $file['video']['resolution_y'] > 720) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
+                $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
+                unlink($ruta . $nombreimagen);
+                $ruta2 = "C:/xampp/htdocs/campeche-web2/Videos/";
+                unlink($ruta2 . $nombrevideo);
+                echo "<script>
+                alert('La resolucion de la imagen tiene que ser menor a 1280 x 720');
+                window.location= '../Controller/crtcVideos.php'
+    </script>";
+                exit();
             }
         }
+        //Cuando el video y la imagen se suben corectamente se realiza el cambio en la base de datos y en las carpetas correspondientes
         $id_revision_objeto = $_POST["id_revision_objeto"];
         $id_video = $_POST["id_video"];
         $titulo = $_POST['titulo'];
@@ -275,6 +280,11 @@ class Videos {
         }
         mysqli_close($pd);
         header("Location:https://localhost/campeche-web2/Controller/crtcVideos.php");
+        //Se elimina el video y la imagen anteriores
+        $ruta = "C:/xampp/htdocs/campeche-web2/Imagenes/Videos/";
+        unlink($ruta . $nombreanteriori);
+        $ruta2 = "C:/xampp/htdocs/campeche-web2/Videos/";
+        unlink($ruta2 . $nombreanteriorv);
     }
 
 }

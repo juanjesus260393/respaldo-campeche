@@ -71,6 +71,8 @@
             var dataURL = reader.result;
             var output = document.getElementById('img1');
             output.src = dataURL;
+            document.getElementById('imgp1').src = dataURL;
+            document.getElementById('imgp1').name = 'img1';
         };
         reader.readAsDataURL(input.files[0]);
     };
@@ -82,6 +84,8 @@
             var dataURL = reader.result;
             var output = document.getElementById('img2');
             output.src = dataURL;
+            document.getElementById('imgp1').src = dataURL;
+            document.getElementById('imgp1').name = 'img2';
         };
         reader.readAsDataURL(input.files[0]);
     };
@@ -93,6 +97,8 @@
             var dataURL = reader.result;
             var output = document.getElementById('img3');
             output.src = dataURL;
+            document.getElementById('imgp1').src = dataURL;
+            document.getElementById('imgp1').name = 'img3';
         };
         reader.readAsDataURL(input.files[0]);
     };
@@ -104,6 +110,8 @@
             var dataURL = reader.result;
             var output = document.getElementById('img4');
             output.src = dataURL;
+            document.getElementById('imgp1').src = dataURL;
+            document.getElementById('imgp1').name = 'img4';
         };
         reader.readAsDataURL(input.files[0]);
     };
@@ -115,6 +123,8 @@
             var dataURL = reader.result;
             var output = document.getElementById('img5');
             output.src = dataURL;
+            document.getElementById('imgp1').src = dataURL;
+            document.getElementById('imgp1').name = 'img5';
         };
         reader.readAsDataURL(input.files[0]);
     };
@@ -142,7 +152,7 @@
                              onmouseover="this.src = '../Imagenes/web/izq-hover.png'; this.style.height = '400px';"
                              src="../Imagenes/web/izq.png"  width="152" height="118"></div>
                     <div class="col">
-                        <img id="imgp1" name="img1"  src="" style=" width: 350px; height:400px;"></div>
+                        <img id="imgp1" name="img1"  src="../Imagenes/web/sin.jpg" style=" width: 350px; height:400px;"></div>
                     <div class="col">
                         <img id="der" onclick="setder()" onmouseout="this.src = '../Imagenes/web/der.png'; this.style.height = '118px';"
                              onmouseover="this.src = '../Imagenes/web/der-hover.png'; this.style.height = '400px';"   src="../Imagenes/web/der.png"  width="152" height="118">

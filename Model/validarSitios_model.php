@@ -15,7 +15,7 @@ class validarSitios_model{
         
         $selectSitios = ("SELECT S.id_municipio, S.id_sitio, S.nombre, S.direccion, S.horario, RI.url_sitio_web, RI.status , M.nombre, "
                 . "S.telefono1, S.telefono2, S.capacidad, DATE(RI.fecha_creacion), DATE(RI.fecha_actualizacion), RI.id_imagen_perfil, "
-                . "RI.id_carta, ST_X(RI.ubicacionGIS), ST_Y(RI.ubicacionGIS), RI.id_revision_informacion "
+                . "RI.id_carta, ST_X(RI.ubicacionGIS), ST_Y(RI.ubicacionGIS), RI.id_revision_informacion, M.id_municipio "
                 . "FROM sitio S INNER JOIN revision_informacion RI ON S.id_sitio=RI.id_sitio INNER JOIN municipio M ON S.id_municipio=M.id_municipio WHERE RI.status='C' OR RI.status='P'");
         
         $ressit=$this->db->query($selectSitios);
@@ -28,6 +28,8 @@ class validarSitios_model{
         }
        
         $this->sitiofinal= self::getdescripciones($this->sitios, $a);
+        
+        $this->sitiofinal= self::getGaleria($this->sitiofinal, $a);
         
         $ressit->close();
        // $this->db->close();
@@ -52,7 +54,27 @@ class validarSitios_model{
        return $sitioaux;
     }
 
-
+       public function getGaleria($sitioaux, $a){
+       
+       for($i=0; $i<$a;$i++){
+            $x=0;
+            $sqldesc="SELECT id_archivo_imagen FROM imagen_galeria WHERE id_revision_informacion=".$sitioaux[$i][17]." ";
+            $ressitaux=$this->db->query($sqldesc);
+            while($filass=$ressitaux->fetch_row()){
+                
+                array_push($sitioaux[$i], $filass[0].".jpg");
+                $x++;
+                
+            } 
+        while($x<6){
+             array_push($sitioaux[$i], "sin.jpg");
+             $x++;
+            }
+            
+       }
+      
+       return $sitioaux;
+    }
     
     
  

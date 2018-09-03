@@ -60,15 +60,19 @@ class Nuevo_usu_model{
       }
       return $password;
     }
-    public function add_usuario() {  
+    public function add_usuario($a) {  
           
          $email=$_POST['email'];
         $nombre=$_POST['empresa'];
         $sector=(int)$_POST['sectores'];
         $precios=(int)$_POST['rangos'];
         $tel1=(int)$_POST['tel1'];
-        $tel2=(int)$_POST['tel2'];
-        $cel=(int)$_POST['cel'];
+        if(isset($_POST['tel2'])){
+        $tel2=(int)$_POST['tel2'];}
+        else {$tel2="0";}
+        if(isset($_POST['tel2'])){
+        $cel=(int)$_POST['cel'];}
+        else {$cel="0";}
         $dir= htmlspecialchars($_POST['dir']);
         $owner=$_POST['propietario'];
         $numE=(int)$_POST['numempleados'];
@@ -80,6 +84,12 @@ class Nuevo_usu_model{
         $desc= htmlspecialchars($_POST['desc']);
         $tamano=(int)$_POST['tam'];
         $membresia=$_POST['membresia'];
+        
+        if($a==1){
+            $fechafin=$_POST['fechafin'];
+        }else {
+            $fechafin="0000-00-00";
+      }
         
         
          $pathlogo = "../Imagenes/Sitios/logo/";
@@ -117,6 +127,11 @@ class Nuevo_usu_model{
         $passaux= $this->gen_pass($email);
         sendmail($email, $passaux, 0);
         $pass=password_hash($passaux, PASSWORD_DEFAULT);
+        
+        date_default_timezone_set('America/Mexico_City');
+
+        $fecalta = date("Y-m-d H:i:s");
+        $fechainicio= date("Y-m-d H:i:s");
        // $pass=password_hash('empresa1', PASSWORD_DEFAULT);
       //$pass=$this->gen_pass($email);
          $sqlAuxMembresia = ("SELECT p.id_membresia FROM membresia p WHERE p.nombre='".$membresia."'");
@@ -127,10 +142,10 @@ class Nuevo_usu_model{
         if($agregado){
 
         $sqlinsert= ("INSERT INTO empresa (id_membresia, id_sector, id_rango_ventas, descripcion, telefono, extension,celular, "
-                . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus, id_logo) "
+                . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus, id_logo, fecha_alta, fecha_inicio_membresia, fecha_fin_membresia) "
                 . "VALUES (".$idmembresia[0].",".$sector.",".$precios.",'".$desc."',".$tel1.",".$tel2.","
                 .$cel.",'".$dir."','".$nombre."',".$numE.",'".$owner."',".$tamano.""
-                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."', '".$actual_logo_name."')");
+                . ",'".$facebook."','".$twitter."','".$instagram."','".$youtube."','".$google."', '".$actual_logo_name."', '".$fecalta."', '".$fechainicio."', '".$fechafin."')");
 
 
         $agregado=$this->db->query($sqlinsert);  

@@ -42,21 +42,48 @@ include '../includes/header.php';
                 }
         printf("</td>");
         
-        printf("<td height='80' align='center'>"
-                . "<table>"
-                . "<tr>"
-                . "<form action='../Controller/Emp_Desactivadas_controller.php' method='post'>"
-                ."<input type='hidden' name='user_able' value='".$dato[4]."'>"
-                . "<input type='submit' name='activar' value='Habilitar'>"
-                . "</form>"
-                . "</tr>"
-                . "</table> "
-                . "</td>");
-        printf("</tr>");
-    }
-     printf("</table>");
+        printf("<td height='80' align='center'>"); ?>
+                <table>
+                <tr>
+                <form action='../Controller/Emp_Desactivadas_controller.php' method='post'>
+                    
+                    
+                   <div class="modal" id="Modalfecha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Caducidad de Membresia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <label>Fecha Fin de Membresia</label><br>
+                                <input type="date" name="fechafin">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" id="aprobar" name="activar" value="Aprobar">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="rechazar">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>             
+                    
+                    
+                <input type='hidden' name='user_able' value='<?php printf($dato[4]); ?>'>
+                <input type='hidden' name='idemp' value='<?php printf($dato[0]); ?>'>
+                <input type='button' name='abrefecha' value='Habilitar' data-toggle='modal' data-target='#Modalfecha'>
+                </form>
+               </tr>
+                </table> 
+                </td>
+        </tr>
+  <?php  } ?>
+     </table>
 
-        ?>
+       
                
 <?php
 

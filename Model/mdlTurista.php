@@ -36,11 +36,14 @@ Class Turista extends model {
         $user_r['user_type'] = 'T';
         $conn = new Conectar();
         $pd = $conn->con();
-        $sql = "INSERT INTO token (token,username,vigencia)
-        VALUES('$token','$username','$cadena_fecha_vigenciadb')";
+        $idd = 'ABCDEFG123456';
+        $sql = "INSERT INTO token (token,username,id_dispositivo,vigencia)
+        VALUES('$token','$username','$idd','$cadena_fecha_vigenciadb')";
         if (!mysqli_query($pd, $sql)) {
-            header("HTTP/1.0 409 Conflict");
+           header("HTTP/1.0 409 Conflict");
+           exit();
         }
+        mysqli_close($pd);
         return json_encode($user_r);
     }
 
@@ -57,8 +60,9 @@ Class Turista extends model {
         $sql = "INSERT INTO token (token,username,vigencia)
         VALUES('$token','$username','$cadena_fecha_vigenciadb')";
         if (!mysqli_query($pd, $sql)) {
-            header("HTTP/1.0 409 Conflict");
+            header("HTTP/1.0 410 Conflict");
         }
+        mysqli_close($pd);
         return json_encode($user_r);
     }
 

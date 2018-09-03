@@ -1,11 +1,16 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require_once('../scripts/Validaciones.php');
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8" />
     <title>Proyecto Campeche 360</title>
+     <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
 </head>
 <?php list($id_video, $id_revision_objeto, $titulo, $descripcion, $precio, $id_img_preview, $id_video_archivo) = $video ?>
-<center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center>  
+<center><h2>Llenar los campos que contienen un * al inicio de los campos</h2></center> 
+
 <center><h1>Actualizar Video</h1></center>
 <center><form method="post" action="../Controller/crtacVideo.php" name="form1" enctype="multipart/form-data">
         <div>
@@ -36,7 +41,7 @@
         </div> 
         <div>
             <span><label>Imagen:</label></span>
-            <span><input type="file" id="id_img_preview" accept=".jpg" name="id_img_preview" required></span>
+            <span><input type="file" id="id_img_preview" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_img_preview" required></span>
             <span><label>Nombre anterior de la imagen:</label></span>
             <span><input type="text" id="id_img_preview" name="id_imagen_anterior" value="<?php echo $id_img_preview;
 ?>"></span>

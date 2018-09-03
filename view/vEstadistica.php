@@ -7,7 +7,6 @@ include '../includes/header2.php';
 <script src="../js/highcharts/js/themes/grid.js"></script>
 <script src="../js/highcharts/js/modules/exporting.js"></script>
 
-<<<<<<< HEAD
 <div class="contendor">
     <div id="consulta">
         <h1>Cupones Canjeados Durante la Promocion</h1><hr>
@@ -63,7 +62,7 @@ inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.
                 ?>],
                     name = 'Cupones',
                     data = [
-=======
+
 
 <div class="contendor">
             <div id="consulta">
@@ -119,7 +118,7 @@ inner join cupon c on c.id_cupon = q.id_cupon inner join revision_objeto r on c.
                         ?>],
                             name = 'Cupones',
                             data = [
->>>>>>> 12bb154dbf75e7f35fe189e6cff2222cd74ea4a1
+
 <?php for ($x = 0; $x <= $c - 1; $x++) { ?>
                                     {
                                         y: <?php echo $por[$x] ?>,

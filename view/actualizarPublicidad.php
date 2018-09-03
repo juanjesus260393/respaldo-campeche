@@ -10,9 +10,10 @@
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+         <script type="text/javascript" src="../scripts/Comprobaciones.js"></script>
     </head>
     <body>
-        <?php list($id_ad, $id_revision_objeto, $tipo, $id_img) = $sepub ?>
+        <?php list($id_ad, $id_revision_objeto, $tipo, $id_img, $url_sitio) = $sepub ?>
         <nav class = "navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
             <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
             <button class = "navbar-toggler navbar-toggler-right" type = "button" data-toggle = "collapse" data-target = "#navb">
@@ -76,11 +77,22 @@
             </div>
             <div>
                 <span><label>*Imagen de la Publicidad:</label></span>
-                <span><input type="file" id="id_img" accept=".jpg" name="id_img" required=""></span>
+                <span><input type="file" id="id_img" onchange= "ValidarImagenf(this)" accept=".jpg" name="id_img" required=""></span>
                 <span><label>Imagen Anterior:</label></span>
                 <?php echo ('<span><img src="../Imagenes/Publicidad/' . $id_img . '.jpg"/ width="152" height="118"></span>'); ?>
                 <span><input type="hidden" id="idimagenanterior" name="idimagenanterior" value="<?php echo $id_img;
                 ?>"></span>
+            </div>
+               <div>
+                <span><label>*Pagina Registrada previamente
+                        :</label></span>
+               <span><input type="text" name="ur_previa" id="ur_previa" value="<?php echo $url_sitio;
+        ?>" disabled="true"></span>
+            </div>
+               <div>
+                <span><label>*Nueva pagina del evento
+                        :</label></span>
+               <span><input type="text" name="url_sitio" id="url_sitio" required="true"></span>
             </div>
             <div>
                 <span><input type="submit" onclick="if (!confirm('Estas seguro que quieres actualizar esta publicidad?')) {
