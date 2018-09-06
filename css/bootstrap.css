@@ -66,8 +66,8 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-image:  url(../Imagenes/web/fondo_interno.jpg);
-background-color: #66999;
+  //background-image:  url(../Imagenes/web/fondo_interno.jpg);
+//background-color: #666999;
 background-size: cover;
 background-attachment: fixed;
 background-repeat: no-repeat;
@@ -1717,9 +1717,9 @@ pre code {
 }
 
 .table .thead-dark th {
-  color: #fff;
-  background-color: #212529;
-  border-color: #32383e;
+  color: #000;
+  background-color: #ffbb66;
+  border-color: #fff;
 }
 
 .table .thead-light th {
@@ -2643,16 +2643,16 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-primary {
-  color: #000;
+  color: #6a6a6a;
   background-color: transparent;
   background-image: none;
-  border-color: #c2c2c2;
+  border-color: #f1f1f1;
 }
 
 .btn-outline-primary:hover {
   color: #000;
-  background-color: #cdcdcd;
-  border-color: #c2c2c2;
+  background-color: #f1f1f1;
+  border-color: #f1f1f1;
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {

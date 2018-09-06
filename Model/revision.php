@@ -28,32 +28,18 @@ describe sitio_info;
  */
 class Revision extends model{
    function __construct(){
-      $this->LlavePrimaria = ['id'];
-      $this->NombreDeTabla = 'sitio_info';
+      $this->LlavePrimaria = ['id_revision_informacion'];
+      $this->NombreDeTabla = 'revision_informacion';
       $this->indices  = [];
       $this->columnas = array(
                       'id_sitio'  => null,
-                      'id_empresa'  => null,
-                      'municipios_id'  => null,
-                      'nombre'  => null,
-                      'direccion'  => null,
-                      'telefono1'  => null,
-                      'telefono2'  => null,
-                      'capacidad'  => null,
-                      'horario'  => null,
-                      'id_sector'  => null,
-                      'sector'  => null,
-                      'id_carta'  => null,
-                      'lang_code'  => null,
-                      'descripcion_larga'  => null,
-                      'descripcion_corta'  => null,
                       'ubicacionGIS' => array(['ST_Y','longitud'],['ST_X','latitud']) );
    }
 
     public function SeleccionarArea( $centro, $radio, $idioma ){
       $opt = $this->getArea( $centro, $radio );
       $opt = " MBRContains(ST_GeomFromText(".$opt."),ubicacionGIS) AND ";
-      $opt.= "lang_code=\"$idioma\"";
+      $opt.= "status='A'";
       /*TO DO: aqui deberían ir las validaciones y reglas de negocio */
       parent::SeleccionarVistas( $opt, false  );
       return $this->registrosEnCache;

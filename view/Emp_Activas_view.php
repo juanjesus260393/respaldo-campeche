@@ -5,14 +5,14 @@ include '../includes/header.php';
 
 ?>
       
-                 <table style='border: 1px solid black' align='center'>
+                 <table class="table" style='border: 1px solid black' align='center'>
                 
-                     <tr align='center'>
-                  <th width='120' align='center'>Id</th>
-                    <th width='220' align='center'>Nombre</th>
-                    <th width='500' align='center'>Descripción</th>
-                    <th width='220' align='center'>Sector</th>
-                    <th width='220' align='center'>Membresia</th>
+                     <thead class="thead-dark" align='center'>
+                  <th scope="col" width='120' align='center'>Id</th>
+                    <th scope="col" width='220' align='center'>Nombre</th>
+                    <th scope="col" width='500' align='center'>Descripción</th>
+                    <th scope="col" width='220' align='center'>Sector</th>
+                    <th scope="col" width='220' align='center'>Membresia</th>
                             <th width='220' align='center'></th>
                  </tr>
 

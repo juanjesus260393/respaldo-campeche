@@ -32,15 +32,13 @@ class ctrSitios{
     echo json_last_error();
   }
 }
-?>
 
-<?php
 
-if( $_SERVER['REQUEST_METHOD'] == 'GET' ){
+
+
+if($_SERVER['REQUEST_METHOD'] == 'GET' ){
   $test = new ctrSitios();
-
   $test->getSitios( floatval($_GET['latitud']), floatval($_GET['longitud']), floatval($_GET['radio']), $_GET['idioma'] );
-
 }
 
- ?>
+

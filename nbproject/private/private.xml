@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlCodigoqr.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlCupons.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlCupones.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/view/vCupon.php</file>
-            <file>file:/C:/xampp/htdocs/campeche-web2/Model/Conexion.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Model/Sectores3.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/db/db.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Model/Ads.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Model/model.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Controller/ctrSitios.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Model/mdlSites.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Model/revision.php</file>
+            <file>file:/C:/xampp/htdocs/campeche-web2/Model/Comments.php</file>
         </group>
     </open-files>
 </project-private>

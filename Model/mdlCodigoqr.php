@@ -2,7 +2,6 @@
 
 date_default_timezone_set('America/Mexico_City');
 require_once('Conexion.php');
-require_once('AesCipher.php');
 require_once('../scripts/Validaciones.php');
 
 class Codigos {
@@ -63,11 +62,36 @@ class Codigos {
         return $determinate;
     }
 
+    public static function openCypher($action = 'encrypt', $string = false) {
+        $action = trim($action);
+        $output = false;
+
+        $myKey = 'oW%c76+jb2';
+        $myIV = 'A)2!u467a^';
+        $encrypt_method = 'AES-256-CBC';
+
+        $secret_key = hash('sha256', $myKey);
+        $secret_iv = substr(hash('sha256', $myIV), 0, 16);
+
+        if ($action && ($action == 'encrypt' || $action == 'decrypt') && $string) {
+            $string = trim(strval($string));
+
+            if ($action == 'encrypt') {
+                $output = openssl_encrypt($string, $encrypt_method, $secret_key, 0, $secret_iv);
+            };
+
+            if ($action == 'decrypt') {
+                $output = openssl_decrypt($string, $encrypt_method, $secret_key, 0, $secret_iv);
+            };
+        };
+
+        return $output;
+    }
+
     public static function preparedqrstring($ic, $icqr) {
         $plaintext = $ic . "|" . $icqr;
-        $hashs = hash('sha256', $plaintext);
-        $Base64 = base64_encode(hex2bin($hashs));
-        return $Base64;
+        $encrypted = Codigos::openCypher('encrypt', $plaintext);
+        return $encrypted;
     }
 
     public static function preparedregister($ic, $token) {
@@ -107,6 +131,7 @@ class Codigos {
 
 }
 
+$Codigos = array();
 if (isset($_GET["coupon_id"])) {
     $Codigos = Codigos::register_codigoqr();
 } else if (isset($_GET["qr_string"])) {
