@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit8b29ac7a348b03b591e8e74f7073fa06
 {
+    public static $files = array (
+        'a4c1d93562a67c4aad47bc5c2418ac59' => __DIR__ . '/..' . '/yepsua/jquery4php/YepSua/Labs/RIA/jQuery4PHP/jquery4php_required.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (

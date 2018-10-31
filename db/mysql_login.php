@@ -9,4 +9,5 @@ define("DATABASE", "campeche"); // Nombre de la base de datos
 define("PORT", "3306"); // Puerto
 define("USERNAME", "root"); // Nombre del usuario
 define("PASSWORD", "P4SSW0RD"); // constraseña
+//define("PASSWORD", ""); // constraseña
 ?>

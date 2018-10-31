@@ -6,13 +6,18 @@
     </head>
     <body>
     <center><h1>Paquetes</h1></center> 
-    <center><table border="1">
-            <tr>
-                <td><strong>Nombre del pquete</strong></td>
-                <td><strong>Descripcion</strong></td>
-                <td><strong>Eliminar</strong></td>
-                <td><strong>Actualizar</strong></td>
-            </tr>
+    <center><table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+			<tr>
+                  	<th scope="col"><strong>Nombre del pquete</strong></th>
+	                <th scope="col"><strong>Descripcion</strong></th>
+        	        <th scope="col"><strong>Eliminar</strong></th>
+                	<th scope="col"><strong>Actualizar</strong></th>
+	                </tr>
+		     </thead>
+		  <tbody>
+
             <?php
             $lpaquetes;
             $llenar;
@@ -25,7 +30,7 @@
             }
             for ($i = 0; $i < count($llenar); $i++) {
                 ?>
-                <tr>
+                <tr class='btn-outline-primary'>
                     <td><?php echo $llenar[$i]["nombre"]; ?></td>
                     <td><?php echo $llenar[$i]["descripcion"]; ?></td>
                     <?php
@@ -42,6 +47,7 @@
                 <?php
             }
             ?>
+	</tbody>
         </table>
 
     </center>

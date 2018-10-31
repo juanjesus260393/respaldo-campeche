@@ -16,7 +16,7 @@ class validarSitios_model{
         $selectSitios = ("SELECT S.id_municipio, S.id_sitio, S.nombre, S.direccion, S.horario, RI.url_sitio_web, RI.status , M.nombre, "
                 . "S.telefono1, S.telefono2, S.capacidad, DATE(RI.fecha_creacion), DATE(RI.fecha_actualizacion), RI.id_imagen_perfil, "
                 . "RI.id_carta, ST_X(RI.ubicacionGIS), ST_Y(RI.ubicacionGIS), RI.id_revision_informacion, M.id_municipio "
-                . "FROM sitio S INNER JOIN revision_informacion RI ON S.id_sitio=RI.id_sitio INNER JOIN municipio M ON S.id_municipio=M.id_municipio WHERE RI.status='C' OR RI.status='P'");
+                . "FROM sitio S INNER JOIN revision_informacion RI ON S.id_sitio=RI.id_sitio INNER JOIN municipio M ON S.id_municipio=M.id_municipio WHERE RI.status='C' OR RI.status='R'");
         
         $ressit=$this->db->query($selectSitios);
         
@@ -101,20 +101,18 @@ class validarSitios_model{
         $hoy = date("Y-m-d H:i:s");
         
         if(isset($revision)){
-       $sqlupdate=("UPDATE revision_informacion RI SET RI.status='P', fecha_actualizacion='".$hoy."' WHERE RI.id_revision_informacion='".$revision."'");
+       $sqlupdate=("UPDATE revision_informacion RI SET RI.status='R', fecha_actualizacion='".$hoy."' WHERE RI.id_revision_informacion='".$revision."'");
         $update=$this->db->query($sqlupdate); 
-        if($update){
+        if($update){          
             
-            
-            
-            $sqlinsertcoment=("INSERT INTO comentario_rechazo"
+            $sqlinsertcoment=("INSERT INTO comentario_rechazo "
                     . "(id_revision_informacion, comentario, fecha_publicacion) "
                     . "VALUES (".$revision.",'".$coment."','".$hoy."')");
             
             $insertcomnt=$this->db->query($sqlinsertcoment); 
         if($insertcomnt){
             sendmailComentario($_SESSION['username'], $coment, 'S');
-        echo ("<script> alert('Cupon Rechazado'); location.href ='../Controller/validarSitios_controller.php';</script>");}
+        echo ("<script> alert('Sitio Rechazado'); location.href ='../Controller/validarSitios_controller.php';</script>");}
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
         
     }

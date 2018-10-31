@@ -16,15 +16,17 @@ try {
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'isidro.biker@gmail.com';                 // SMTP username
+    $mail->Username = 'SoporteCampeche360@gmail.com';                 // SMTP username
     $mail->Password = EMAIL_PASS;                           // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
+    $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
+    $mail->addAddress($_SESSION['username'], $_SESSION['username']);
     $mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress('fzavala@utcam.edu.mx', 'francisco');
    // $mail->addAddress($usuario, '');
     //// Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
@@ -70,15 +72,17 @@ try {
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'isidro.biker@gmail.com';                 // SMTP username
+    $mail->Username = 'SoporteCampeche360@gmail.com';                 // SMTP username
     $mail->Password = EMAIL_PASS;                           // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
+   $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
-    //$mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress($_SESSION['username'], $_SESSION['username']);
+    $mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress('fzavala@utcam.edu.mx', 'francisco');
    // $mail->addAddress($usuario, '');
     //// Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
@@ -98,7 +102,7 @@ try {
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>'
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>'
                 . '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/pie.png"></p>';
             break;
         case 'S':
@@ -109,7 +113,7 @@ try {
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>'
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>'
              . '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/pie.png"></p>';
             break;
     }
@@ -135,16 +139,17 @@ try {
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'isidro.biker@gmail.com';                 // SMTP username
+    $mail->Username = 'SoporteCampeche360@gmail.com';                 // SMTP username
     $mail->Password = EMAIL_PASS;                           // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
+    $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
-    //$mail->addAddress('guilmon333@gmail.com', 'juan');
-   // $mail->addAddress($usuario, '');
+    $mail->addAddress($_SESSION['username'], $_SESSION['username']);
+    $mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress('fzavala@utcam.edu.mx', 'francisco');
     //// Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
    // $mail->addReplyTo('info@example.com', 'Information');
@@ -164,7 +169,7 @@ try {
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>';
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>';
             break;
         case 'S':
      $mail->Subject = 'Sitio  Rechazado';
@@ -172,7 +177,7 @@ try {
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>';
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>';
             break;
     }
     $mail->AltBody = 'Esta es la información de tu cuenta'
@@ -197,15 +202,17 @@ try {
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'isidro.biker@gmail.com';                 // SMTP username
+    $mail->Username = 'SoporteCampeche360@gmail.com';                 // SMTP username
     $mail->Password = EMAIL_PASS;                           // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
+    $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
-    //$mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress($_SESSION['username'], $_SESSION['username']);
+    $mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress('fzavala@utcam.edu.mx', 'francisco');
    // $mail->addAddress($usuario, '');
     //// Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
@@ -225,7 +232,7 @@ try {
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
                         . 'Video: <h3>'.$nombre.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>';
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>';
             break;
         case 'S':
     $mail->Subject = 'Video aceptado ';
@@ -235,7 +242,76 @@ try {
                 
                         . '<br><br>'
                         . 'Usuario: <h3>'.$usuario.'</h3>'
-                        . 'Comentario : <h3>'.$comentario.'</h3>';
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>';
+            break;
+    }
+    $mail->AltBody = 'Esta es la información de tu cuenta'
+                         . 'Usuario: '.$usuario.''
+                        . 'Contraseña :'.$contraseña.'';
+   
+   $mail->SMTPDebug = false;
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+}}
+
+
+
+
+
+function sendmailAdd($usuario, $comentario,$a){
+
+$mail = new PHPMailer(true);             
+try {
+    //Server settings
+    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'SoporteCampeche360@gmail.com';                 // SMTP username
+    $mail->Password = EMAIL_PASS;                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+
+    //Recipients
+   $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
+    $mail->addAddress('isidro.biker@gmail.com', 'isidro');
+    $mail->addAddress($_SESSION['username'], $_SESSION['username']);
+    $mail->addAddress('guilmon333@gmail.com', 'juan');
+    $mail->addAddress('fzavala@utcam.edu.mx', 'francisco');
+   // $mail->addAddress($usuario, '');
+    //// Add a recipient
+    //$mail->addAddress('ellen@example.com');               // Name is optional
+   // $mail->addReplyTo('info@example.com', 'Information');
+   // $mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+
+    
+    $mail->isHTML(true);                                  // Set email format to HTML
+    
+    switch ($a){
+        case 'C':
+        $mail->Subject = 'Publicidad Rechazada';
+        $mail->Body    = '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/encabezado.png"></p>'
+                . '<h3>Tu Flyer ó Banner ha sido Rechazado por favor</h3>'
+                                . '<h3>reviza tu información y el motivo de rechazo abajo</h3>'
+                
+                        . '<br><br>'
+                        . 'Usuario: <h3>'.$usuario.'</h3>'
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>'
+                . '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/pie.png"></p>';
+            break;
+        case 'S':
+    $mail->Subject = 'Publicidad Aceptada ';
+     $mail->Body    = '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/encabezado.png"></p>'
+             . '<h3>Tu Flyer ó Banner ha sido aceptado </h3>'
+                                . '<h3>reviza tu información</h3>'
+                
+                        . '<br><br>'
+                        . 'Usuario: <h3>'.$usuario.'</h3>'
+                        . 'Motivo o Comentario : <h3>'.$comentario.'</h3>'
+             . '<p><img src="http://148.204.63.167/campeche-web2/Imagenes/correo/pie.png"></p>';
             break;
     }
     $mail->AltBody = 'Esta es la información de tu cuenta'

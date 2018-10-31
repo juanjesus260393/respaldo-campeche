@@ -10,15 +10,15 @@ include '../includes/header.php';
 
 
 
-        <table style='border: 1px solid black' align='center'>
-
-            <tr align='center'>
-                <th width='120' align='center'>Titulo</th>
-                <th width='220' align='center'>Descripcion corta</th>
-                <th width='500' align='center'>Imagen</th>
-              <th width='500' align='center'>Status</th>
-                <th width='220' align='center'>Fecha Inicio</th>
-                <th width='220' align='center'>Fecha vigencia</th>
+        <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+                  <th scope="col" width='120' align='center'>Titulo</th>
+                <th scope="col" width='220' align='center'>Descripcion corta</th>
+                <th scope="col" width='500' align='center'>Imagen</th>
+              <th scope="col" width='500' align='center'>Status</th>
+                <th scope="col" width='220' align='center'>Fecha Inicio</th>
+                <th scope="col" width='220' align='center'>Fecha vigencia</th>
 
             </tr>
 
@@ -30,7 +30,7 @@ include '../includes/header.php';
                 <tr class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' data-whatever='<?php printf($cupdato[0]); ?>'
                     data-0='<?php printf($cupdato[0]); ?>' data-1='<?php printf($cupdato[1]); ?>' data-2='<?php printf('%s',$cupdato[2]); ?>' data-3='<?php printf('%s',$cupdato[3]); ?>'
                     data-4='<?php printf($cupdato[4]); ?>' data-5='<?php printf($cupdato[5]); ?>' data-6='<?php printf($cupdato[6]); ?>' data-7='<?php printf($cupdato[7]); ?>' 
-                    data-8='<?php printf($cupdato[8]); ?>' data-9='<?php printf($cupdato[9]); ?>' data-10='<?php printf($cupdato[10]); ?>'>
+                    data-8='<?php printf($cupdato[8]); ?>' data-9='<?php printf($cupdato[9]); ?>' data-10='<?php printf($cupdato[10]); ?>' data-11='<?php printf($cupdato[11]); ?>'>
 
                     <?php
                          printf("<td height='80' align='center'>%s", $cupdato[2]);
@@ -39,15 +39,14 @@ include '../includes/header.php';
                       printf("<td height='80' align='center'>%s", $cupdato[3]);
                     printf("</td>");
                     
-                    printf("<td align='center'><img src='../Imagenes/Cupones/VistaPrevia/" . $cupdato[5] . "' alt='" . $cupdato[5] . " imagen no disponible' height='80' width='60' ></td>");
+                    printf("<td align='center'><img src='../Imagenes/Cupones/VistaPrevia/" . $cupdato[5] . ".jpg' alt='" . $cupdato[5] . " imagen no disponible' height='80' width='60' ></td>");
                         
-                    if($cupdato[11]=='C'){
-  
-                        printf("<td height='80' align='center'>Sin Revisar </td>");
-                    }else if($cupdato[11]=='P'){
-                        printf("<td height='80' align='center' style='color: red ;'>Pendiente de corrección </td>");
-                        
-                    }
+                   if ($cupdato[11] == 'R') {
+                        printf("<td height='80' align='center' style='color: #EA1515 ;'><h4><b>Pendiente de corrección</b></h4></td>");
+                    }else  if ($cupdato[11] == 'C') {
+                        printf("<td height='80' align='center' style='color: blue ;'><h4><b>En Revisión</b></h4></td>");
+                    } 
+
                
                     
                     printf("<td height='80' align='center'>". $cupdato[7]);
@@ -118,7 +117,7 @@ include '../includes/header.php';
                                         </div></div>
                                     <div class="form-group">
                                         <label for="messagetext" class="col-form-label">Comentario de Rechazo</label>
-                                        <textarea id="messagetext" class="form-control" ></textarea>
+                                        <textarea id="messagetext" class="form-control" required></textarea>
                                     </div>
                                 </form>
                             </div>
@@ -146,6 +145,13 @@ include '../includes/header.php';
                     var dat8 = button.data('8');
                     var dat9 = button.data('9');
                     var dat10 = button.data('10');
+                    var dat11 = button.data('11');
+                          if(dat11==='R'){
+                                                        alert('Debe esperar que el Usuario realice las correcciones');
+                                                        $("#exampleModal").on('shown.bs.modal', function () {
+                                                            $("#exampleModal").modal("hide");
+                                                         });
+                                                    }
                     // Extract info from data-* attributes
                     document.getElementById('titulo').value = dat2;
                     document.getElementById('descripcion_corta').value = dat3;
@@ -153,8 +159,8 @@ include '../includes/header.php';
                     document.getElementById('vigencia_inicio').value = dat7;
                     document.getElementById('vigencia_fin').value = dat8;
                     document.getElementById('limite_codigos').value = dat10;
-                    document.getElementById('ImgVp').src = "../Imagenes/Cupones/VistaPrevia/" + dat5;
-                    document.getElementById('ImgC').src = "../Imagenes/Cupones/" + dat6;
+                    document.getElementById('ImgVp').src = "../Imagenes/Cupones/VistaPrevia/" + dat5+".jpg";
+                    document.getElementById('ImgC').src = "../Imagenes/Cupones/" + dat6+".jpg";
                     document.getElementById('terminos_y_condiciones').value = dat9;
 
 
@@ -163,7 +169,7 @@ include '../includes/header.php';
 
                     $('#aprobar').click(function () {
                         var msgtxt = document.getElementById('messagetext').value;
-                        document.location.href = "../Controller/validarCupon_controller.php?opc=A&cupon=" + dat0 +"&revision=" + dat1;
+                        document.location.href = "../Controller/validarCupon_controller.php?opc=A&cupon=" + dat0 +"&revision=" + dat1 + "&coment=" + msgtxt;
 
                     });
                      $('#rechazar').click(function () {
@@ -181,9 +187,5 @@ include '../includes/header.php';
             </script>
             <br>
 <?php
-
-
 include '../includes/footer.php';
-
-
 ?>

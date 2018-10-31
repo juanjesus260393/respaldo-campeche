@@ -1,8 +1,10 @@
 		<!-- comienza codigo -->
-              	</div>
-				<div class="container-fluid" style="margin-top:40px;">
-	<div style="height:1px; background-color:#000;"></div>
-	<footer class="page-footer font-small blue pt-4" style="background-color:#ffbb33; color:#fff;  position:absolute;  width: 100%;" >
+
+
+              	</div></div>
+	
+	<div style="height:1px; background-color:#000; margin-top:40px;"></div>
+	<footer class="page-footer font-small blue pt-4" style="background-color:#ffbb33; color:#fff;  width: 100%; bottom: 0;" >
 
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
@@ -75,9 +77,11 @@
 	<div style="height:2px; background-color:#000;"></div>
 
 
-</div>			</div>
+</div>		
 		</div>
 	</div>   
+
+
 		<!-- termina codigo -->
     </body>
 </html>

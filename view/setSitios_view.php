@@ -3,22 +3,22 @@ include '../includes/header2.php';
 ?>
 <div> 
 
-        <table style='border: 3px solid black' align='center'>
-
-            <tr align='center'>
-                <th width='120' align='center'>Imagen</th>
-                <th width='220' align='center'>Nombre</th>
-                <th width='500' align='center'>Direccion</th>
-                <th width='500' align='center'>Status</th>
-                <th width='220' align='center'>Url Sitio</th>
-                <th width='220' align='center'>Horario</th>
+        <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+                  <th scope="col" width='120' align='center'>Imagen</th>
+                <th scope="col" width='220' align='center'>Nombre</th>
+                <th scope="col" width='500' align='center'>Direccion</th>
+                <th scope="col" width='500' align='center'>Status</th>
+                <th scope="col" width='220' align='center'>Url Sitio</th>
+                <th scope="col" width='220' align='center'>Horario</th>
 
             </tr>
-
-
             <?php
             foreach ($sitios as $cupdato) {
+                echo $cupdato[0];
                 ?>
+
 
                 <tr  class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' data-whatever='<?php printf($cupdato[2]); ?>'
                      data-0='<?php printf($cupdato[0]); ?>' data-1='<?php printf($cupdato[1]); ?>' data-2='<?php printf('%s', $cupdato[2]); ?>' data-3='<?php printf('%s', $cupdato[3]); ?>'
@@ -31,20 +31,19 @@ include '../includes/header2.php';
                      data-28='<?php printf($cupdato[28]); ?>' data-29='<?php printf($cupdato[29]); ?>'>
 
                     <?php
-                    printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . "' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
+                    printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . ".jpg' alt='" . $cupdato[13] . ".jpg imagen no disponible' height='80' width='60' ></td>");
 
                     printf("<td height='80' align='center'>%s", $cupdato[2]);
                     printf("</td>");
 
                     printf("<td height='80' align='center'>%s", $cupdato[3]);
                     printf("</td>");
-
-
-                    if ($cupdato[6] == 'C') {
-
-                        printf("<td height='80' align='center'>Sin Revisar </td>");
-                    } else if ($cupdato[6] == 'P') {
-                        printf("<td height='80' align='center' style='color: red ;'>Pendiente de corrección </td>");
+                    if ($cupdato[6] == 'R') {
+                        printf("<td height='80' align='center' style='color: #EA1515 ;'><h4><b>Pendiente de corrección</b></h4></td>");
+                    }else  if ($cupdato[6] == 'C') {
+                        printf("<td height='80' align='center' style='color: blue ;'><h4><b>En Revisión</b></h4></td>");
+                    } if ($cupdato[6] == 'A') {
+                        printf("<td height='80' align='center' style='color: #22C322;'><h4><b>Aprobado (Publicado)</b></h4></td>");
                     }
 
 
@@ -138,10 +137,10 @@ include '../includes/header2.php';
                                                     <input type="hidden" id="idcartaaux" name="idcartaaux">
                                                     <div class="choose_file">
                                                         <button type="button" class="btn btn-outline-dark" style="width: auto;">Cambia Carta</button>
-                                                        <input type="file" id="idcartaSet" name="idcartaSet" accept=".pdf"   name="idlogoSet" onchange="openFile3(event)"
+                                                        <input type="file" id="idcartaSet" name="idcartaSet" accept=".pdf"  onchange="openFile3(event)"
                                                                style="-webkit-appearance:none;     
                                                                position:absolute;
-                                                               top:33%;
+                                                               top:64%;
 
                                                                left:0;
                                                                opacity:0;
@@ -266,6 +265,8 @@ include '../includes/header2.php';
                                                             if (status === 'OK') {
                                                                 resultsMap.setCenter(results[0].geometry.location);
                                                                 marker.setPosition(results[0].geometry.location);
+                                                                document.getElementById("posx").value = marker.getPosition().lat();
+                                                            document.getElementById("posy").value = marker.getPosition().lng();
                                                                 resultsMap.setZoom(15);
 
                                                             } else {
@@ -274,7 +275,7 @@ include '../includes/header2.php';
                                                         });
                                                     }
                                                 </script>
-                                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX3zRx9Ccv62uYx_DU8ifXfhWh4t5uwp4&callback=initMap"
+                                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVeZ4ei2IHiQ6xt-oV2Sq7Fx8bKqswd4&callback=initMap"
                                                 async defer></script>
 
                                             </div>
@@ -343,6 +344,12 @@ include '../includes/header2.php';
                                                     var dat4 = button.data('4');
                                                     var dat5 = button.data('5');
                                                     var dat6 = button.data('6');
+                                                    if(dat6==='C'){
+                                                        alert('Antes de modificar debe esperar que el Administrador revise los ultimos cambios');
+                                                        $("#exampleModal").on('shown.bs.modal', function () {
+                                                            $("#exampleModal").modal("hide");
+                                                         });
+                                                    }
                                                     var dat7 = button.data('7');
                                                     var dat8 = button.data('8');
                                                     var dat9 = button.data('9');
@@ -373,7 +380,7 @@ include '../includes/header2.php';
                                                     // Extract info from data-* attributes
                                                     document.getElementById('idsitioo').value = dat1;
                                                     document.getElementById('idrev').value = dat17;
-                                                    document.getElementById('nombresitio').value = dat3;
+                                                    document.getElementById('nombresitio').value = dat2;
                                                     document.getElementById('urlsitio').value = dat5;
                                                     document.getElementById('mpiodefault').text = dat7;
                                                     document.getElementById('mpiodefault').value = dat18;
@@ -382,8 +389,8 @@ include '../includes/header2.php';
                                                     document.getElementById('dir').value = dat3;
 
                                                  
-                                                    document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13;
-                                                    document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14;
+                                                    document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13+".jpg";
+                                                    document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14+".pdf";
                                                     
                                                     document.getElementById('idperfilaux').value = dat13;
                                                   
@@ -436,7 +443,7 @@ include '../includes/header2.php';
 // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
                                                     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
                                                     var modal = $(this);
-                                                    modal.find('.modal-title').text('Sitio  :  ' + recipient);
+                                                    modal.find('.modal-title').text('Sitio  :  ' + dat2);
                                                     //modal.find('.modal-body input').val(recipient);
                                                 });
 
@@ -470,6 +477,7 @@ include '../includes/header2.php';
                                                 var file3 = document.getElementById('idcartaSet').value.split('\\');
                                                        
                                                         document.getElementById('carta').value = file3[file3.length - 1];
+                                                        document.getElementById('srcpdf').src=file3[file3.length - 1];
                                                 });
                                                 
                                                 $("#SetmodalGalery").on('show.bs.modal', function () {
@@ -485,3 +493,4 @@ include '../includes/header2.php';
 <?php
 include '../includes/footer.php';
 ?>
+

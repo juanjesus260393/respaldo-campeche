@@ -147,15 +147,14 @@
 
                 <div class="row justify-content-center align-items-center">
                     <div class="col">
-                        <img id="izq" onclick="setizq()" onmouseout="this.src = '../Imagenes/web/izq.png';
-                                this.style.height = '118px';"
-                             onmouseover="this.src = '../Imagenes/web/izq-hover.png'; this.style.height = '400px';"
+                        <img id="izq" onclick="setizq()" onmouseout="this.style.backgroundColor = 'white';"
+                             onmouseover="this.style.backgroundColor = '#f1f1f1';"
                              src="../Imagenes/web/izq.png"  width="152" height="118"></div>
                     <div class="col">
                         <img id="imgp1" name="img1"  src="../Imagenes/web/sin.jpg" style=" width: 350px; height:400px;"></div>
                     <div class="col">
-                        <img id="der" onclick="setder()" onmouseout="this.src = '../Imagenes/web/der.png'; this.style.height = '118px';"
-                             onmouseover="this.src = '../Imagenes/web/der-hover.png'; this.style.height = '400px';"   src="../Imagenes/web/der.png"  width="152" height="118">
+                        <img id="der" onclick="setder()" onmouseout="this.style.backgroundColor = 'white';"
+                             onmouseover="this.style.backgroundColor = '#f1f1f1';"   src="../Imagenes/web/der.png"  width="152" height="118">
                     </div>
                 </div>
                 <div class="d-inline">

@@ -1,3 +1,10 @@
+<?php 
+$_SESSION['Expira']= time();
+if(($_SESSION['Expira']-$_SESSION['Inicia'])>10800){
+   
+    header('Location: ../Controller/cerrarSession.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -9,6 +16,7 @@
     <link href="../css/bootstrap-grid.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+         <script src="../js/Validaciones.js"></script>
 
 
    
@@ -16,8 +24,18 @@
         <title>Proyecto Campeche 360</title>
     </head>
     <body>
-        <?phprequire_once '../view/modals.php'; ?>
-                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
+        <?php
+               include '../view/modals.php';
+                  
+              
+                
+//$na = new validacion();
+//$idro = $na->registros_cupon();
+           
+//YsJQueryAutoloader::register();
+?>
+
+                  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0px 0px 24px 0px;">
                     <a class="navbar-brand" href="">Bienvenido : <?php printf($_SESSION['username']); ?></a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
                         <span class="navbar-toggler-icon"></span>
@@ -26,7 +44,7 @@
                     <div class="collapse navbar-collapse" id="navb">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="../Controller/IniciodeSesion.php" >
+                                <a class="nav-link " href="../principal.php" >
                                     HOME
                                 </a>
 
@@ -48,7 +66,8 @@
                                                 </a>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="../Controller/crtCupones.php">Cupones  </a>
-                                                    <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon</a>
+                                                    <a class="dropdown-item" href="../view/Addcupon.php">Agregar Cupon  </a>
+                                                    
 
                                                 </div>
                              </li>
@@ -70,9 +89,40 @@
                                                     <button type="button" class="btn dropdown-item" data-toggle="modal" data-target="#modalFlyer">Que es un Flyer???</button>
                                                     <button type="button" class="btn dropdown-item" data-toggle="modal" data-target="#modalBanner">Que es un Banner???</button>
                                                     <a class="dropdown-item" href="../Controller/crtcFlyers.php">Flyers & Banners  </a>
-                                                    <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners</a>
+                                                    <a class="dropdown-item" href="../view/Addflyerybanner.php">Agregar Flyers & Banners  </a>
+                                                    
                                                 </div>
                              </li>
+                              <li class="nav-item dropdown inline-flex">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                            Bolsa de Trabajo
+                                        </a>
+                                        <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="../Controller/setVacantes_controller.php">Vacantes</a>
+                                        <a class="dropdown-item" href="../view/Addvacante.php">Agregar Vacante</a>
+                                        <a class="dropdown-item" href="#">opcion3</a>
+                                        </div>
+                                    </li>   
+                                    <li class="nav-item dropdown inline-flex">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                            Cartelera
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="../Controller/setEventos_controller.php">Eventos</a>
+                                            <a class="dropdown-item" href="../Controller/add_Eventos_controller.php">Agregar Evento</a>
+                                            <a class="dropdown-item" href="#">opcion3</a>
+                                        </div>
+                                    </li> 
+                                    <li class="nav-item dropdown inline-flex">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                            B2B
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="../Controller/setIntencion_controller.php">Intencion de Paquete</a>
+                                            <a class="dropdown-item" href="../Controller/add_Eventos_controller.php">Agregar Intención</a>
+                                            <a class="dropdown-item" href="#">Paquetes</a>
+                                        </div>
+                                    </li> 
                              <li class="nav-item dropdown">
                                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                                                     Graficas
@@ -83,7 +133,7 @@
                                                 </div>
                              </li>
                               <li class="nav-item dropdown">
-                                 <a class="nav-link" href="../Controller/cambiaPass_controller.php" id="navbardrop" data-toggle="dropdown">
+                                 <a class="nav-link" href="../Controller/cambiaPass_controller.php" id="navbardrop" >
                                                     Cambia Contraseña
                                                 </a>       
                              </li>
@@ -97,7 +147,7 @@
 		<!-- comienza codigo -->        
 		<div class="row">
 		<div class="col-md-12">
-			<div class="row">
+			<div class="row"  style="min-height: 400px;">
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-10">

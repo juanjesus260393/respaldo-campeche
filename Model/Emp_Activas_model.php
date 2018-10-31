@@ -9,7 +9,7 @@ class Emp_Activas_model{
     }
     public function get_empresas(){
         
-        $sqlconsulta = ("SELECT E.id_empresa, E.nombre, E.descripcion, S.nombre, U.username , E.id_membresia "
+      $sqlconsulta = ("SELECT E.id_empresa, E.nombre, SUBSTR(E.descripcion, 1, 200), S.nombre, U.username , E.id_membresia "
                 . "FROM usuario_empresa EU INNER JOIN empresa E ON EU.id_empresa=E.id_empresa "
                 . "INNER JOIN sector S ON E.id_sector=S.id_sector INNER JOIN users U ON EU.username=U.username WHERE U.enabled=1 ");
         
@@ -24,6 +24,36 @@ class Emp_Activas_model{
         
         return $this->empresas;
  
+    }
+    
+    public function get_numemp(){
+        
+        $sqlconsulta = ("SELECT E.id_empresa, E.nombre, E.descripcion, S.nombre, U.username , E.id_membresia "
+                . "FROM usuario_empresa EU INNER JOIN empresa E ON EU.id_empresa=E.id_empresa "
+                . "INNER JOIN sector S ON E.id_sector=S.id_sector INNER JOIN users U ON EU.username=U.username WHERE U.enabled=1 ");
+        
+        $result=$this->db->query($sqlconsulta);
+      $Nemp = $result->num_rows;
+        
+        
+        return $Nemp;
+ 
+    }
+    
+     public function get_sectores(){
+        
+        $sqlconsulta = ("SELECT S.id_sector, S.nombre FROM sector S WHERE 1");
+        
+        $resultado=$this->db->query($sqlconsulta);
+        while($filas=$resultado->fetch_row()){
+            $this->sector[]=$filas;
+            
+        }
+        
+        $resultado->close();
+        //$this->db->close();
+        
+        return $this->sector;
     }
     
     public function disabled_emp($user_off) {

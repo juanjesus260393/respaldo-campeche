@@ -12,7 +12,7 @@ class validarFlyers_model{
     }
     public function get_Flyers(){
         
-        $selectFlyers = ("SELECT Ad.tipo, Ad.id_img, E.nombre, Ad.id_ad, rO.id_revision_objeto FROM ad Ad INNER JOIN revision_objeto rO ON Ad.id_revision_objeto=rO.id_revision_objeto INNER JOIN empresa E ON rO.id_empresa=E.id_empresa WHERE rO.status='C' OR rO.status='P'" );
+        $selectFlyers = ("SELECT Ad.tipo, Ad.id_img, E.nombre, Ad.id_ad, rO.id_revision_objeto, rO.status FROM ad Ad INNER JOIN revision_objeto rO ON Ad.id_revision_objeto=rO.id_revision_objeto INNER JOIN empresa E ON rO.id_empresa=E.id_empresa WHERE rO.status='C' OR rO.status='R'" );
         
         $resFly=$this->db->query($selectFlyers);
        
@@ -36,8 +36,8 @@ class validarFlyers_model{
         $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN ad C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'A' , Ro.fecha_actualizacion='".$hoy."' WHERE C.id_ad='".$FoB."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
-
-                 echo ("<script> alert('Cupon Aceptado'); location.href ='../Controller/validarFlyers_controller.php';</script>");
+            sendmailAdd($_SESSION['username'], $coment, 'S');
+                 echo ("<script> alert('Publicidad Aceptada'); location.href ='../Controller/validarFlyers_controller.php';</script>");
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
         
     }
@@ -45,7 +45,7 @@ class validarFlyers_model{
      public function rechaza_FoB($FoB, $coment, $revision) {
         
         if(isset($FoB)){
-        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN ad C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'P' WHERE C.id:='".$FoB."'");
+        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN ad C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'R' WHERE C.id_ad='".$FoB."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
             
@@ -59,8 +59,8 @@ class validarFlyers_model{
             
             $insertcomnt=$this->db->query($sqlinsertcoment); 
         if($insertcomnt){
-            sendmailComentario($_SESSION['username'], $coment, 'C');
-        echo ("<script> alert('Cupon Rechazado'); location.href ='../Controller/validarCupon_controller.php';</script>");}
+            sendmailAdd($_SESSION['username'], $coment, 'C');
+        echo ("<script> alert('Publicidad  Rechazada'); location.href ='../Controller/validarFlyers_controller.php';</script>");}
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
         
     }

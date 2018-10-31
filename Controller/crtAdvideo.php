@@ -1,12 +1,11 @@
 <?php
 
 session_start();
-//Se llama al modelo de cupones
+//Se llama al modelo de videos
 require_once("C:/xampp/htdocs/campeche-web2/Model/mdlVideos.php");
-//se referencia la clase obtener sitios
+//se referencia la clase videos
 $rvideo = new Videos();
-//se llama el metodo lista de sitios del cual se obtiene la lista de sitios
+//se llama el metodo registrar_videos encargado de registrar la informacion de los videos que sube una empresa
 $rvideo = $rvideo->registrar_videos();
-//Se llama a la vista de contenido
 ?>
 

@@ -15,7 +15,7 @@ class validarCupon_model{
         $selectCupones = ("SELECT C.id_cupon, C.id_revision_objeto, C.titulo, C.descripcion_corta, C.descripcion_larga, "
                 . "C.id_imagen_vista_previa, C.id_imagen_extra, DATE(C.vigencia_inicio), DATE(C.vigencia_fin), "
                 . "C.terminos_y_condiciones, C.limite_codigos , rO.status FROM cupon C "
-                . "INNER JOIN revision_objeto rO ON C.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='P' ");
+                . "INNER JOIN revision_objeto rO ON C.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='R'");
         
         $rescup=$this->db->query($selectCupones);
         
@@ -60,7 +60,7 @@ class validarCupon_model{
     
  
     
-    public function acepta_cupon($cupon, $revision) {
+    public function acepta_cupon($cupon, $revision, $comenta) {
          date_default_timezone_set('America/Mexico_City');
 
         $hoy = date("Y-m-d H:i:s");
@@ -69,7 +69,7 @@ class validarCupon_model{
         $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'A' , Ro.fecha_actualizacion='".$hoy."' WHERE C.id_cupon='".$cupon."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
-
+ sendmailComentario($_SESSION['username'], $comenta, 'S');
                  echo ("<script> alert('Cupon Aceptado'); location.href ='../Controller/validarCupon_controller.php';</script>");
         }else{ printf("Errormessage: %s\n", $this->db->error);}}
         
@@ -78,7 +78,7 @@ class validarCupon_model{
      public function rechaza_cupon($cupon, $coment, $revision) {
         
         if(isset($revision)){
-        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'P' WHERE C.id_cupon='".$cupon."'");
+        $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN cupon C ON Ro.id_revision_objeto=C.id_revision_objeto SET Ro.status = 'R' WHERE C.id_cupon='".$cupon."'");
         $update=$this->db->query($sqlupdate); 
         if($update){
             

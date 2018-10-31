@@ -5,34 +5,20 @@ include '../includes/header.php';
 
 
 ?>
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
-
-        <title>Proyecto Campeche</title>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <link href="../css/bootstrap-grid.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-    </head>
 
 
     <body>
 
 
-        <table  style='border: 1px solid black' align='center'>
-
-            <tr align='center'>
-                <th width='120' align='center'>Logo</th>
-                <th width='220' align='center'>Nombre</th>
-                <th width='500' align='center'>Direccion</th>
-                <th width='500' align='center'>Status</th>
-                <th width='220' align='center'>Url Sitio</th>
-                <th width='220' align='center'>Horario</th>
+        <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+                  <th scope="col" width='120' align='center'>Logo</th>
+                <th scope="col" width='220' align='center'>Nombre</th>
+                <th scope="col" width='500' align='center'>Direccion</th>
+                <th scope="col" width='500' align='center'>Status</th>
+                <th scope="col" width='220' align='center'>Url Sitio</th>
+                <th scope="col" width='220' align='center'>Horario</th>
 
             </tr>
 
@@ -52,7 +38,7 @@ include '../includes/header.php';
                      data-28='<?php printf($cupdato[28]); ?>' data-29='<?php printf($cupdato[29]); ?>'>
 
                     <?php
-                    printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . "' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
+                    printf("<td align='center'><img src='../Imagenes/Sitios/img/" . $cupdato[13] . ".jpg' alt='" . $cupdato[13] . " imagen no disponible' height='80' width='60' ></td>");
 
                     printf("<td height='80' align='center'>%s", $cupdato[2]);
                     printf("</td>");
@@ -61,13 +47,11 @@ include '../includes/header.php';
                     printf("</td>");
 
 
-                    if ($cupdato[6] == 'C') {
-
-                        printf("<td height='80' align='center'>Sin Revisar </td>");
-                    } else if ($cupdato[6] == 'P') {
-                        printf("<td height='80' align='center' style='color: red ;'>Pendiente de corrección </td>");
-                    }
-
+                    if ($cupdato[6] == 'R') {
+                        printf("<td height='80' align='center' style='color: #EA1515 ;'><h4><b>Pendiente de corrección</b></h4></td>");
+                    }else  if ($cupdato[6] == 'C') {
+                        printf("<td height='80' align='center' style='color: blue ;'><h4><b>En Revisión</b></h4></td>");
+                    } 
 
                     printf("<td height='80' align='center'>" . $cupdato[5]);
                     printf("</td>");
@@ -80,7 +64,7 @@ include '../includes/header.php';
 
 
             <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                <div class="modal1-dialog2" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Sitio</h5>
@@ -93,39 +77,39 @@ include '../includes/header.php';
 
 
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-12">
                                         <div class='row'>
 
 
-                                            <label class="col-2">Nombre del Sitio</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Nombre del Sitio</label>
                                             <input class="col-2" type="text" size="30" id="nombresitio" name="nombreSitio" readonly>
 
 
-                                            <label class="col-2">Url del Sitio</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Url del Sitio</label>
                                             <input class="col-2" type="text" size="30" id="urlsitio" name="urlsitio" readonly>
 
-                                            <label class="col-2">Horario</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Horario</label>
                                             <input class="col-2" type="text" id="horario" readonly>
 
                                         </div>
                                         <div class="row">
 
-                                            <label class="col-2">Telefono 1</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Telefono 1</label>
                                             <input class="col-2" type="text" size="20" id="tel1" name="tel1" readonly>
 
 
-                                            <label class="col-2">Telefono 2</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Telefono 2</label>
                                             <input class="col-2" type="text" size="20" name="tel2" id="tel2" readonly>
 
 
-                                            <label class="col-2">Capacidad</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Capacidad</label>
                                             <input class="col-2" type="text" size="20" name="tam" id="capacidad" readonly>
                                         </div>
 
 
                                         <div class="row justify-content-center align-items-center">
 
-                                            <label for="dir" class="col-2">Direccion</label>
+                                            <label for="dir" class="col-2" style="background-color:#f1f1f1;" >Direccion</label>
                                             <textarea class="col-4" name="dir" rows="3" cols="35" id="dir" readonly></textarea>
 
 
@@ -144,22 +128,22 @@ include '../includes/header.php';
                                         </div>
 
                                         <div class="row">
-                                            <label class="col-2">Descripcion Corta ESPAÑOL:</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Corta ESPAÑOL:</label>
                                             <input class="col-4" type="text" id="descripcion_cortaES"  size="25" name="descripcion_corta"  readonly>
-                                            <label class="col-2" >Descripcion Larga ESPAÑOL:</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Larga ESPAÑOL:</label>
                                             <textarea class="col-4" id="descripcion_largaES" name="descripcion_larga" rows="5" cols="78"  readonly></textarea>
                                         </div>
 
                                         <div class="row">
-                                            <label class="col-2">Descripcion Corta INGLES:</label>
+                                            <label class="col-2"style="background-color:#f1f1f1;" >Descripcion Corta INGLES:</label>
                                             <input class="col-4" type="text" id="descripcion_cortaEN"  size="25" name="descripcion_corta"  readonly>
-                                            <label class="col-2" >Descripcion Larga INGLES:</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Larga INGLES:</label>
                                             <textarea class="col-4" id="descripcion_largaEN" name="descripcion_larga" rows="5" cols="78"  readonly></textarea>
                                         </div>
                                         <div class="row">
-                                            <label class="col-2">Descripcion Corta FRANCES:</label>
+                                            <label class="col-2"style="background-color:#f1f1f1;" >Descripcion Corta FRANCES:</label>
                                             <input class="col-4" type="text" id="descripcion_cortaFR"  size="25" name="descripcion_corta"  readonly>
-                                            <label class="col-2" >Descripcion Larga FRANCES:</label>
+                                            <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Larga FRANCES:</label>
                                             <textarea class="col-4" id="descripcion_largaFR" name="descripcion_larga" rows="5" cols="78"   readonly></textarea>
                                         </div>
 
@@ -167,20 +151,20 @@ include '../includes/header.php';
 
 
 
-
+</div></div>
                                     </div>
 
 
 
 
 
-                                    <div class="col-4"> 
+                                    <div class="col-12" style="padding-top:25px;"> 
                                         <label>Municipio</label>
                                         <input type="text" size="30" id="municipio" name="municipio" readonly>
 
 
-                                        <div class="row" style="height: 415px; width: 570px;">
-                                            <div id="map" style="height: 400px; width: 570px; z-index: 2; position: absolute;">
+                                        <div class="row col-8" style="height: 415px; width: 730px;">
+                                            <div id="map" style="height: 400px; width: 730px; z-index: 2; position: absolute;">
                                             </div>
 
 
@@ -207,24 +191,24 @@ include '../includes/header.php';
                                                 }
 
                                             </script>
-                                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX3zRx9Ccv62uYx_DU8ifXfhWh4t5uwp4&callback=initMap"
+                                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVeZ4ei2IHiQ6xt-oV2Sq7Fx8bKqswd4&callback=initMap"
                                             async defer></script>
-                                        </div>
-                                        <div class="row text-right">
-                                            <label class="col-3">Coordenadas</label>
-                                            <input class="col-4" id="posx" type="text" size="33" name="cordx" readonly>
-                                            <input class="col-4" id="posy" type="text" size="33" name="cordy" readonly>
-                                        </div>
-                                        <div class="row text-center">
-                                            
-                                            <div class="col">
-                                                <div class="form-group">
+
+</div>
+
+                                        <div class="col-12" style="padding-top:25px; background-color:#f1f1f1;" >
+                                            <label class="col-12">Coordenadas</label>
+	                                         <input class="col-5" id="posx" type="text" size="90" name="cordx" readonly>
+	                                            <input class="col-5" id="posy" type="text" size="90" name="cordy" readonly>
+                                                        <div class="form-group">
                                         <label for="messagetext" class="col-form-label">Comentario</label>
                                         <textarea id="messagetext" class="form-control" ></textarea>
                                     </div>
+                                        <div class="col-12" style="padding-top:25px; padding-bottom: 25px;">
                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-primary" id="aprobar">Aprobar</button>
                                             <button type="button" class="btn btn-danger" id="rechazar">Rechazar</button>
+					</div>
                                             </div>
                                         </div>
 
@@ -278,6 +262,12 @@ include '../includes/header.php';
                                                     var dat4 = button.data('4');
                                                     var dat5 = button.data('5');
                                                     var dat6 = button.data('6');
+                                                        if(dat6==='R'){
+                                                        alert('Debe esperar que el Usuario realice las correcciones');
+                                                        $("#exampleModal").on('shown.bs.modal', function () {
+                                                            $("#exampleModal").modal("hide");
+                                                         });
+                                                    }
                                                     var dat7 = button.data('7');
                                                     var dat8 = button.data('8');
                                                     var dat9 = button.data('9');
@@ -295,6 +285,7 @@ include '../includes/header.php';
                                                     var dat21 = button.data('21');
                                                     var dat22 = button.data('22');
                                                     var dat23 = button.data('23');
+                                                     var dat24 = button.data('24');
                                                     
                                                     var dat25 = button.data('25');
                                                     var dat26 = button.data('26');
@@ -312,22 +303,22 @@ include '../includes/header.php';
                                                     document.getElementById('tel2').value = dat9;
                                                     document.getElementById('dir').value = dat3;
                                                  
-                                                    document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13;
-                                                    document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14;
+                                                    document.getElementById('idperfil').src = "../Imagenes/Sitios/img/" + dat13+".jpg";
+                                                    document.getElementById('srcpdf').src = "../Imagenes/Sitios/carta/" + dat14+".pdf";
                                                     document.getElementById('carta').value = dat14;
                                                     document.getElementById('capacidad').value = dat10;
                                                     document.getElementById('horario').value = dat4;
                                                     document.getElementById('posx').value = dat15;
                                                     document.getElementById('posy').value = dat16;
 
-                                                    document.getElementById('descripcion_cortaEN').value = dat18;
-                                                    document.getElementById('descripcion_cortaES').value = dat20;
+                                                    document.getElementById('descripcion_cortaEN').value = dat19;
+                                                    document.getElementById('descripcion_cortaES').value = dat21;
 
-                                                    document.getElementById('descripcion_cortaFR').value = dat22;
+                                                    document.getElementById('descripcion_cortaFR').value = dat23;
 
-                                                    document.getElementById('descripcion_largaEN').value = dat19;
-                                                    document.getElementById('descripcion_largaES').value = dat21;
-                                                    document.getElementById('descripcion_largaFR').value = dat23;
+                                                    document.getElementById('descripcion_largaEN').value = dat20;
+                                                    document.getElementById('descripcion_largaES').value = dat22;
+                                                    document.getElementById('descripcion_largaFR').value = dat24;
                                                     
                                                     document.getElementById('img1').src = "../Imagenes/Galeria/" + dat25;
                                                     document.getElementById('img2').src = "../Imagenes/Galeria/" + dat26;
@@ -340,10 +331,6 @@ include '../includes/header.php';
                                                     marker.setPosition(posi);
                                                     map.setCenter(posi);
                                                     map.setZoom(15);
-
-
-
-
 
                                                     $('#aprobar').click(function () {
                                                         var msgtxt = document.getElementById('messagetext').value;
@@ -368,6 +355,5 @@ include '../includes/header.php';
 <?php
 include '../includes/footer.php';
 ?>
-    </body>
-</html>
+  
 

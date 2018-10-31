@@ -49,3 +49,31 @@ function LetrasyNUM() {
  if ((event.keyCode != 32) && (event.keyCode < 65) || (event.keyCode > 90) && (event.keyCode < 97) || (event.keyCode > 122) || (event.keyCode < 48) || (event.keyCode > 57))
   event.returnValue = false;
 }
+
+function Valida_correo(){
+   var c= document.getElementById("mail").value;
+   alert(c);
+    var espacios = false;
+var cont = 0;
+ 
+while (!espacios && (cont < c.length)) {
+  if (c.charAt(cont) === " "){
+    espacios = true;}
+    cont++;
+}
+if (c.indexOf(".")<0){
+    espacios = true;}
+if (c.indexOf("@")<0){
+    espacios = true;}
+ 
+if (espacios) {
+  alert ("Ingrese un correo valido");
+  
+ 
+  return false;
+  }else {
+  alert("Todo esta correcto");
+  document.getElementById("nUsu").submit();
+  return true;
+  }
+}

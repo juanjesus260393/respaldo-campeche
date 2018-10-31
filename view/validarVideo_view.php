@@ -7,15 +7,14 @@ require_once '../includes/header.php';
 
 
 
-        <table style='border: 1px solid black' align='center'>
-
-            <tr align='center'>
-                <th width='120' align='center'>Titulo</th>
-                <th width='220' align='center'>Descripcion</th>
-               
-              <th width='500' align='center'>Imagen Previa</th>
-                <th width='220' align='center'>Status</th>
-                 <th width='500' align='center'>Precio</th>
+        <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+                  <th scope="col" width='120' align='center'>Titulo</th>
+                <th scope="col" width='220' align='center'>Descripcion</th>
+              <th scope="col" width='500' align='center'>Imagen Previa</th>
+                <th scope="col" width='220' align='center'>Status</th>
+                
                   </tr>
 
 
@@ -24,9 +23,9 @@ require_once '../includes/header.php';
                 ?>
 
                 <tr class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' data-whatever='<?php printf($cupdato[0]); ?>'
-                    data-0='<?php printf($cupdato[0]); ?>' data-1='<?php printf($cupdato[1]); ?>' data-2='<?php printf('%s',$cupdato[2]); ?>' data-3='<?php printf('%s',$cupdato[3]); ?>'
-                    data-4='<?php printf($cupdato[4]); ?>' data-5='<?php printf($cupdato[5]); ?>' data-6='<?php printf($cupdato[6]); ?>' data-7='<?php printf($cupdato[7]); ?>' 
-                    data-8='<?php printf($cupdato[8]); ?>' data-9='<?php printf($cupdato[9]); ?>' data-10='<?php printf($cupdato[10]); ?>' data-11='<?php printf($cupdato[11]); ?>'>
+                    data-0='<?php printf($cupdato[0]); ?>' data-1='<?php printf($cupdato[1]); ?>' data-2='<?php printf('%s',$cupdato[2]); ?>' 
+                    data-4='<?php printf($cupdato[3]); ?>' data-5='<?php printf($cupdato[4]); ?>' data-6='<?php printf($cupdato[5]); ?>' data-7='<?php printf($cupdato[6]); ?>' 
+                    data-8='<?php printf($cupdato[7]); ?>' data-9='<?php printf($cupdato[8]); ?>' data-10='<?php printf($cupdato[9]); ?>' data-11='<?php printf($cupdato[10]); ?>'>
 
                     <?php
                          printf("<td height='80' align='center'>%s", $cupdato[1]);
@@ -35,19 +34,16 @@ require_once '../includes/header.php';
                       printf("<td height='80' align='center'>%s", $cupdato[2]);
                     printf("</td>");
                     
-                    printf("<td align='center'><img src='../Imagenes/Videos/" . $cupdato[5] . "' alt='" . $cupdato[5] . " imagen no disponible' height='80' width='60' ></td>");
+                    printf("<td align='center'><img src='../Imagenes/Videos/" . $cupdato[4] . ".jpg' alt='" . $cupdato[4] . " imagen no disponible' height='80' width='60' ></td>");
                         
-                    if($cupdato[10]=='C'){
-  
-                        printf("<td height='80' align='center'>Sin Revisar </td>");
-                    }else if($cupdato[10]=='P'){
-                        printf("<td height='80' align='center' style='color: red ;'>Pendiente de corrección </td>");
-                        
-                    }
+                    if ($cupdato[9] == 'R') {
+                        printf("<td height='80' align='center' style='color: #EA1515 ;'><h4><b>Pendiente de corrección</b></h4></td>");
+                    }else  if ($cupdato[9] == 'C') {
+                        printf("<td height='80' align='center' style='color: blue ;'><h4><b>En Revisión</b></h4></td>");
+                    } 
                
                     
-                    printf("<td height='80' align='center'>". $cupdato[3]);
-                    printf("</td>");
+                    
  
                     printf("</tr>");
                 }
@@ -81,12 +77,11 @@ require_once '../includes/header.php';
 
                                         <div class="col-5 ">
                                             <div class="row"><span>
-                                                    <label class="col-4">Precio:</label>
-                                                    <input type="text" id="price" name="price" size="22" readonly>
+                                                    
                                                 </span></div>
                                             <div class="row">
-                                                <label class="col-3" for="Descripcion">Descripcion:</label><span>
-                                                <textarea  id="Descripcion" name="Descripcion" rows="5" cols="40"  maxlength="490"  readonly></textarea>
+                                                <label class="" for="Descripcion">Descripcion:</label><span>
+                                                    <textarea  id="Descripcion" name="Descripcion" rows="5" cols="40"  maxlength="490" style="max-width: 307px;" readonly></textarea>
                                                 </span></div>
 
                                             <div class="row"><span>
@@ -97,7 +92,7 @@ require_once '../includes/header.php';
                                         </div></div>
                                     <div class="form-group">
                                         <label for="messagetext" class="col-form-label">Comentario de Rechazo</label>
-                                        <textarea id="messagetext" class="form-control" ></textarea>
+                                        <textarea id="messagetext" class="form-control" required></textarea>
                                     </div>
                                 </form>
                             </div>
@@ -121,7 +116,7 @@ require_once '../includes/header.php';
                     var dat0 = button.data('0');
                     var dat1 = button.data('1');
                     var dat2 = button.data('2');
-                    var dat3 = button.data('3');
+                    
                     var dat4 = button.data('4');
                     var dat5 = button.data('5');
                     var dat6 = button.data('6');
@@ -129,15 +124,21 @@ require_once '../includes/header.php';
                     var dat8 = button.data('8');
                     var dat9 = button.data('9');
                     var dat10 = button.data('10');
+                    if(dat10==='R'){
+                                                        alert('Debe esperar que el Usuario realice las correcciones');
+                                                        $("#exampleModal").on('shown.bs.modal', function () {
+                                                            $("#exampleModal").modal("hide");
+                                                         });
+                                                    }
                     var dat11 = button.data('11');
                     // Extract info from data-* attributes
                     document.getElementById('titulo').value = dat1;
                     document.getElementById('Descripcion').value = dat2;
                     
-                    document.getElementById('price').value = dat3;
-                    document.getElementById('ImgVp').src = "../Imagenes/Videos/" + dat5;
-                    document.getElementById('videoo').src ="../Videos/"+dat6;
-                     document.getElementById('videoo').poster = "../Imagenes/Videos/" + dat5;
+               
+                    document.getElementById('ImgVp').src = "../Imagenes/Videos/" + dat5+".jpg";
+                    document.getElementById('videoo').src ="../Videos/"+dat6+".mp4";
+                     document.getElementById('videoo').poster = "../Imagenes/Videos/" + dat5+".jpg";
                  
 
 
@@ -145,12 +146,14 @@ require_once '../includes/header.php';
 
                     $('#aprobar').click(function () {
                         var msgtxt = document.getElementById('messagetext').value;
+                      
                         document.location.href = "../Controller/validarVideo_controller.php?opc=A&video=" + dat0 + "&coment=" + msgtxt+"&name="+dat1;
 
                     });
                      $('#rechazar').click(function () {
-                        var msgtxt = document.getElementById('messagetext').value;
-                        document.location.href = "../Controller/validarVideo_controller.php?opc=R&video=" + dat0 + "&coment=" + msgtxt+"&name="+dat1+"&rev="+dat11;
+                           
+                        var msgtxt = document.getElementById('messagetext').value;               
+        document.location.href = "../Controller/validarVideo_controller.php?opc=R&video=" + dat0 + "&coment=" + msgtxt+"&name="+dat1+"&rev="+dat11;
 
                     });
 

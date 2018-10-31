@@ -1,8 +1,8 @@
 <?php
 
 require_once('../db/db.php');
-require_once( '../helpers/helpers.php' );
 
+require_once( '../helpers/helpers.php' );
 class model {
 
    public $columnas;

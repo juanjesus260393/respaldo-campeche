@@ -3,15 +3,19 @@ include '../includes/header2.php';
 ?>
 <div> 
     <center><h1>Cupones Validos</h1></center> 
-    <center><table border="1">
-            <tr>
-                <td><strong>Titulo</strong></td>
-                <td><strong>Vigencia</strong></td>
-                <td><strong>Terminos y Condiciones</strong></td>
-                <td><strong>Status</strong></td>
-                <td><strong>Eliminar</strong></td>
-                <td><strong>Actualizar</strong></td>
-            </tr>
+    <center><table class="table text-center" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+			<tr>
+                  	<th scope="col"><strong>Titulo</strong></th>
+                	<th scope="col"><strong>Vigencia</strong></th>
+	                <th scope="col"><strong>Terminos y Condiciones</strong></th>
+        	        <th scope="col"><strong>Status</strong></th>
+                	<th scope="col"><strong>Eliminar</strong></th>
+	                <th scope="col"><strong>Actualizar</strong></th>
+        	        </tr>
+		     </thead>
+		  <tbody>
             <?php
             $lcupones;
             $lcupones2;
@@ -25,23 +29,21 @@ include '../includes/header2.php';
             }
             for ($i = 0; $i < count($llenar); $i++) {
                 ?>
-                <tr>
+                <tr  class='btn-outline-primary'>
                     <td><?php echo $lcupones[$i]["titulo"]; ?></td>
                     <td><?php echo $lcupones[$i]["vigencia_fin"]; ?></td>
                     <td><?php echo $lcupones[$i]["terminos_y_condiciones"]; ?></td>
-                    <td><?php
-                        switch ($lcupones[$i]["status"]) {
-                            case 'C':
-                                echo 'En revision';
-                                break;
-                            case 'A':
-                                echo 'Aprovado';
-                                break;
-                            case 'R':
-                                echo 'Rechazado';
-                                break;
-                        }
-                        ?></td>
+                    <?php
+                        
+                          if ($lcupones[$i]["status"] == 'R') {
+                        printf("<td height='80' align='center' style='color: #EA1515 ;'><h5><b>Pendiente de corrección</b></h5></td>");
+                    }else  if ($lcupones[$i]["status"] == 'C') {
+                        printf("<td height='80' align='center' style='color: blue ;'><h5><b>En Revisión</b></h5></td>");
+                    } if ($lcupones[$i]["status"] == 'A') {
+                        printf("<td height='80' align='center' style='color: #22C322;'><h5><b>Aprobado (Publicado)</b></h5></td>");
+                    }
+                        
+                        ?>
                     <?php
                     //Lista de parametros por medio de los cuales se actualizara el cupon
                     $idcup = $lcupones[$i]["id_cupon"];
@@ -57,6 +59,7 @@ include '../includes/header2.php';
                 <?php
             }
             ?>
+	</tbody>
         </table></center>
 </div>
 <div> 
@@ -99,4 +102,3 @@ include '../includes/header2.php';
 <?php
 include '../includes/footer.php';
 ?>
-

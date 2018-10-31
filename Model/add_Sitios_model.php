@@ -1,5 +1,5 @@
 <?php
-
+include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 require_once ('../vendor/autoload.php');
 
 use \Statickidz\GoogleTranslate;
@@ -33,21 +33,9 @@ class add_Sitios_model {
 
     public function add_sitio() {
 
-        $nombre = $_POST['nombreSitio'];
-        $municipios = (int) $_POST['municipios'];
-        $url = $_POST['urlsitio'];
-        $tel1 = (int) $_POST['tel1'];
-        $tel2 = (int) $_POST['tel2'];
-        $dir = htmlspecialchars($_POST['dir']);
-        $capacidad = (int) $_POST['tam'];
-        $posx = $_POST['cordx'];
-        $posy = $_POST['cordy'];
-        $point = "PointFromText('POINT(" . $posx . " " . $posy . ")')";
-        $hora = ("De  " . $_POST['horaAbre'] . "  a  " . $_POST['horaCierra']);
-        $descCortaES = $_POST['descripcion_corta'];
-        $descLargaES = htmlspecialchars($_POST['descripcion_larga']);
-
-        $pathperfil = "../Imagenes/Sitios/img/";
+        
+        
+         $pathperfil = "../Imagenes/Sitios/img/";
         $pathGaleria='../Imagenes/Galeria/';
         
         $pathcarta = "../Imagenes/Sitios/carta/";
@@ -61,53 +49,96 @@ class add_Sitios_model {
 
         //$size = $_FILES['id_perfil']['size'];
 
-        $fileInfoPerfil = pathinfo($id_perfil);
+        
+        
+        
+if($_FILES['idperfil']['error']===0){
+    
+    $fileInfoPerfil = pathinfo($id_perfil);
         $extPerfil = $fileInfoPerfil['extension'];
         
-        $fileInfoCarta = pathinfo($id_carta);
-        $extCarta = $fileInfoCarta['extension'];
-
         if (in_array($extPerfil, $valid_formatsimg)) {
+            
+            $auxp= random_bytes(12);
 
-            $actual_image_name = 0;
+            $actual_image_name = substr(bin2hex( $auxp), 0, 12);
 
-            $aux = $id_perfil . uniqid();
-            $a = str_split($aux);
-
-            $i = 0;
-            for ($i; $i < count($a); $i++) {
-                $actual_image_name += ord($a[$i]);
-            }
+           
             $tmp1 = $_FILES['idperfil']['tmp_name'];
 
             if (move_uploaded_file($tmp1, $pathperfil . $actual_image_name . "." . $extPerfil)) {
+                $filename = "C:/xampp/htdocs/campeche-web2/Imagenes/Sitios/img/".$actual_image_name."." . $extPerfil;
+            
+                $getID3 = new getID3;
+            $file = $getID3->analyze($filename);
+            //Una ves que se yha subido se comprueba la resolucion del mismo
+            if ($file['video']['resolution_x'] > 1281 && $file['video']['resolution_y'] > 401) {
+                //Si la resolucion no es la indicada se elimina el video que se acaba de subir al servidor, y se regresa a la pagina anterior
                 
+                unlink($filename);
+                echo '<script language = javascript> alert("El tamaño de la imagen no es el indicado seleciona otra o reduce su tamaño 1280x400") </script>';
+                //Regresamos a la pagina anterior
+                echo "<html><head></head>" .
+                "<body onload=\"javascript:history.back()\">" .
+                "</body></html>";
+                exit;
+            }
             } else {
                 echo "failed";
             }
+        }}
+        
+        
+        
+        $nombre = addslashes($_POST['nombreSitio']);
+        $municipios = (int) $_POST['municipios'];
+         if (isset($_POST['urlsitio'])) {
+            $url =  $_POST['urlsitio'];
+        } else {
+            $url = "";
         }
+        $tel1 = (int) $_POST['tel1'];
+       
+         if (isset($_POST['tel2'])) {
+            $tel2 = (int) $_POST['tel2'];
+        } else {
+            $tel2 = "";
+        }
+        $dir = htmlspecialchars($_POST['dir']);
+        if (isset($_POST['tam'])) {
+            $capacidad = (int) $_POST['tam'];
+        } else {
+            $capacidad = "";
+        }
+        $posx = $_POST['cordx'];
+        $posy = $_POST['cordy'];
+        $point = "PointFromText('POINT(" . $posx . " " . $posy . ")')";
+        $hora = ("De  " . $_POST['horaAbre'] . "  a  " . $_POST['horaCierra']);
+        $descCortaES = $_POST['descripcion_corta'];
+        $descLargaES = htmlspecialchars($_POST['descripcion_larga']);
 
-      
+       
+if($_FILES['idcarta']['error']===0){
+      $fileInfoCarta = pathinfo($id_carta);
+        $extCarta = $fileInfoCarta['extension'];
 
         if (in_array($extCarta, $valid_formatscarta)) {
+            
+             $auxc= random_bytes(12);
 
-            $actual_carta_name = 0;
-
-            $aux = $id_carta . uniqid();
-            $a = str_split($aux);
-
-            $i = 0;
-            for ($i; $i < count($a); $i++) {
-                $actual_carta_name += ord($a[$i]);
-            }
+            $actual_carta_name=substr(bin2hex( $auxc), 0, 12);
+            
             $tmp3 = $_FILES['idcarta']['tmp_name'];
 
             if (move_uploaded_file($tmp3, $pathcarta . $actual_carta_name . "." . $extCarta)) {
                 
             } else {
+               
                 echo "failed carta";
             }
-        }
+}}else{
+     $actual_carta_name='';
+}
 
 
 
@@ -119,16 +150,16 @@ class add_Sitios_model {
 
 
         $trans = new GoogleTranslate();
-        $descCortaIngles = $trans->translate($source, $target1, $descCortaES);
-        $descCortaFrances = $trans->translate($source, $target2, $descCortaES);
+        $descCortaIngles2 = addslashes($trans->translate($source, $target1, $descCortaES));
+        $descCortaFrances2 = addslashes($trans->translate($source, $target2, $descCortaES));
 
-        $descLargaIngles = $trans->translate($source, $target1, $descLargaES);
-        $descLargaFrances = $trans->translate($source, $target2, $descLargaES);
+        $descLargaIngles2 =addslashes( $trans->translate($source, $target1, $descLargaES));
+        $descLargaFrances2 =addslashes( $trans->translate($source, $target2, $descLargaES));
         
-        $descLargaFrances2= str_replace("'", "''", $descLargaFrances);
+        /*$descLargaFrances2= str_replace("'", "''", $descLargaFrances);
         $descCortaFrances2= str_replace("'", "''", $descCortaFrances);
         $descLargaIngles2= str_replace("'", "''", $descLargaIngles);
-        $descCortaIngles2= str_replace("'", "''", $descCortaIngles);
+        $descCortaIngles2= str_replace("'", "''", $descCortaIngles);*/
         
        
 
@@ -155,7 +186,7 @@ class add_Sitios_model {
         if ($agregado) {
             $sqlinsert2 = ("INSERT INTO revision_informacion (id_revision_informacion, id_sitio"
                     . ", fecha_creacion, status, url_sitio_web, id_imagen_perfil, id_carta, ubicacionGIS) VALUES"
-                    . "(" . $idunicoRev . "," . $idunicositio . ",'" . $hoy . "','C','" . $url . "','" . $actual_image_name . ".jpg','" . $actual_carta_name . ".pdf'"
+                    . "(" . $idunicoRev . "," . $idunicositio . ",'" . $hoy . "','C','" . $url . "','" . $actual_image_name . "','" . $actual_carta_name . "'"
                     . "," . $point . ")");
             $revagregada = $this->db->query($sqlinsert2);
             if ($revagregada) {

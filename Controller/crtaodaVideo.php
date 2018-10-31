@@ -1,10 +1,10 @@
 <?php
 
 require_once("../Model/mdlVideos.php");
-//se referencia la clase obtener sesiones
+//se referencia la clase videos
 $dvideo = new Videos();
-//se llama el metodo lista de sitios del cual se obtiene la lista de sitios
+//se llama el metodo buscar video
 $video = $dvideo-> buscar_video();
-//Se llama a la vista vista sitios
+//Se llama a la vista vista actualizar videos
 require_once("../view/actualizarVideo.php");
 

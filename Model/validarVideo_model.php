@@ -12,9 +12,9 @@ class validarVideo_model{
     }
     public function get_videos(){
         
-        $selectvideos = ("SELECT V.id_video, V.titulo, V.descripcion, V.precio, V.fecha_subida, V.id_img_preview, V.id_video_archivo, 
+        $selectvideos = ("SELECT V.id_video, V.titulo, V.descripcion, V.fecha_subida, V.id_img_preview, V.id_video_archivo, 
             rO.id_empresa, rO.fecha_creacion, rO.fecha_actualizacion, rO.status , rO.id_revision_objeto FROM video V 
-            INNER JOIN revision_objeto rO ON V.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='P' ");
+            INNER JOIN revision_objeto rO ON V.id_revision_objeto=rO.id_revision_objeto WHERE rO.status='C' OR rO.status='R'");
         
         $rescup=$this->db->query($selectvideos);
         
@@ -56,13 +56,12 @@ class validarVideo_model{
         $hoy = date("Y-m-d H:i:s");
         
         if(isset($video)){
-       $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN video V ON Ro.id_revision_objeto=V.id_revision_objeto SET Ro.status = 'P' "
+       $sqlupdate=("UPDATE revision_objeto Ro INNER JOIN video V ON Ro.id_revision_objeto=V.id_revision_objeto SET Ro.status = 'R' "
                 . ", Ro.fecha_actualizacion='".$hoy."' WHERE V.id_video='".$video."'");
 
         $update=$this->db->query($sqlupdate); 
         if($update){
-            
-            
+          
             
             $sqlinsertcoment=("INSERT INTO comentario_rechazo_objeto"
                     . "(id_revision_objeto, comentario, fecha_creacion) "

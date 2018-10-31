@@ -11,10 +11,10 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 }
 else if($_SESSION['loggedin']==TRUE&&$_SESSION['tipo']=='empresa'){
 require_once("../Model/mdlCupones.php");
-//se referencia la clase obtener sesiones
+//se referencia la clase obtener cupones
 $scupon = new obtener_cupon();
-//se llama el metodo lista de sitios del cual se obtiene la lista de sitios
+//se llama el metodo buscar cupon
 $secupon = $scupon->buscar_cupon();
-//Se llama a la vista vista sitios
+//Se llama a la vista vista actualizar cupon
 require_once("../view/actualizarCupon.php");
 }

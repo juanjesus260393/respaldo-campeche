@@ -1,6 +1,6 @@
 <?php
 
-//Funcion buscar cupones caducados
+//Tarea automatica que envia correo de los cupones que han caducado y se tienen que eliminar
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -8,10 +8,9 @@ require_once('Conexion.php');
 
 Class Cron2 {
 
+//funcion que busca los cupones que han caducado
     public function searchcuponscaducate() {
-        //Buscar todos los cupones que expiraron
         $dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
-//Obtener la cantidad de codigos que han sido generados
         $fa = date("Y-m-d");
         $sql = "SELECT c.titulo, u.username,c.id_cupon, count(q.id_codigo_qr) as total FROM codigo_qr q inner join cupon c on q.id_cupon = c.id_cupon inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto 
 inner join empresa e on r.id_empresa = e.id_empresa inner join usuario_empresa u on e.id_membresia = u.id_empresa where
@@ -38,7 +37,7 @@ c.vigencia_fin <= '$fa' group by c.id_cupon;";
         require '../vendor/auxx.php';
         $mail = new PHPMailer(true);
         try {
-            //Server settings
+            //Funciones del servidor
             $mail->SMTPDebug = 2;                                 // Enable verbose debug output
             $mail->isSMTP();                                      // Set mailer to use SMTP
             $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
@@ -47,7 +46,7 @@ c.vigencia_fin <= '$fa' group by c.id_cupon;";
             $mail->Password = EMAIL_PASS;                           // SMTP password
             $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
             $mail->Port = 587;                                    // TCP port to connect to
-            //Recipients
+            //Estrctura del correo
             $mail->setFrom('isidro.biker@gmail.com', 'Mailer');
             $mail->addAddress('guilmon333@gmail.com', 'juan');
             $mail->isHTML(true);                                  // Set email format to HTML
@@ -65,6 +64,7 @@ c.vigencia_fin <= '$fa' group by c.id_cupon;";
         }
     }
 
+//Funcion que obtiene el limite de cupones
     public function searchlimitcupons($areglo) {
         for ($i = 0; $i < count($areglo); $i++) {
             $id = $areglo[$i]["id_cupon"];
@@ -93,7 +93,6 @@ if ($aux == NULL) {
         //Meter parametros en una lista
         $info = array($correo, $titulo);
         //Se envia el correo de los cupones que han caducado
-
         $dbh = new PDO('mysql:host=127.0.0.1:3306;dbname=campeche', "root", "P4SSW0RD");
         //Se obtiene la cantidad de codigos que han sido generados
         $sql = "SELECT c.id_cupon, c.id_revision_objeto,c.titulo, u.username,c.id_cupon,e.id_empresa ,count(q.id_codigo_qr) as total FROM codigo_qr q inner join cupon c on q.id_cupon = c.id_cupon inner join revision_objeto r on c.id_revision_objeto = r.id_revision_objeto 

@@ -27,8 +27,8 @@ class cambiaPass_model{
         if($update){
                  sendmail($emailaux, $pas, 1);
             echo ('<script language = javascript>'
-                    . 'self.location = "../Model/IniciodeSesion.php;"'
-                    .'alert ("Contraseña cambiada;")'
+                    . 'self.location = "../principal.php";'
+                    .'alert ("Contraseña cambiada");'
                     . '</script>');
     
  

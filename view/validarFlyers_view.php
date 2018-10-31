@@ -7,12 +7,13 @@ include '../includes/header.php';
 
 
 
- <table style='border: 1px solid black' align='center'>
-
-            <tr align='center'>
-                <th width='120' align='center'>Empresa</th>
-                <th width='220' align='center'>Tipo</th>
-                <th width='500' align='center'>Imagen</th>
+ <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+                
+                     <thead class="thead-dark" align='center'>
+                  <th scope="col" width='120' align='center'>Empresa</th>
+                <th scope="col" width='220' align='center'>Tipo</th>
+                <th scope="col" width='500' align='center'>Imagen</th>
+                <th scope="col" width='500' align='center'>Status</th>
               
             </tr>
 
@@ -23,7 +24,7 @@ include '../includes/header.php';
 
                 <tr class='btn-outline-primary'  data-toggle='modal' id='idcup' data-target='#exampleModal' 
                     data-0='<?php printf($flyersBan[0]); ?>' data-1='<?php printf($flyersBan[1]); ?>' data-2='<?php printf($flyersBan[1]); ?>' 
-                     data-3='<?php printf($flyersBan[3]); ?>' data-4='<?php printf($flyersBan[4]); ?>'>
+                     data-3='<?php printf($flyersBan[3]); ?>' data-4='<?php printf($flyersBan[4]); ?>' data-5='<?php printf($flyersBan[5]); ?>'>
 
                     <?php
                          printf("<td height='80' align='center'>%s", $flyersBan[2]);
@@ -36,8 +37,12 @@ include '../includes/header.php';
                         
                     }
                     
-                    printf("<td style='cursor: pointer;' align='center'><img src='../Imagenes/galleria2.png' alt='" . $flyersBan[1] . " imagen no disponible' height='100' width='100' ></td>");
-
+                    printf("<td style='cursor: pointer;' align='center'><img src='../Imagenes/galleria.png' alt='" . $flyersBan[1] . " imagen no disponible' height='100' width='100' ></td>");
+                    if ($flyersBan[5] == 'R') {
+                        printf("<td height='80' align='center' style='color: #EA1515 ;'><h4><b>Pendiente de corrección</b></h4></td>");
+                    }else  if ($flyersBan[5] == 'C') {
+                        printf("<td height='80' align='center' style='color: blue ;'><h4><b>En Revisión</b></h4></td>");
+                    } 
                     printf("</tr>");
                 }
                 printf("</table>");
@@ -96,11 +101,11 @@ include '../includes/header.php';
                     var dat4 = button.data('4');
                     // Extract info from data-* attributes
                     document.getElementById('titulo').value = dat2;
-                    document.getElementById('ImgFB').src = "../Imagenes/Publicidad/" + dat1;
+                    document.getElementById('ImgFB').src = "../Imagenes/Publicidad/" + dat1+".jpg";
 
                     $('#aprobar').click(function () {
                         var msgtxt = document.getElementById('messagetext').value;
-                        document.location.href = "../Controller/validarFlyers_controller.php?opc=A&FoB=" + dat3 + "&coment=" + msgtxt;
+                        document.location.href = "../Controller/validarFlyers_controller.php?opc=A&FoB=" + dat3 + "&coment=" + msgtxt+"&revision="+dat4;
 
                     });
                      $('#rechazar').click(function () {

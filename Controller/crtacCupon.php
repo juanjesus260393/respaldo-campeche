@@ -12,9 +12,9 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 else if($_SESSION['loggedin']==TRUE&&$_SESSION['tipo']=='empresa'){
 //Se llama al modelo de cupones
 require_once("C:/xampp/htdocs/campeche-web2/Model/mdlCupones.php");
-//se referencia la clase obtener sitios
+//se referencia la clase obtener cupones
 $accupon = new obtener_cupon();
-//se llama el metodo lista de sitios del cual se obtiene la lista de sitios
+//se llama el metodo actualizar cupon
 $rpd = $accupon->actualizar_cupon();
 }
 ?>

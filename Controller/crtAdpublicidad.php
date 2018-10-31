@@ -11,11 +11,11 @@ if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){
 
 }
 else if($_SESSION['loggedin']==TRUE){
-//Se llama al modelo de cupones
+//Se llama al modelo de flyers y banners
 require_once("C:/xampp/htdocs/campeche-web2/Model/mdlFlyersyBanners.php");
-//se referencia la clase obtener sitios
+//se referencia la clase FlyeryBanner
 $rpublicidad = new FlyeryBanner();
-//se llama el metodo lista de sitios del cual se obtiene la lista de sitios
+//se llama el metodo registrar publicidad
 $rpu = $rpublicidad->registrar_publicidad();
 }
 ?>
