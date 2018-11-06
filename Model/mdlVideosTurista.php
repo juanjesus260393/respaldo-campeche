@@ -29,7 +29,7 @@ id_imagen_vista_previa, empresa.id_logo as id_logo_empresa, 'true' as pagado fro
 empresa.nombre as empresa,date_format(v.duracion, '%i:%s') as duracion,v.visualizaciones as vistas,v.id_video_archivo as id_video,v.id_img_preview as 
 id_imagen_vista_previa, empresa.id_logo as id_logo_empresa, 'true' as pagado from video v inner join revision_objeto r on
  v.id_revision_objeto = r.id_revision_objeto inner join empresa on r.id_empresa = empresa.id_empresa inner join sector 
- on empresa.id_sector = sector.id_sector where r.status = 'A' and v.descripcion like '$opcion%' and v.titulo like '$opcion%' order by v.titulo desc limit $limite;";
+ on empresa.id_sector = sector.id_sector where r.status = 'A'and v.titulo like '%$opcion%' order by v.titulo desc limit $limite;";
         $resultado2 = mysqli_query($dbh, $consultaue) or die(mysqli_error());
         foreach ($resultado2 as $res) {
             $videos[] = $res;
@@ -44,7 +44,7 @@ id_imagen_vista_previa, empresa.id_logo as id_logo_empresa, 'true' as pagado fro
 empresa.nombre as empresa,date_format(v.duracion, '%i:%s') as duracion,v.visualizaciones as vistas,v.id_video_archivo as id_video,v.id_img_preview as 
 id_imagen_vista_previa, empresa.id_logo as id_logo_empresa, 'true' as pagado from video v inner join revision_objeto r on
  v.id_revision_objeto = r.id_revision_objeto inner join empresa on r.id_empresa = empresa.id_empresa inner join sector 
- on empresa.id_sector = sector.id_sector where r.status = 'A' and v.descripcion like '$opcion%' and v.titulo like '$opcion%' order by v.titulo desc limit $limite,$contador;";
+ on empresa.id_sector = sector.id_sector where r.status = 'A' and v.titulo like '%$opcion%' order by v.titulo desc limit $limite;";
         $resultado2 = mysqli_query($dbh, $consultaue) or die(mysqli_error());
         foreach ($resultado2 as $res) {
             $videos[] = $res;
@@ -2669,7 +2669,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 //Filtro principal el cual solo toma el limite
 if (isset($_GET['limit'])) {
     $limite = $_GET['limit'];
-    $videos = videosturista::search_video($limite);
+   $videos = videosturista::search_video($limite);
+}
+//Filtrar principal y con el ultimo last_id
+if (isset($_GET['limit']) && isset($_GET['last_id'])) {
+    $limite = $_GET['limit'];
+    $contador = $_GET['last_id'];
+    $videos = videosturista::search_video_limit($contador, $limite);
 }
 //Filtro de la busquedad
 if (isset($_GET['limit']) && isset($_GET['q'])) {
@@ -2678,18 +2684,13 @@ if (isset($_GET['limit']) && isset($_GET['q'])) {
     $videos = videosturista::search_video_search($limite, $opcion);
 }
 //Filtro de la busquedad con limite
-if (isset($_GET['limit']) && isset($_GET['q']) && isset($_GET['last_id'])) {
+if (isset($_GET['limit']) && isset($_GET['last_id']) && isset($_GET['q'])) {
     $limite = $_GET['limit'];
     $opcion = $_GET['q'];
     $contador = $_GET['last_id'];
     $videos = videosturista::search_video_search_limit($limite, $opcion, $contador);
 }
-//Filtrar principal y con el ultimo last_id
-if (isset($_GET['limit']) && isset($_GET['last_id'])) {
-    $limite = $_GET['limit'];
-    $contador = $_GET['last_id'];
-    $videos = videosturista::search_video_limit($contador, $limite);
-}
+
 //Filtrar de manera escendente
 if (isset($_GET['limit']) && isset($_GET["sort"])) {
     $limite = $_GET['limit'];

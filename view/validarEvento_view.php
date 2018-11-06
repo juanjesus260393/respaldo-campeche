@@ -69,57 +69,58 @@ include '../includes/header.php';
 
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class='row'>
 
 
-                                            <label class="col-2" style="background-color:#f1f1f1;" >Nombre del Evento</label>
-                                                <input type="text" size="60" id="nombre" name="nombre" required>
+
+                                            <label class="col-6" style="background-color:#f1f1f1;" >Nombre del Evento</label>
+                                                <input class="col-5" type="text" size="60" id="nombre" name="nombre" required>
                                                 <input type="hidden" id="idevento" name="idevento">
                                                 <input type="hidden" id="idrev" name="idrev">
                                         </div>
 
                                             <div class="col-12"> 
-                                            <label>Categoria</label>
-                                           <input type="text" size="60" id="categoria" name="categoria" required>
-                                               
-                                                <label class="col-2">Descripcion</label>
-                                                <input class="col-6" type="text" id="descripcion" name="descripcion" required>
-
+                                            <label class="col-6" style="background-color:#f1f1f1;" >Categoria</label>
+                                           <input class="col-5" type="text" size="60" id="categoria" name="categoria" required>
+						</div>
+                                            <div class="col-12"> 
+                                                <label class="col-6" style="background-color:#f1f1f1;" >Descripcion</label>
+                                                <input class="col-5" type="text" id="descripcion" name="descripcion" required>
                                             </div>
                                             <div class="col-12">
 
-                                                <label class="col-1">Fecha:</label>
-                                                <input class="col-5" type="text" size="20" id="fecha" name="fecha" required>
+                                                <label class="col-1" style="background-color:#f1f1f1;">Fecha:</label>
+                                                <input class="col-3" type="text" size="20" id="fecha" name="fecha" required>
 
 
-                                                <label class="col-1">Lugar:</label>
-                                                <input class="col-4" type="text" size="20" name="lugar" id="lugar" required>
+                                                <label class="col-1" style="background-color:#f1f1f1;">Lugar:</label>
+                                                <input class="col-2" type="text" size="20" name="lugar" id="lugar" required>
 
 
-                                                <label class="col-1">Costo:</label>
-                                                <input class="col-3" type="text" size="20" name="costo" id="costo" required>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Costo:</label>
+                                                <input class="col-2" type="text" size="20" name="costo" id="costo" required>
                                             </div>
 
                                              <div class="col-12">
 
-                                                <label class="col-2">Beneficiario</label>
-                                                <input class="col-8" type="text" size="20" id="beneficiario" name="beneficiario" required>
+                                                <label class="col-4" style="background-color:#f1f1f1;">Beneficiario</label>
+                                                <input class="col-7" type="text" size="20" id="beneficiario" name="beneficiario" required>
                                              </div>
                                              <div class="col-12">
 
-                                                <label class="col-2">Sitio</label>
-                                              <input type="text" size="60" id="sitio" name="sitio" required>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Sitio</label>
+                                              <input class="col-9" type="text" size="60" id="sitio" name="sitio" required>
                                              </div>
                                             <div class="col-12">
-                                                    <label>Imagen:</label><br>
-                                                    <img id="idperfil" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
+                                                    <label class="col-2" style="background-color:#f1f1f1;">Imagen:</label><br>
+                                                    <img class="col-9"id="idperfil" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
                                                     <input type="hidden" id="idperfilaux" name="idperfilaux">
                                                    
                                                 </div>
 
                                             
-                                            <div class="col-12" style="height: 415px; width: 580px;">
-                                                <div id="map" style="height: 400px; width: 570px; z-index: 2; position: absolute; align-content: center;">
+                                           <div class="row col-8" style="height: 415px; width: 730px;">
+                                            <div id="map" style="height: 400px; width: 730px; z-index: 2; position: absolute;">
+
                                                 </div>
                                                 <div id="floating-panel" style="position: relative;top: 1%;
                                                     left:30%;
@@ -172,19 +173,20 @@ include '../includes/header.php';
                                                 async defer></script>
 
                                             </div>
-                                            <div class="row text-right">
-                                                <label class="col-3">Coordenadas</label>
+                                            <div class="col-12" style="padding-top:25px; background-color:#f1f1f1; width: 710px;"> 
+                                               <label class="col-4">Coordenadas</label>
                                                 <input class="col-4" id="posx" type="text" size="33" name="cordx" readonly>
-                                                <input class="col-4" id="posy" type="text" size="33" name="cordy" readonly>
+                                                <input class="col-3" id="posy" type="text" size="33" name="cordy" readonly>
                                             </div>
                                             <div class="text-center">
                                                 <br><br><br>
                                                
                                             </div>
-                                   <div class="form-group">
-                                        <label for="messagetext" class="col-form-label">Comentario de Rechazo</label>
-                                        <textarea id="messagetext" class="form-control" ></textarea>
+                                   <div class="col-12" style="padding-top:25px; background-color:#f1f1f1;  width: 710px;" > 
+                                        <label class="col-4" for="messagetext" class="col-form-label">Comentario de Rechazo</label>
+                                        <textarea class="col-7" id="messagetext" class="form-control" ></textarea>
                                     </div>
+<br>
                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" id="aprobar">Aprobar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" id="rechazar">Rechazar</button>
@@ -192,6 +194,7 @@ include '../includes/header.php';
                                 </div>
                                   </div>
                                 </div>
+<br>
                         <div class="modal-footer">
                             
                         </div>

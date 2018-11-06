@@ -32,6 +32,8 @@ class Vacante {
             $filter = " WHERE " . $tempo . " " . $orden . "" . $limit;
         } elseif (isset($_GET['sort'])) {
             $filter = $orden . "" . $limit;
+        } elseif (!empty($buscar)) {
+            Vacante::search_vacante_by_word($buscar);
         }
 
         if (isset($filter)) {
@@ -84,6 +86,28 @@ class Vacante {
             echo json_encode($registro);
         } elseif ($filas == 0) {
             echo json_encode($registro);
+        }
+    }
+
+    public static function search_vacante_by_word($buscar) {
+        $videos = array();
+        $dbh = Conectar::con();
+        $consultaue = "SELECT V.nombre, V.salario, V.horario, V.escolaridad, V.habilidades, V.descripcion, V.tiempo as temporal, "
+                . "V.genero, V.rango_edad, V.experiencia, E.nombre as empresa, s.nombre as sector, E.direccion, E.telefono,"
+                . " E.id_logo, date_format(v.fecha_creacion, '%Y-%m-%d') as fecha "
+                . "FROM vacante V INNER JOIN revision_objeto r_obj ON V.id_revision_objeto=r_obj.id_revision_objeto "
+                . "INNER JOIN empresa E ON E.id_empresa=r_obj.id_empresa INNER JOIN sector s "
+                . "ON e.id_sector=s.id_sector  where r_obj.status='A' and V.nombre like '%$buscar%' limit 15;";
+        $resultado2 = mysqli_query($dbh, $consultaue) or die(mysqli_error());
+        if ($resultado2) {
+            foreach ($resultado2 as $res) {
+                $videos[] = $res;
+            }
+            header("HTTP/1.0 200 Ok");
+            echo json_encode($videos);
+        } else {
+            header("HTTP/1.1 404 no found");
+            echo json_encode($videos);
         }
     }
 

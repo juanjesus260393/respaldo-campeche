@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of mdlCartelera
  *
@@ -15,8 +16,9 @@ class Cartelera {
         $this->db = Conectar::con();
         $this->Evento = array();
     }
+
     public function get_Eventos() {
-        include 'mdlSeguridad.php';   
+        include 'mdlSeguridad.php';
         $categoria = (isset($_GET['category'])) ? ' and c.id_evento_categoria =' . $_GET['category'] : '';
         $limite = (isset($_GET['limit'])) ? ' limit ' . $_GET['limit'] : '';
         $limit = $categoria . " " . $limite;
@@ -25,7 +27,7 @@ class Cartelera {
         $filas = null;
         $response = array();
         $aux = $this->db;
-       $fecha_actual =date('Y-m-d') ." 00:00:00";
+        $fecha_actual = date('Y-m-d') . " 00:00:00";
         if (isset($_GET['date_start']) || isset($_GET['date_end'])) {
             $fecha1_f = date_format(date_create($fecha1), 'Y-m-d');
             $fecha2_f = date_format(date_create($fecha2), 'Y-m-d');
@@ -57,7 +59,7 @@ class Cartelera {
                 $this->Evento[] = $response;
             }
         } else {
-        $sqlconsulta = "select e.id_evento, e.nombre as evento, e.fecha, e.lugar, e.costo, e.imagen, e.descripcion, c.nombre as categoria, m.nombre as municipio, e.lugar as nombre_lugar, s.direccion, s.telefono1, s.telefono2, s.capacidad, date_format(e.fecha, '%H:%I') as hora, ST_X(e.ubicacion) as latitude, ST_Y(e.ubicacion) as longitude from evento e INNER JOIN revision_evento r on e.id_revision_evento=r.id_revision_evento INNER JOIN sitio s on s.id_sitio = r.id_sitio INNER JOIN  evento_categoria c on e.id_evento_categoria=c.id_evento_categoria INNER join municipio m on  s.id_municipio=m.id_municipio  where e.fecha>= '$fecha_actual' and r.status='A' $limit";
+            $sqlconsulta = "select e.id_evento, e.nombre as evento, e.fecha, e.lugar, e.costo, e.imagen, e.descripcion, c.nombre as categoria, m.nombre as municipio, e.lugar as nombre_lugar, s.direccion, s.telefono1, s.telefono2, s.capacidad, date_format(e.fecha, '%H:%I') as hora, ST_X(e.ubicacion) as latitude, ST_Y(e.ubicacion) as longitude from evento e INNER JOIN revision_evento r on e.id_revision_evento=r.id_revision_evento INNER JOIN sitio s on s.id_sitio = r.id_sitio INNER JOIN  evento_categoria c on e.id_evento_categoria=c.id_evento_categoria INNER join municipio m on  s.id_municipio=m.id_municipio  where e.fecha>= '$fecha_actual' and r.status='A' $limit";
             $resultado = $this->db->query($sqlconsulta);
             while ($filas = $resultado->fetch_row()) {
                 $response["id_evento"] = $filas[0];
@@ -84,16 +86,16 @@ class Cartelera {
             $resultado->close();
         }
 
-            echo json_encode($this->Evento);
+        echo json_encode($this->Evento);
     }
 
     private function fechaEspniol($fecha) {
         setlocale(LC_ALL, "es_ES.utf8", "es_ES", "esp");
         $diaSemana = strftime("%A", strtotime($fecha));
         $diaNumero = strftime("%d", strtotime($fecha));
-        $mes= strftime("%B", strtotime($fecha));
-        $restoFecha = strftime(" de ".ucfirst ($mes)." de %Y", strtotime($fecha));
-        return ucfirst ($diaSemana) . " " . $diaNumero . $restoFecha;
+        $mes = strftime("%B", strtotime($fecha));
+        $restoFecha = strftime(" de " . ucfirst($mes) . " de %Y", strtotime($fecha));
+        return ucfirst($diaSemana) . " " . $diaNumero . $restoFecha;
     }
 
 }

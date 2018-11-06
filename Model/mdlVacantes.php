@@ -57,7 +57,7 @@ class Vacantes {
         $this->visualizaciones = '0.0';
         $insertrevision = "INSERT INTO revision_objeto(id_revision_objeto,id_empresa,fecha_creacion,fecha_actualizacion,status)
         VALUES('$this->iro'," . $_SESSION['idemp'] . ",'$this->fa','0000-00-00','$this->status')";
-        $insertvacante = "INSERT INTO vacante(id_vacante,id_revision_objeto,nombre,salario,horario,escolaridad,habilidades,descripcion,tiempo,genero,rango_edad,experiencia,fecha)
+        $insertvacante = "INSERT INTO vacante(id_vacante,id_revision_objeto,nombre,salario,horario,escolaridad,habilidades,descripcion,tiempo,genero,rango_edad,experiencia,fecha_creacion)
         VALUES('$this->ivi',$this->iro,' $this->nombre','$this->salario','$this->horario','$this->escolaridad','$this->habilidades','$this->descripcion','$this->tiempo','$this->genero','$this->rangoedad','$this->experiencia', '$this->fa')";
         if (!mysqli_query($this->pd, $insertrevision)) {
             die('Error: ' . mysqli_error($this->pd));
