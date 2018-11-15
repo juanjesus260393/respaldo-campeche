@@ -1,4 +1,14 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  agregar un nuevo sitio
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 include '../includes/header2.php';
 ?>
 
@@ -66,6 +76,7 @@ include '../includes/header2.php';
                     </div>
 
                     <?php
+                    //Oculta los elementos de carta si no pertenece a los sectores restaurante, hotel o cafe & snakcs
                     switch ($_SESSION['sectorEmp']) {
                         case '1':
                             printf("<script>"
@@ -109,6 +120,7 @@ include '../includes/header2.php';
 
 
                     <script>
+                        //Manejo e implementacion de la API de google Maps
                         var marker;
                         var marker2;
                         function initMap() {

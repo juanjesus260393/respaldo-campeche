@@ -1,4 +1,14 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  Modificar la informacion de un Usuario-Empresa
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 include '../includes/header.php';
 ?>
 
@@ -172,6 +182,7 @@ foreach ($datos as $info) {
 </div>
 
 <script>
+    //Cambia la imagen ded logo por la selecionada
     var openFile2 = function (event) {
         var input = event.target;
 
@@ -183,6 +194,7 @@ foreach ($datos as $info) {
         };
         reader.readAsDataURL(input.files[0]);
     };
+//Muestra y oculta el campo de caducidad de membresia
 
     function mostrarfec(a) {
         if (a.checked === true) {
@@ -198,7 +210,7 @@ foreach ($datos as $info) {
 
 
     }
-
+//Valida que el correo tenga un formato correcto
     $("#nUsu").submit(function (event) {
         var c = document.getElementById("email").value;
 

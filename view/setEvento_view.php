@@ -86,7 +86,7 @@ include '../includes/header2.php';
                             </div>
                             <!-- <div class="modal-body"> -->
 
-                                <div class="">
+                                <div class="container-fluid">
                                    
 
 
@@ -94,17 +94,17 @@ include '../includes/header2.php';
                                         <div class="col-8">
                                             <div class='row'> -->
                                                 <div class="col-12">
-                                                <label>Nombre del Evento</label>
-                                                <input type="text" size="60" id="nombre" name="nombre" required>
+                                                <label class="col-6" style="background-color:#f1f1f1;">Nombre del Evento</label>
+                                                <input class="col-5" type="text" size="60" id="nombre" name="nombre" required>
                                                 <input type="hidden" id="idevento" name="idevento">
                                                 <input type="hidden" id="idrev" name="idrev">
                                             </div>
 
                                   
                                             <div class="col-12"> 
-                                            <label>Categoria</label>
+                                            <label class="col-3" style="background-color:#f1f1f1;">Categoria</label>
                                             <?php
-                                            printf("<select required name='categorias'>");
+                                            printf("<select class='col-2' required name='categorias'>");
                                             printf("<option id='catedefault'></option>");
                                             foreach ($categorias as $mpio) {
                                                 printf("<option value='" . $mpio[0] . "'>" . $mpio[1] . "</option>");
@@ -112,34 +112,34 @@ include '../includes/header2.php';
                                             printf("</select>");
                                             ?>
                                                
-                                                <label class="col-2">Descripcion</label>
-                                                <input class="col-6" type="text" id="descripcion" name="descripcion" required>
+                                                <label class="col-3" style="background-color:#f1f1f1;">Descripcion</label>
+                                                <input class="col-3" type="text" id="descripcion" name="descripcion" required>
 
                                             </div>
                                             <div class="col-12">
 
-                                                <label class="col-1">Fecha:</label>
-                                                <input class="col-5" type="text" size="20" id="fecha" name="fecha" required>
+                                                <label class="col-1" style="background-color:#f1f1f1;">Fecha:</label>
+                                                <input class="col-3" type="text" size="20" id="fecha" name="fecha" required>
 
 
-                                                <label class="col-1">Lugar:</label>
-                                                <input class="col-4" type="text" size="20" name="lugar" id="lugar" required>
+                                                <label class="col-1" style="background-color:#f1f1f1;">Lugar:</label>
+                                                <input class="col-3" type="text" size="20" name="lugar" id="lugar" required>
 
 
-                                                <label class="col-1">Costo:</label>
-                                                <input class="col-3" type="text" size="20" name="costo" id="costo" required>
+                                                <label class="col-1" style="background-color:#f1f1f1;">Costo:</label>
+                                                <input class="col-2" type="text" size="20" name="costo" id="costo" required>
                                             </div>
 
                                              <div class="col-12">
 
-                                                <label class="col-2">Beneficiario</label>
+                                                <label class="col-3" style="background-color:#f1f1f1;">Beneficiario</label>
                                                 <input class="col-8" type="text" size="20" id="beneficiario" name="beneficiario" required>
                                              </div>
                                              <div class="col-12">
 
-                                                <label class="col-2">Sitio</label>
+                                                <label class="col-3" style="background-color:#f1f1f1;">Sitio</label>
                                                 <?php
-                                            printf("<select required name='sitios'>");
+                                            printf("<select  class='col-8' required name='sitios'>");
                                             printf("<option id='sitiodefault'></option>");
                                             foreach ($sitios as $mpio) {
                                                 printf("<option value='" . $mpio[0] . "'>" . $mpio[1] . "</option>");
@@ -148,10 +148,10 @@ include '../includes/header2.php';
                                             ?>
                                              </div>
                                             <div class="col-12">
-                                                    <label>Imagen:</label><br>
+                                                    <label  class="col-3"  style="background-color:#f1f1f1;">Imagen:</label><br>
                                                     <img id="idperfil" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
                                                     <input type="hidden" id="idperfilaux" name="idperfilaux">
-                                                    <div class="choose_file">
+                                                    <div  class="col-8" class="choose_file"><br>
                                                         <button type="button" class="btn btn-outline-dark" style="width: auto;">Cambia Imagen</button>
                                                         <input type="file" id="idperfilSet" name="idperfilSet" accept=".jpg"    onchange="openFile2(event)"
                                                                style="-webkit-appearance:none;     
@@ -162,11 +162,11 @@ include '../includes/header2.php';
                                                                width: 100%;
                                                                height: 100%;">
                                                     </div>
-                                                </div>
+                                                </div><br>
 
                                             
-                                            <div class="col-12" style="height: 415px; width: 580px;">
-                                                <div id="map" style="height: 400px; width: 570px; z-index: 2; position: absolute; align-content: center;">
+                                            <div class="row col-8" style="height: 415px; width: 730px;">
+                                                <div id="map" style="height: 400px; width: 730px; z-index: 2; position: absolute;">
                                                 </div>
                                                 <div id="floating-panel" style="position: relative;top: 1%;
                                                     left:30%;
@@ -218,16 +218,16 @@ include '../includes/header2.php';
                                                 async defer></script>
 
                                             </div>
-                                            <div class="row text-right">
+                                            <div class="col-12" style="padding-top:25px; background-color:#f1f1f1; width: 710px;">
                                                 <label class="col-3">Coordenadas</label>
                                                 <input class="col-4" id="posx" type="text" size="33" name="cordx" readonly>
                                                 <input class="col-4" id="posy" type="text" size="33" name="cordy" readonly>
                                             </div>
-                                            <div class="text-center">
-                                                <br><br><br>
+                                            <div class="col-12" style="padding-top:25px; background-color:#f1f1f1; width: 710px; ">
+                                              
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary" id="actualizar" name="actualizar">Modificar</button>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
                                               
                                                                                                
                                             <form  id="f_eliminar" action="../controller/setEventos_controller.php" method="POST"> 

@@ -1,6 +1,18 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Modelo donde se encuentran todas las funciones necesarias
+ *   para  Modificar la informacion de un Usuario-Empresa
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 
+//Se invoca la libreria getID para verificar la resolucion del logo
 include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
+//Se declara la clase set_usu_model2 
 
 class set_usu_model2 {
 
@@ -8,14 +20,14 @@ class set_usu_model2 {
     private $sector;
     private $pas;
     private $empresas;
-
+//Se declara el constructor de la clase
     public function __construct() {
         $this->db = Conectar::con();
         $this->sector = array();
         $this->id = array();
         $this->empresas = array();
     }
-
+//Se declara el metodo o funcion get_sectores, para obtener los sectores de la base de datos
     public function get_sectores() {
 
         $sqlconsulta = ("SELECT S.id_sector, S.nombre FROM sector S WHERE 1");
@@ -30,7 +42,7 @@ class set_usu_model2 {
 
         return $this->sector;
     }
-
+//Se declara el metodo o funcion get_Rangos, para obtener los tangos de precios 
     public function get_Rangos() {
 
         $sqlconsultaRangos = ("SELECT R.id_rango_ventas, R.descripcion FROM rango_ventas R WHERE 1");
@@ -45,7 +57,7 @@ class set_usu_model2 {
 
         return $this->rango;
     }
-
+//Se declara el metodo o función para generar la nueva contraseña aleatoria
     public function gen_pass($correo) {
         $cadena_base = $correo;
         $cadena_base .= '0123456789';
@@ -59,8 +71,9 @@ class set_usu_model2 {
         }
         return $password;
     }
-
+//Se declara el metodo o función para modificar toda la informacion de Usuario-Empresa
     public function add_usuario($idEU, $usubfset) {
+        //Se recibe y se declara la ruta del nuevo logo
         $imglogoA = $_POST['logoA'];
         $pathlogo = "../Imagenes/Sitios/logo/";
         $valid_formatsimg = array("jpg");
@@ -75,7 +88,7 @@ class set_usu_model2 {
             if (in_array($extLogo, $valid_formatsimg)) {
                 $aux = random_bytes(12);
                 $actual_logo_name = substr(bin2hex($aux), 0, 12);
-
+//Se maneja el archivo del nuevo logo y se le asgna el nombre que se guardara en la base de datos
                 //$a = str_split($aux);
                 $tmp2 = $_FILES['idlogoSet']['tmp_name'];
                 if (move_uploaded_file($tmp2, $pathlogo . $actual_logo_name . "." . $extLogo)) {
@@ -100,7 +113,7 @@ class set_usu_model2 {
                 }
             }
         }
-
+//se reciven todos los datos del formulario
         $email = $_POST['email'];
         $nombre = $_POST['empresa'];
         $sector = (int) $_POST['sectores'];
@@ -200,7 +213,7 @@ class set_usu_model2 {
 
 
 
-
+//Se actualiza la informacion de la base de datos del nuevo Usuario-Empresa
         if ($usubfset == $email) {
             $agregado = 1;
         } else {
@@ -259,7 +272,7 @@ class set_usu_model2 {
 
         return $this->empresas;
     }
-
+//Se habilita la cuenta del Usuario
     public function habilitando($usu) {
         if (isset($usu)) {
             $sqlupdate = ("UPDATE users SET enabled = '1' WHERE users.username = '" . $usu . "'");
@@ -272,7 +285,7 @@ class set_usu_model2 {
             }
         }
     }
-
+//Se deshabilita la cuenta del usuario
     public function deshabilitando($usu) {
         if (isset($usu)) {
             $sqlupdate = ("UPDATE users SET enabled = NULL WHERE users.username = '" . $usu . "'");

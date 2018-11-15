@@ -64,13 +64,15 @@ include '../includes/header2.php';
 </div>
 <div> 
     <center><h1>Cupones Caducados</h1></center> 
-    <center><table border="1">
-            <tr>
-                <td><strong>Titulo</strong></td>
-                <td><strong>Vigencia</strong></td>
-                <td><strong>Terminos y Condiciones</strong></td>
-                <td><strong>Eliminar</strong></td>
+    <center><table class="table text-center" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+            <thead class="thead-dark" align='center'>
+		<tr>
+                <th scope="col">Titulo</th>
+                <th scope="col">Vigencia</th>
+                <th scope="col">Terminos y Condiciones</th>
+                <th scope="col">Eliminar</th>
             </tr>
+	</thead>
             <?php
             $lcupones2;
             $llenar;
@@ -81,7 +83,7 @@ include '../includes/header2.php';
             }
             for ($i = 0; $i < count($llenar); $i++) {
                 ?>
-                <tr>
+                <tr class='btn-outline-primary'>
                     <td><?php echo $lcupones2[$i]["titulo"]; ?></td>
                     <td><?php echo $lcupones2[$i]["vigencia_fin"]; ?></td>
                     <td><?php echo $lcupones2[$i]["terminos_y_condiciones"]; ?></td>

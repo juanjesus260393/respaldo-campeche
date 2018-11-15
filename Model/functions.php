@@ -44,6 +44,22 @@ Class Funcionnes {
             Funcionnes::set_new_vistas($visualizaciones, $id_video);
         }
     }
+        public static function get_id_empresa($place_id) {
+        $dbh = Conectar::con();
+        //Consulta que busca la cantida dde visualizacion de un video en base a un identificador previamente obtenido
+        $cs = "SELECT e.id_empresa from empresa e inner join sitio s on e.id_empresa = s.id_empresa where s.id_sitio = $place_id ";
+        $result = mysqli_query($dbh, $cs) or die(mysqli_error());
+        $filas = mysqli_fetch_array($result);
+        if (!$filas[0]) {
+            //Si no existe un retgistro que coincida se envia el ecmabezado 401 y se terminan las operaciones en php
+            header("HTTP/1.0 401 Unauthorized");
+            exit();
+        } else {
+            //Si existe un registro se envia a la funcion set-new-vistas las visualizaciones, y el identificador del video
+            $id_empresa = $filas['id_empresa'];
+        }
+        return $id_empresa;
+    }
 
 //Funcion que actualiza la cantida de visualizaciones de un video
     public static function set_new_vistas($visualizaciones, $id_video) {

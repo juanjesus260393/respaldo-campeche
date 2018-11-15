@@ -35,25 +35,25 @@ $idro = $na->registros_publicidad();
                             <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp'];
 ?>"></span>
                         </div>
-                        <div>
+                        <div class="col-12">
                             <!-- radio button del tipo flyer -->
-                            <input type="radio" name="tipo" id="flyer" value="F" onclick="habilitar(this)" required>
-                            <label for="correo">Flyer</label>
+                            <input class="col-2" type="radio" name="tipo" id="flyer" value="F" onclick="habilitar(this)" required>
+                            <label class="col-1" for="correo">Flyer</label>
                             <!-- imagen del flyer la cual tiene la validicion de las dimensiones que tiene que tener este tipo de elementos -->
-                            <input type="file" name="flyer" accept=".jpg" onchange= "ValidarImagenf(this)" disabled="true">
+                            <input class="col-8" type="file" name="flyer" accept=".jpg" onchange= "ValidarImagenf(this)" disabled="true">
                         </div>
-                        <div>
+                        <div class="col-12">
                             <!-- radio button del tipo banner -->
-                            <input type="radio" name="tipo" id="banner" value="B" onclick="habilitar(this)" required>
-                            <label for="telefono">Banner</label>
+                            <input class="col-2" type="radio" name="tipo" id="banner" value="B" onclick="habilitar(this)" required>
+                            <label class="col-1" for="telefono">Banner</label>
                             <!-- imagen del banner la cual tiene la validicion de las dimensiones que tiene que tener este tipo de elementos -->
-                            <input type="file" name="banner" onchange= "ValidarImagenb(this)" accept=".jpg"disabled="true" >
+                            <input class="col-8" type="file" name="banner" onchange= "ValidarImagenb(this)" accept=".jpg"disabled="true" >
                         </div>
-                        <div>
+                        <div class="col-12">
                             <!-- Pagina del evento contiene validacion de la estructura de la url a registrar -->
-                            <span><label>*Pagina del evento:</label></span>
-                            <span><input type="text" id="url_sitio" style="WIDTH: 500px" 
-                                         size=32 name="url_sitio" placeholder="url_sitio" onblur = "ValidURL();" maxlength="200" required></span>
+                            <label class="col-3">*Pagina del evento:</label>
+                            <input class="col-8" type="text" id="url_sitio" style="WIDTH: 500px" 
+                                         size=32 name="url_sitio" placeholder="url_sitio" onblur = "ValidURL();" maxlength="200" required>
                         </div>
                     </div>
                 </div>

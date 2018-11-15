@@ -1,18 +1,18 @@
 <?php
-
 /*
- *          Campeche  360 
+ *   Campeche  360 
  *   Autor: Isidro Delgado Murillo
- *   Fecha: 10-10-2018
+ *   Fecha: 24-10-2018
  *   Versión: 1.0
- *   Descripcion: Controlador de la funcion que Permite validar o rechazar un cupon
+ *   Descripcion: Modelo donde se encuentran todas las funciones necesarias
+ *   para  Dar de alta un nuevo Usuario-Empresa
+ * 
  * por Fabrica de Software, CIC-IPN
  */
 
-
 include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 
-//inicia la clase 
+//Se declara la clase Nuevo_usu_model
 class Nuevo_usu_model {
 
     private $db;
@@ -30,9 +30,9 @@ class Nuevo_usu_model {
 
 //obtiene los sectores de la base de datos 
     public function get_sectores() {
-
+//Sentencia SQL
         $sqlconsulta = ("SELECT S.id_sector, S.nombre FROM sector S WHERE 1");
-
+//Php realiza la consulta a Maria DB
         $resultado = $this->db->query($sqlconsulta);
         while ($filas = $resultado->fetch_row()) {
             $this->sector[] = $filas;
@@ -40,23 +40,22 @@ class Nuevo_usu_model {
 
         $resultado->close();
         //$this->db->close();
-
+//Devuelve el resultado
         return $this->sector;
     }
 
 //obtiene los rangos de precios de la base de datos
     public function get_Rangos() {
-
+//sentencia Sql
         $sqlconsultaRangos = ("SELECT R.id_rango_ventas, R.descripcion FROM rango_ventas R WHERE 1");
-
+//Php realiza la consulta a Maria DB
         $resRangos = $this->db->query($sqlconsultaRangos);
         while ($filaR = $resRangos->fetch_row()) {
             $this->rango[] = $filaR;
         }
 
         $resRangos->close();
-        //$this->db->close();
-
+        //Devuelve el resultado
         return $this->rango;
     }
 
@@ -75,11 +74,8 @@ class Nuevo_usu_model {
         return $password;
     }
 
-//dara de alta un nuevo usuario y empresa en el sistema y la base de datos
+//Metodo o Función que dara de alta un nuevo usuario y empresa en el sistema y la base de datos
     public function add_usuario($a) {
-
-
-
 
         $pathlogo = "../Imagenes/Sitios/logo/";
         $valid_formatsimg = array("jpg");
@@ -87,7 +83,7 @@ class Nuevo_usu_model {
         $id_logo = $_FILES['idlogo']['name'];
 
 
-
+//se declara la ruta y el nombre para el manejo de la imagen de logo
         $fileInfoLogo = pathinfo($id_logo);
         $extLogo = $fileInfoLogo['extension'];
         if (in_array($extLogo, $valid_formatsimg)) {
@@ -118,7 +114,7 @@ class Nuevo_usu_model {
             }
         }
 
-
+//Se declaran las variables y se reciben los valores del formulario
         $email = $_POST['email'];
         $nombre = $_POST['empresa'];
         $sector = (int) $_POST['sectores'];
@@ -210,7 +206,7 @@ class Nuevo_usu_model {
         } else {
             $fechafin = "0000-00-00";
         }
-
+//Se genera la contraseña aleatoria para el nuevo Usuario
         $passaux = $this->gen_pass($email);
         sendmail($email, $passaux, 0);
         $pass = password_hash($passaux, PASSWORD_DEFAULT);
@@ -219,15 +215,15 @@ class Nuevo_usu_model {
 
         $fecalta = date("Y-m-d H:i:s");
         $fechainicio = date("Y-m-d H:i:s");
-        // $pass=password_hash('empresa1', PASSWORD_DEFAULT);
-        //$pass=$this->gen_pass($email);
+     //Sentencias Sql para el alta de Usuario-Empresa 
         $sqlAuxMembresia = ("SELECT p.id_membresia FROM membresia p WHERE p.nombre='" . $membresia . "'");
         $Mres = $this->db->query($sqlAuxMembresia);
         $idmembresia = $Mres->fetch_row();
+        //Sentencias Sql para el alta de Usuario-Empresa
         $sqlinsert1 = ("INSERT INTO users (username, password) VALUES ('" . $email . "','" . $pass . "')");
         $agregado = $this->db->query($sqlinsert1);
         if ($agregado) {
-
+//Sentencias Sql para el alta de Usuario-Empresa
             $sqlinsert = ("INSERT INTO empresa (id_membresia, id_sector, id_rango_ventas, descripcion, telefono, extension,celular, "
                     . "direccion, nombre, numero_empleados, propietario, tamano, facebook, twitter, instagram, youtube, googleplus, id_logo, fecha_alta, fecha_inicio_membresia, fecha_fin_membresia) "
                     . "VALUES (" . $idmembresia[0] . "," . $sector . "," . $precios . ",'" . $desc . "'," . $tel1 . "," . $tel2 . ","
@@ -237,14 +233,15 @@ class Nuevo_usu_model {
 
             $agregado = $this->db->query($sqlinsert);
             if ($agregado) {
-
+//Sentencias Sql para el alta de Usuario-Empresa
                 $sqlconsultaAux = ("SELECT id_empresa FROM empresa WHERE nombre='" . $nombre . "' AND propietario='" . $owner . "'");
                 $res = $this->db->query($sqlconsultaAux);
                 $id = $res->fetch_row();
-
+//Sentencias Sql para el alta de Usuario-Empresa
                 $sqlinsertAux = ("INSERT INTO usuario_empresa (id_empresa, username) VALUES (" . $id[0] . ", '" . $email . "')");
                 $agregadoAux = $this->db->query($sqlinsertAux);
                 if ($agregadoAux) {
+                    //Si todo esta correcto manda mensaje
                     echo ("<script> alert('Nuevo usuario agregado'); </script>");
                 } else {
                     printf("Errormessage: %s\n", $this->db->error);
@@ -258,7 +255,7 @@ class Nuevo_usu_model {
 
         return $email;
     }
-
+//Habilita el usuario que se acaba de dar de alta
     public function habilitando($usu) {
         if (isset($usu)) {
             $sqlupdate = ("UPDATE users SET enabled = '1' WHERE users.username = '" . $usu . "'");

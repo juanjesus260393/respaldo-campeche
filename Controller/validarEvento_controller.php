@@ -29,7 +29,7 @@ $_SESSION['nF']=$cto_pendientes->get_num_FoB();
 $_SESSION['nVa']=$cto_pendientes->get_num_vacantes();
 $_SESSION['nEve']=$cto_pendientes->get_num_eventos();
 
-$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV']+$_SESSION['nF']+$_SESSION['nVa'] + +$_SESSION['nEve'];
+$_SESSION['totalPendientes']=$_SESSION['nC']+$_SESSION['nS']+$_SESSION['nV']+$_SESSION['nF']+$_SESSION['nVa'] +$_SESSION['nEve'];
 
 
 

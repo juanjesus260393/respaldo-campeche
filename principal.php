@@ -54,7 +54,9 @@ require_once ("Model/conexion.php");
                                     $_SESSION['nS'] = $cto_pendientes->get_num_sitios();
                                     $_SESSION['nV'] = $cto_pendientes->get_num_videos();
                                     $_SESSION['nF'] = $cto_pendientes->get_num_FoB();
-                                    $_SESSION['totalPendientes'] = $_SESSION['nC'] + $_SESSION['nS'] + $_SESSION['nV'] + $_SESSION['nF'];
+                                    $_SESSION['nVa']=$cto_pendientes->get_num_vacantes();
+                                    $_SESSION['nEve']=$cto_pendientes->get_num_eventos();
+                                    $_SESSION['totalPendientes'] = $_SESSION['nC'] + $_SESSION['nS'] + $_SESSION['nV'] + $_SESSION['nF']+$_SESSION['nVa'] +$_SESSION['nEve'];
 
                                   ?>
                                     <ul>
@@ -84,8 +86,8 @@ require_once ("Model/conexion.php");
                                             <a class="dropdown-item" href="Controller/validarCupon_controller.php">Cupones   <span> <?php printf($_SESSION['nC']); ?></span></a>
                                             <a class="dropdown-item" href="Controller/validarVideo_controller.php">Videos <span> <?php printf($_SESSION['nV']); ?></span></a>
                                             <a class="dropdown-item" href="Controller/validarFlyers_controller.php">Flyers & Banners <span><?php printf($_SESSION['nF']); ?></span></a>
-                                            <a class="dropdown-item" href="Controller/validarVacante_controller.php">Vacantess <span><?php printf($_SESSION['nF']); ?></span></a>
-                                            <a class="dropdown-item" href="Controller/validarEvento_controller.php">Cartelera <span><?php printf($_SESSION['nF']); ?></span></a>
+                                            <a class="dropdown-item" href="Controller/validarVacante_controller.php">Vacantes <span><?php printf($_SESSION['nVa']); ?></span></a>
+                                            <a class="dropdown-item" href="Controller/validarEvento_controller.php">Cartelera <span><?php printf($_SESSION['nEve']); ?></span></a>
                                         </div>
                                     </li>
                                                                         

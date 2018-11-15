@@ -1,15 +1,26 @@
 <?php
 
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Modelo donde se encuentran todas las funciones necesarias
+ *   para  Modificar un Sitio
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
+
 require_once ('../vendor/autoload.php');
-
+//Se invoca la API de google para traduccir las descripciones del sitio
 use \Statickidz\GoogleTranslate;
-
+//Se declara la clase setSitios_model
 class setSitios_model {
 
     private $db;
     private $sitios;
     private $isitio;
-
+//Se declara el constructor de la clase
     public function __construct() {
         $this->db = Conectar::con();
         $this->sitios = array();
@@ -17,9 +28,10 @@ class setSitios_model {
         $this->isitio = array();
         $this->municipo = array();
     }
-
+//Se declara el metodo o función get_sitios, donde se obtiene toda la informacion de los sitos ya registrados 
+    
     public function get_sitios() {
-
+//Sentencia Sql para obtener la informacion de los sitios de la base de datos
         $selectSitios = ("SELECT S.id_municipio, S.id_sitio, S.nombre, S.direccion, S.horario, RI.url_sitio_web, RI.status , M.nombre, "
                 . "S.telefono1, S.telefono2, S.capacidad, DATE(RI.fecha_creacion), DATE(RI.fecha_actualizacion), RI.id_imagen_perfil, "
                 . "RI.id_carta, ST_X(RI.ubicacionGIS), ST_Y(RI.ubicacionGIS), RI.id_revision_informacion, M.id_municipio "
@@ -27,8 +39,9 @@ class setSitios_model {
 
         $ressit = $this->db->query($selectSitios);
 
-
+        
         $a = 0;
+        //Se reciben y ordenan los resultados
         while ($filas = $ressit->fetch_row()) {
             $this->sitios[] = $filas;
             $a++;
@@ -39,30 +52,33 @@ class setSitios_model {
         $this->sitiofinal = self::getGaleria($this->sitiofinal, $a);
 
         $ressit->close();
-        // $this->db->close();
-
+        //Devuelve el resultado 
         return $this->sitiofinal;
     }
-
+//Se declara el metodo o función para obtener las descripciones de la BD 
+    
     public function getdescripciones($sitioaux, $a) {
 
         for ($i = 0; $i < $a; $i++) {
+            //Sentencia Sql para obtener las descripciones de la base de datos
             $sqldesc = "SELECT descripcion_corta, descripcion_larga FROM descripcion_idioma WHERE id_revision_informacion=" . $sitioaux[$i][17] . " ORDER BY lang_code";
             $ressitaux = $this->db->query($sqldesc);
             while ($filass = $ressitaux->fetch_row()) {
 
-
+//Se reciben y ordenan los resultados de la consulta
                 array_push($sitioaux[$i], $filass[0]);
                 array_push($sitioaux[$i], $filass[1]);
             }
         }
+        //Devuelve el resultado
         return $sitioaux;
     }
-
+//Se declara el metodo o funcion getGaleria, donde se obtienen las imagenes de la base de datos y el servidor 
     public function getGaleria($sitioaux, $a) {
 
         for ($i = 0; $i < $a; $i++) {
             $x = 0;
+            //Sentencia Sql para obtener los nombres de las imagenes de la Base de Datos
             $sqldesc = "SELECT id_archivo_imagen FROM imagen_galeria WHERE id_revision_informacion=" . $sitioaux[$i][17] . " ";
             $ressitaux = $this->db->query($sqldesc);
             while ($filass = $ressitaux->fetch_row()) {
@@ -75,12 +91,12 @@ class setSitios_model {
                 $x++;
             }
         }
-
+//Devuleve el Resultado 
         return $sitioaux;
     }
-
+//Se declara el metodo o función para obtener los municipios
     public function get_municipios() {
-
+//Sentencia Sql para obtener los resultados 
         $sqlconsulta = ("SELECT m.id_municipio, m.nombre FROM municipio m WHERE 1");
 
         $resultado = $this->db->query($sqlconsulta);
@@ -89,12 +105,13 @@ class setSitios_model {
         }
 
         $resultado->close();
-        //$this->db->close();
-
+     //Devuelve el resultado
         return $this->municipio;
     }
-
+//Se declara el metodo o función para modificar la informacion del sitio en la base de datos 
     public function add_sitio() {
+        //Se declaran las variables y se reciben toda la informacion del formulario
+        
         $idsitio = $_POST['idsitioo'];
         $idrev = $_POST['idrev'];
          $nombre = addslashes($_POST['nombreSitio']);
@@ -120,13 +137,13 @@ class setSitios_model {
         $imgh3 = $_POST['imgh3'];
         $imgh4 = $_POST['imgh4'];
         $imgh5 = $_POST['imgh5'];
-
+//Se declaran las rutas de las imagenes y carta del sitio
         $pathperfil = "../Imagenes/Sitios/img/";
         $pathGaleria = '../Imagenes/Galeria/';
         $pathcarta = "../Imagenes/Sitios/carta/";
         $valid_formatsimg = array("jpg"); //extensiones permitidas para imagenes
         $valid_formatscarta = array("pdf"); //extensiones permitidas para cartas
-
+//Se maneja la imagen de perfil nueva
         if ($_FILES['idperfilSet']['error'] === 4) {
 
             $actual_image_name = $imageP;
@@ -184,7 +201,7 @@ class setSitios_model {
         $source = 'ES';
         $target1 = 'EN';
         $target2 = 'FR';
-
+//Se traducen las nuevas descripciones 
 
         $trans = new GoogleTranslate();
         $descCortaIngles2 = addslashes($trans->translate($source, $target1, $descCortaES));
@@ -220,7 +237,7 @@ class setSitios_model {
                 . ", telefono2=" . $tel2 . ", capacidad=" . $capacidad . ", horario='" . $hora . "' WHERE id_sitio=" . $idsitio . " ");
         $agregado = $this->db->query($sqlinsert);
 
-    
+    //Se agregan las nuevas descripciones y sus traducciones a la base de datos
         if ($agregado) {
             $sqlinsert2 = ("UPDATE revision_informacion SET status='C', url_sitio_web='" . $url . "', id_imagen_perfil='" . $actual_image_name . "' "
                     . ", id_carta='" . $actual_carta_name . "', ubicacionGIS=" . $point . " WHERE id_revision_informacion=" . $idrev . "");
@@ -248,7 +265,7 @@ class setSitios_model {
             printf("Errormessage: %s\n", $this->db->error);
         }
 
-
+//Manejo de las nuevas imagenes de la galeria y se eliminan las anteriores
         if ($_FILES['file1']['error'] === 0) {
 
             $fileInfofile1 = pathinfo($_FILES['file1']['name']);

@@ -1,9 +1,18 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  Modificar la informacion de un Sitio
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 include '../includes/header2.php';
 ?>
 <div> 
-
-        <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
+       <table class="table" style='border: 1px solid grey; -moz-border-radius: 15px;' align='center'>
                 
                      <thead class="thead-dark" align='center'>
                   <th scope="col" width='120' align='center'>Imagen</th>
@@ -15,8 +24,9 @@ include '../includes/header2.php';
 
             </tr>
             <?php
+             
             foreach ($sitios as $cupdato) {
-                echo $cupdato[0];
+               
                 ?>
 
 
@@ -57,9 +67,9 @@ include '../includes/header2.php';
                 ?>
            
 
-            <div class="modal modal1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 
-                <div class="modal1-dialog2" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <form  enctype="multipart/form-data" id="setsitiosform" action="../Controller/setSitios_controller.php" method="post">
                             <div class="modal-header">
@@ -74,47 +84,47 @@ include '../includes/header2.php';
                                     
 
 
-                                    <div class="row form-group">
+                                    <div class="row form-group"  style="padding: 10px 15px 10px 15px;">
 
-                                        <div class="col-8">
+                                        <div class="col-12"  >
                                             <div class='row'>
 
 
-                                                <label class="col-2">Nombre del Sitio</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Nombre del Sitio</label>
                                                 <input class="col-2" type="text" size="30" id="nombresitio" name="nombreSitio" required>
                                                 <input type="hidden" id="idsitioo" name="idsitioo">
                                                 <input type="hidden" id="idrev" name="idrev">
 
 
-                                                <label class="col-2">Url del Sitio</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Url del Sitio</label>
                                                 <input class="col-2" type="text" size="30" id="urlsitio" name="urlsitio" required>
 
-                                                <label class="col-2">Horario</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Horario</label>
                                                 <input class="col-2" type="text" id="horario" name="horario" required>
 
                                             </div>
                                             <div class="row">
 
-                                                <label class="col-2">Telefono 1</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Telefono 1</label>
                                                 <input class="col-2" type="text" size="20" id="tel1" name="tel1" required>
 
 
-                                                <label class="col-2">Telefono 2</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Telefono 2</label>
                                                 <input class="col-2" type="text" size="20" name="tel2" id="tel2" required>
 
 
-                                                <label class="col-2">Capacidad</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Capacidad</label>
                                                 <input class="col-2" type="text" size="20" name="tam" id="capacidad" required>
                                             </div>
 
 
                                             <div class="row justify-content-center align-items-center">
 
-                                                <label for="dir" class="col-2">Direccion</label>
+                                                <label for="dir" class="col-2" style="background-color:#f1f1f1;" >Direccion</label>
                                                 <textarea class="col-4" name="dir" rows="3" cols="35" id="dir" required></textarea>
 
 
-                                                <div class="col-2">
+                                                <div class="col-2" >
                                                     <label>Imagen Perfil:</label><br>
                                                     <img id="idperfil" class="img-fluid img-thumbnail" style="width: 190px; height: auto;">
                                                     <input type="hidden" id="idperfilaux" name="idperfilaux">
@@ -160,22 +170,22 @@ include '../includes/header2.php';
                                             </div>
 
                                             <div class="row">
-                                                <label class="col-2">Descripcion Corta ESPAÑOL:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Corta ESPAÑOL:</label>
                                                 <input class="col-4" type="text" id="descripcion_cortaES"  size="25" name="descripcion_cortaES"  required>
-                                                <label class="col-2" >Descripcion Larga ESPAÑOL:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Larga ESPAÑOL:</label>
                                                 <textarea class="col-4" id="descripcion_largaES" name="descripcion_largaES" rows="7" cols="78"  required></textarea>
                                             </div>
 
                                             <div class="row">
-                                                <label class="col-2">Descripcion Corta INGLES:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Corta INGLES:</label>
                                                 <input class="col-4" type="text" id="descripcion_cortaEN"  size="25" name="descripcion_corta"  required>
-                                                <label class="col-2" >Descripcion Larga INGLES:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Larga INGLES:</label>
                                                 <textarea class="col-4" id="descripcion_largaEN" name="descripcion_larga" rows="7" cols="78"  required></textarea>
                                             </div>
                                             <div class="row">
-                                                <label class="col-2">Descripcion Corta FRANCES:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Corta FRANCES:</label>
                                                 <input class="col-4" type="text" id="descripcion_cortaFR"  size="25" name="descripcion_corta"  required>
-                                                <label class="col-2" >Descripcion Larga FRANCES:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;" >Descripcion Larga FRANCES:</label>
                                                 <textarea class="col-4" id="descripcion_largaFR" name="descripcion_larga" rows="7" cols="78"   required></textarea>
                                             </div>
 
@@ -190,8 +200,9 @@ include '../includes/header2.php';
 
 
 
-                                        <div class="col-4"> 
-                                            <label>Municipio</label>
+						
+					<div class="col-12" style="padding-top:25px;">
+                                            <label style="background-color:#f1f1f1;" >Municipio</label>
                                             <?php
                                             printf("<select required name='municipios'>");
                                             printf("<option id='mpiodefault'></option>");
@@ -201,8 +212,8 @@ include '../includes/header2.php';
                                             printf("</select>");
                                             ?>
 
-                                            <div class="row" style="height: 415px; width: 570px;">
-                                                <div id="map" style="height: 400px; width: 570px; z-index: 2; position: absolute;">
+						<div class="row col-12" style="height: 415px; width: 760px;">
+                                            <div id="map" style="height: 400px; width: 750px; z-index: 2; position: absolute;">
                                                 </div>
                                                 <div id="floating-panel" style="position: relative;top: 1%;
                                                      left:30%;
@@ -221,6 +232,7 @@ include '../includes/header2.php';
 
 
                                                 <script>
+                                                    //Manejo e implementacion de la API de google Maps
                                                     var marker;
                                                     var marker2;
                                                     var map;
@@ -277,14 +289,15 @@ include '../includes/header2.php';
                                                 </script>
                                                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVeZ4ei2IHiQ6xt-oV2Sq7Fx8bKqswd4&callback=initMap"
                                                 async defer></script>
+</div>
 
                                             </div>
-                                            <div class="row text-right">
-                                                <label class="col-3">Coordenadas</label>
+                                            <div  style="background-color:#f1f1f1;">
+                                                <label class="col-3" >Coordenadas</label>
                                                 <input class="col-4" id="posx" type="text" size="33" name="cordx" readonly>
                                                 <input class="col-4" id="posy" type="text" size="33" name="cordy" readonly>
                                             </div>
-                                            <div class="text-center">
+                                            <div>
                                                 <br><br><br>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary" id="seeet" name="seeet">Modificar</button>
@@ -334,6 +347,7 @@ include '../includes/header2.php';
             </div>
         </div>
         <script>
+            //Valida el status del Sitio, debe estar "En revision" para permitir hacer modificaciones
                                                 $('#exampleModal').on('show.bs.modal', function (event) {
                                                     var button = $(event.relatedTarget); // Button that triggered the modal
                                                     var recipient = button.data('whatever');
@@ -350,6 +364,7 @@ include '../includes/header2.php';
                                                             $("#exampleModal").modal("hide");
                                                          });
                                                     }
+//Parse de la información del sitio a java script para poder visualizarla en el modal                                                     
                                                     var dat7 = button.data('7');
                                                     var dat8 = button.data('8');
                                                     var dat9 = button.data('9');
@@ -428,12 +443,13 @@ include '../includes/header2.php';
                                                     document.getElementById('imgh4').value = dat28;
                                                     document.getElementById('imgh5').value = dat29;
                                                     
-
+//Aprueba el Sitio 
                                                     $('#aprobar').click(function () {
                                                         var msgtxt = document.getElementById('messagetext').value;
                                                         document.location.href = "../Controller/validarSitios_controller.php?opc=A&sitio=" + dat1 + "&coment=" + msgtxt + "&revision=" + dat17;
 
                                                     });
+//Rechaza el Sitio                                                    
                                                     $('#rechazar').click(function () {
                                                         var msgtxt = document.getElementById('messagetext').value;
                                                         document.location.href = "../Controller/validarSitios_controller.php?opc=R&sitio=" + dat1 + "&coment=" + msgtxt + "&revision=" + dat17;
@@ -448,7 +464,7 @@ include '../includes/header2.php';
                                                 });
 
 
-                                            
+                                            //Maneja la imagen de perfil al cambiarla y actualiza la vista
                                                 var openFile2 = function (event) {
                                                     var input = event.target;
 
@@ -460,6 +476,7 @@ include '../includes/header2.php';
                                                     };
                                                     reader.readAsDataURL(input.files[0]);
                                                 };
+                                                //Actualiza la carta 
                                                 var openFile3 = function (event) {
                                                     var input = event.target;
 

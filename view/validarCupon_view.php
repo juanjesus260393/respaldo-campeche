@@ -1,5 +1,14 @@
 <?php
-
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  la validacion de un cupon
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 
 include '../includes/header.php';
 

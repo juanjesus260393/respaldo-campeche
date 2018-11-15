@@ -1,12 +1,24 @@
 <?php
-
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  mostrar las empresas Inactivas
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 
 include '../includes/header.php';
 
 
 ?>
      
-              <script> var a =<?php echo $Nemp; ?>;
+              <script>
+    //se declaran las variables necesarias para poder aplicar los filtros              
+    
+    var a =<?php echo $Nemp; ?>;
     var i;
      var aux123=0;
     var j;
@@ -18,6 +30,8 @@ include '../includes/header.php';
 foreach ($datos as $dato) {
     ?>
     <script>
+        //Se asignan los valores de las empresas a un arreglo para el manejo de los datos con los filtros
+        
         empresas.push({nombre: '<?php echo $dato[1] ?>', desc: '<?php echo $dato[2] ?>', sector: '<?php echo $dato[3] ?>', membresia: '<?php echo $dato[5] ?>', idEmp: '<?php echo $dato[4] ?>', pos: x});
         x++;
 
@@ -36,7 +50,7 @@ foreach ($datos as $dato) {
     }
     }
 </script>
-<h1> Empresas Deshabilitadas</h1>
+<h1> Empresas Inactivas</h1>
 <!--<div style="background-color: #f1f1f1;">
     <label><b>BUSQUEDA :</b></label><input type="search" id="busqueda"></div>-->
 <table id="tableemp" class="table" style=' border: 1px solid grey; -moz-border-radius: 15px;' align="center">
@@ -143,12 +157,14 @@ foreach ($datos as $dato) {
 
 
     <script>
+        
+        //Da formato a la tabla y habilita el filtro de busqueda
         $(document).ready(function () {
             $('#tableemp').DataTable();
         });
 
 
-
+//Filtro de busqueda por cadena
         $("#busqueda").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#tableemp tr").filter(function () {
@@ -164,6 +180,7 @@ foreach ($datos as $dato) {
             }
 
         }
+        //Filtro ordena por Sector alfabeticamente
         function ordenarS() {
 
             for (i = 0; i <= a; i++) {
@@ -246,7 +263,7 @@ foreach ($datos as $dato) {
 
 
         }
-
+//Filtro ordena por nombre alfabeticamente
 
         function filtroNombre() {
             for (i = 0; i <= a; i++) {
@@ -291,7 +308,7 @@ foreach ($datos as $dato) {
             }
 
         }
-
+//Filtro por sector seleccionado 
         function filtroSector() {
 
 
@@ -322,7 +339,7 @@ foreach ($datos as $dato) {
             }
         }
 
-
+//Filtro por tipo de Membresia
         function filtroMembresia() {
 
             for (i = 0; i <= a; i++) {

@@ -1,23 +1,35 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Modelo donde se encuentran todas las funciones necesarias
+ *   para  mostrar las empresas activas
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
+
+//Se llama la libreria getID para validar la resolucion de las imagenes
 include_once('../Librerias/getID3-1.9.15/getid3/getid3.php');
 require_once ('../vendor/autoload.php');
-
+//Se llama a la API de google para hacer la traduccion de las descripciones
 use \Statickidz\GoogleTranslate;
-
+//Se declara  la clase add_Sitios_model
 class add_Sitios_model {
-
+//Se declaran las variables privadas necesarias
     private $db;
     private $municipio;
     private $pas;
-
+//Se declara el constructor de a al clase
     public function __construct() {
         $this->db = Conectar::con();
         $this->municipo = array();
         $this->id = array();
     }
-
+//se declara el metodo o funcion para obtener los municipios de la base de datos
     public function get_municipios() {
-
+//Sentencia Sql para obtener los municipios
         $sqlconsulta = ("SELECT m.id_municipio, m.nombre FROM municipio m WHERE 1");
 
         $resultado = $this->db->query($sqlconsulta);
@@ -27,13 +39,15 @@ class add_Sitios_model {
 
         $resultado->close();
         //$this->db->close();
-
+//Devuelve el resultado
         return $this->municipio;
     }
-
+//Se delcara el metodo o función para agregar un Sitio a la BD
+    
     public function add_sitio() {
 
         
+        //se declaran las rutas y formatos donde se almacenaran las imagenes de perfil, carta, etc.
         
          $pathperfil = "../Imagenes/Sitios/img/";
         $pathGaleria='../Imagenes/Galeria/';
@@ -51,7 +65,8 @@ class add_Sitios_model {
 
         
         
-        
+       //Se manejan las imagenes y se valida su resolucion y tamaño 
+
 if($_FILES['idperfil']['error']===0){
     
     $fileInfoPerfil = pathinfo($id_perfil);
@@ -88,7 +103,7 @@ if($_FILES['idperfil']['error']===0){
             }
         }}
         
-        
+        //Se declaran y reciben todos los valores del formulario 
         
         $nombre = addslashes($_POST['nombreSitio']);
         $municipios = (int) $_POST['municipios'];
@@ -117,7 +132,7 @@ if($_FILES['idperfil']['error']===0){
         $descCortaES = $_POST['descripcion_corta'];
         $descLargaES = htmlspecialchars($_POST['descripcion_larga']);
 
-       
+       //Manejo de la carta
 if($_FILES['idcarta']['error']===0){
       $fileInfoCarta = pathinfo($id_carta);
         $extCarta = $fileInfoCarta['extension'];
@@ -180,7 +195,8 @@ if($_FILES['idcarta']['error']===0){
 
         $hoy = date("Y-m-d H:i:s");
 
-
+//Se agrega la informacion del sitio a la base de datos
+        
         $sqlinsert = ("INSERT INTO sitio (id_sitio, id_empresa, id_municipio , nombre, direccion, telefono1, telefono2, capacidad, horario) VALUES (" . $idunicositio . "," . $_SESSION['idemp'] . "," . $municipios . ",'" . $nombre . "', '" . $dir . "'," . $tel1 . "," . $tel2 . "," . $capacidad . ",'" . $hora . "')");
         $agregado = $this->db->query($sqlinsert);
         if ($agregado) {
@@ -211,7 +227,7 @@ if($_FILES['idcarta']['error']===0){
             printf("Errormessage: %s\n", $this->db->error);
         }
         
-        
+      //Se manejan todas las imagenes de la galeria  
         
         if($_FILES['file1']['error']===0){
    

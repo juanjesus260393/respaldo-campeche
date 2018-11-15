@@ -34,54 +34,54 @@ $idro = $na->registros_cupon();
                         <center><h4>Llenar los campos que contienen un * al inicio de los campos</h4></center>  
 
                         <center>
-                            <div>
+                            <div class="col-12">
                                 <!-- Para realiza el registro se envia el identificador de la empresa como oculto -->
                                 <span><input type="hidden" name="id_empresa" id="id_empresa" value="<?php echo $_SESSION['idemp']; ?>"></span>
                             </div>
                             <div>
                                 <!-- titulo del cupon -->
-                                <span><label>*Titulo del Cupon:</label></span>
-                                <span><input type="text" id="titulo" name="titulo" placeholder="Titulo del Cupon" maxlength="99" oninvalid="alert('Titulo invalido o vacio');" required></span>
+                                <label class="col-3" style="background-color:#f1f1f1;">*Titulo del Cupon:</label></span>
+                                <input class="col-8" type="text" id="titulo" name="titulo" placeholder="Titulo del Cupon" maxlength="99" oninvalid="alert('Titulo invalido o vacio');" required></span>
                                 
                             </div>
                             <div>
                                 <!-- Descripcion Corta -->
-                                <span><label>*Descripcion Corta:</label></span>
-                                <span><input type="text" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta"  maxlength="149" oninvalid="alert('Descripción corta invalida o vacia');" required></span>
+                                <label class="col-3"style="background-color:#f1f1f1;">*Descripcion Corta:</label>
+                                <input class="col-8" type="text" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta"  maxlength="149" oninvalid="alert('Descripción corta invalida o vacia');" required>
                             </div>   
                             <div>
                                 <!-- descripcion_larga -->
-                                <span><label for="descripcion_larga">*Descripcion Larga:</label></span>
-                                <span><textarea  id="descripcion_larga" name="descripcion_larga" rows="8" cols="40" placeholder="Descripcion Larga" maxlength="490" oninvalid="alert('Descripción larga invalida o vacia');" required></textarea></span>
+                                <label class="col-3" style="background-color:#f1f1f1;" "for="descripcion_larga">*Descripcion Larga:</label>
+                                <textarea class="col-8" id="descripcion_larga" name="descripcion_larga" rows="8" cols="40" placeholder="Descripcion Larga" maxlength="490" oninvalid="alert('Descripción larga invalida o vacia');" required></textarea>
                             </div>
                             <div>
                                  <!-- Imagen Vista Previa la cual contiene la validacion para el tamaño de la misma -->
-                                <span><label>*Imagen Vista Previa:</label></span>
-                                <span><input type="file"  id="id_imagen_vista_previa" onchange= "ValidarImagenc(this)" accept=".jpg" name="id_imagen_vista_previa" oninvalid="alert('Es necesario seleccionar una imagen');" required></span>
+                                <label class="col-3" style="background-color:#f1f1f1;">*Imagen Vista Previa:</label>
+                                <input class="col-8" type="file"  id="id_imagen_vista_previa" onchange= "ValidarImagenc(this)" accept=".jpg" name="id_imagen_vista_previa" oninvalid="alert('Es necesario seleccionar una imagen');" required>
                             </div>
                             <div>
                                 <!-- Imagen Del Cupon la cual contiene la validacion para el tamaño de la misma -->
-                                <span><label>Imagen Del Cupon:</label></span>
-                                <span><input type="file" id="id_imagen_extra" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_imagen_extra"></span>
+                                <label class="col-3" style="background-color:#f1f1f1;">Imagen Del Cupon:</label>
+                                <input class="col-8" type="file" id="id_imagen_extra" onchange= "ValidarImagenvp(this)" accept=".jpg" name="id_imagen_extra">
                             </div>
                             <div>
                                 <!-- Vigencia inicio-->
-                                <span><label>*Vigencia inicio:</label></span>
-                                <span><input type="date" id="vigencia_inicio"  name="vigencia_inicio" value="<?php echo date('Y-m-d'); ?>"></span>    </div>
+                                <label class="col-3" style="background-color:#f1f1f1;">*Vigencia inicio:</label>
+                                <input class="col-8" type="date" id="vigencia_inicio"  name="vigencia_inicio" value="<?php echo date('Y-m-d'); ?>">    </div>
                             <div>
                                 <!-- Vigencia fin -->
-                                <span><label>*Vigencia fin:</label></span>
-                                <span><input type="date" id="vigencia_fin" name="vigencia_fin" value="<?php echo date('Y-m-d'); ?>"></span>
+                                <label class="col-3" style="background-color:#f1f1f1;">*Vigencia fin:</label>
+                                <input class="col-8" type="date" id="vigencia_fin" name="vigencia_fin" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                             <div>
                                  <!-- Terminos y Condiciones -->
-                                <span><label>*Terminos y Condiciones:</label></span>
-                                <span><textarea id="terminos_y_condiciones" name="terminos_y_condiciones" rows="8" cols="40" placeholder="Terminos y condiciones" maxlength="240" oninvalid="alert('Terminos y condiciones invalido o vacio');" required></textarea></span>
+                                <label class="col-3" style="background-color:#f1f1f1;">*Terminos y Condiciones:</label>
+                                <textarea class="col-8" id="terminos_y_condiciones" name="terminos_y_condiciones" rows="8" cols="40" placeholder="Terminos y condiciones" maxlength="240" oninvalid="alert('Terminos y condiciones invalido o vacio');" required></textarea>
                             </div>
                             <div>
                                  <!-- Limite de cupones-->
-                                <span><label>*Limite de cupones:</label></span>
-                                <span><input type="number" id="limite_codigos" name="limite_codigos" min="1" max="99" oninvalid="alert('Limite de cupones debe ser entre 1 - 99');" required></span>
+                                <label class="col-3" style="background-color:#f1f1f1;">*Limite de cupones:</label>
+                                <input class="col-8" type="number" id="limite_codigos" name="limite_codigos" min="1" max="99" oninvalid="alert('Limite de cupones debe ser entre 1 - 99');" required>
                             </div>
                             <div>
 

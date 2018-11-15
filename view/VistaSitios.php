@@ -76,43 +76,43 @@ include '../includes/header2.php';
                                     
 
 
-                                    <div class="row form-group">
+                                    <div class="row form-group"   style="padding: 10px 15px 10px 15px;">
 
                                         <div class="col-12">
                                             <div class='row'>
 
 
-                                                <label class="col-2">Nombre del Sitio</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Nombre del Sitio</label>
                                                 <input class="col-2" type="text" size="30" id="nombresitio" name="nombreSitio" required>
                                                 <input type="hidden" id="idsitioo" name="idsitioo">
                                                 <input type="hidden" id="idrev" name="idrev">
 
 
-                                                <label class="col-2">Url del Sitio</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Url del Sitio</label>
                                                 <input class="col-2" type="text" size="30" id="urlsitio" name="urlsitio" required>
 
-                                                <label class="col-2">Horario</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Horario</label>
                                                 <input class="col-2" type="text" id="horario" name="horario" required>
 
                                             </div>
                                             <div class="row">
 
-                                                <label class="col-2">Telefono 1</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Telefono 1</label>
                                                 <input class="col-2" type="text" size="20" id="tel1" name="tel1" required>
 
 
-                                                <label class="col-2">Telefono 2</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Telefono 2</label>
                                                 <input class="col-2" type="text" size="20" name="tel2" id="tel2" required>
 
 
-                                                <label class="col-2">Capacidad</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Capacidad</label>
                                                 <input class="col-2" type="text" size="20" name="tam" id="capacidad" required>
                                             </div>
 
 
                                             <div class="row justify-content-center align-items-center">
 
-                                                <label for="dir" class="col-2">Direccion</label>
+                                                <label for="dir" class="col-2"  style="background-color:#f1f1f1;">Direccion</label>
                                                 <textarea class="col-4" name="dir" rows="3" cols="35" id="dir" required></textarea>
 
 
@@ -134,22 +134,22 @@ include '../includes/header2.php';
                                             </div>
 
                                             <div class="row">
-                                                <label class="col-2">Descripcion Corta ESPAÑOL:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Descripcion Corta ESPAÑOL:</label>
                                                 <textarea class="col-4" id="descripcion_cortaES" name="descripcion_cortaES" rows="7" cols="78"  required></textarea>
-                                                <label class="col-2" >Descripcion Larga ESPAÑOL:</label>
+                                                <label class="col-2"  style="background-color:#f1f1f1;">Descripcion Larga ESPAÑOL:</label>
                                                 <textarea class="col-4" id="descripcion_largaES" name="descripcion_largaES" rows="7" cols="78"  required></textarea>
                                             </div>
 
                                             <div class="row">
-                                                <label class="col-2">Descripcion Corta INGLES:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Descripcion Corta INGLES:</label>
                                                 <textarea class="col-4" id="descripcion_cortaEN" name="descripcion_corta" rows="7" cols="78"  required></textarea>
-                                                <label class="col-2" >Descripcion Larga INGLES:</label>
+                                                <label class="col-2"  style="background-color:#f1f1f1;">Descripcion Larga INGLES:</label>
                                                 <textarea class="col-4" id="descripcion_largaEN" name="descripcion_larga" rows="7" cols="78"  required></textarea>
                                             </div>
                                             <div class="row">
-                                                <label class="col-2">Descripcion Corta FRANCES:</label>
+                                                <label class="col-2" style="background-color:#f1f1f1;">Descripcion Corta FRANCES:</label>
                                                 <textarea class="col-4" id="descripcion_cortaFR" name="descripcion_corta" rows="7" cols="78"  required></textarea>
-                                                <label class="col-2" >Descripcion Larga FRANCES:</label>
+                                                <label class="col-2"  style="background-color:#f1f1f1;">Descripcion Larga FRANCES:</label>
                                                 <textarea class="col-4" id="descripcion_largaFR" name="descripcion_larga" rows="7" cols="78"   required></textarea>
                                             </div>
 
@@ -184,7 +184,7 @@ include '../includes/header2.php';
 
 
 
-                                        <div class="col-12"  style="padding-top:25px;"> 
+                                        <div class="col-12"  style="padding-top:25px; background-color:#f1f1f1;"> 
                                             <label>Municipio</label>
                                             <?php
                                             printf("<select required name='municipios'>");
@@ -196,7 +196,7 @@ include '../includes/header2.php';
                                             ?>
 
                                             <div class="col-12" style="height: 415px; width: 720px;">
-                                                <div id="map" style="height: 400px; width: 720px; z-index: 2; position: absolute;">
+                                                <div id="map" style="height: 400px; width: 705px; z-index: 2; position: absolute;">
                                                 </div>
                                           
 

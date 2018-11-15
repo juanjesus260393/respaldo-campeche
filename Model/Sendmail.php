@@ -1,5 +1,16 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Modelo donde se encuentran todas las funciones necesarias
+ *   para  el envio de correos con la diferente información segun sea necesaria
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 
+//Se manda a llamar a la Libreria PHPMAILER
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -7,8 +18,9 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php';
 require '../vendor/auxx.php';
 
+//Se declara la funcion sendmail, que enviara la informacion del usuario y su contraseña 
 function sendmail($usuario, $contraseña,$a){
-
+//se declaran las variables necesarias para el envio de correo 
 $mail = new PHPMailer(true);             
 try {
     //Server settings
@@ -22,6 +34,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
+    //Direcciones de correo, remitente y destinatario
     $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
     $mail->addAddress($_SESSION['username'], $_SESSION['username']);
@@ -38,7 +51,7 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'CUENTA';
     if($a===1){
-        
+        //cuerpo y formato del correo
         $mail->Body    = '<h3>Esta es la nueva información de tu cuenta</h3>'
                                 . '<h3>Tu contraseña se cambio con exito</h3>'
                 
@@ -62,9 +75,9 @@ try {
 } catch (Exception $e) {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }}
-
+//Se declara la funcion sendmailComentario,la cual envia un correo con la razon de rechazo o aceptacion de un cupon
 function sendmailComentario($usuario, $comentario,$a){
-
+//se declaran las variables necesarias para el envio de correo 
 $mail = new PHPMailer(true);             
 try {
     //Server settings
@@ -78,6 +91,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
+ //Direcciones de correo, remitente y destinatario
    $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
     $mail->addAddress($_SESSION['username'], $_SESSION['username']);
@@ -92,7 +106,7 @@ try {
 
     
     $mail->isHTML(true);                                  // Set email format to HTML
-    
+    //cuerpo y formato del correo
     switch ($a){
         case 'C':
         $mail->Subject = 'Cupon Rechazado  ';
@@ -128,10 +142,10 @@ try {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }}
 
-
+//Se declara funcion sedmailComentarioAS donde se evniara correo con el motivo de aceptación o rechazo de Sitios
 function sendmailComentarioAS($usuario, $comentario,$a){
 
-
+//se declaran las variables necesarias para el envio de correo 
 $mail = new PHPMailer(true);             
 try {
     //Server settings
@@ -145,6 +159,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
+    //Direcciones de correo, remitente y destinatario
     $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
     $mail->addAddress($_SESSION['username'], $_SESSION['username']);
@@ -162,7 +177,7 @@ try {
     switch ($a){
         case 'C':
 
-
+//Cuerpo y formato del correo
         $mail->Subject = 'Sitio  Aceptado';
         $mail->Body    ='<h3>Aceptado, se va a publicar</h3>'
 
@@ -192,12 +207,13 @@ try {
 }}
 
 
-
+//Se declara la funcion sendmailCVID, donde se manda un correo con la razon de rechazo yo aceptacion de un video 
 function sendmailCVid($usuario, $comentario,$a, $nombre){
 
 $mail = new PHPMailer(true);             
 try {
     //Server settings
+    //se declaran las variables necesarias para el envio de correo 
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
@@ -208,6 +224,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
+    //Direcciones de correo, remitente y destinatario
     $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
     $mail->addAddress($_SESSION['username'], $_SESSION['username']);
@@ -222,7 +239,7 @@ try {
 
     
     $mail->isHTML(true);                                  // Set email format to HTML
-    
+    //Cuarpo y formato del correo
     switch ($a){
         case 'C':
         $mail->Subject = 'Video Rechazado  ';
@@ -259,12 +276,13 @@ try {
 
 
 
-
+//Se declara la funcion sendmailAdd, donde se envia un correo con las razones de rechazo oaceptacion de la publicidad
 function sendmailAdd($usuario, $comentario,$a){
 
 $mail = new PHPMailer(true);             
 try {
     //Server settings
+    //se declaran las variables necesarias para el envio de correo 
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
@@ -275,6 +293,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
+    //Direcciones de correo, remitente y destinatario
    $mail->setFrom('SoporteCampeche360@gmail.com', 'Soporte Campeche360');
     $mail->addAddress('isidro.biker@gmail.com', 'isidro');
     $mail->addAddress($_SESSION['username'], $_SESSION['username']);
@@ -289,7 +308,7 @@ try {
 
     
     $mail->isHTML(true);                                  // Set email format to HTML
-    
+    //Cuerpo y formato del correo 
     switch ($a){
         case 'C':
         $mail->Subject = 'Publicidad Rechazada';

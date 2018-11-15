@@ -61,13 +61,13 @@ if (($_SESSION['Expira'] - $_SESSION['Inicia']) > 10800) {
                             Validar <span> <?php printf($_SESSION['totalPendientes']); ?></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../Controller/validarEventos_controller.php">Cartelera <span></span></a>
+                            
                             <a class="dropdown-item" href="../Controller/validarSitios_controller.php">Sitios <span> <?php printf($_SESSION['nS']); ?></span></a>
                             <a class="dropdown-item" href="../Controller/validarCupon_controller.php">Cupones   <span> <?php printf($_SESSION['nC']); ?></span></a>
                             <a class="dropdown-item" href="../Controller/validarVideo_controller.php">Videos <span> <?php printf($_SESSION['nV']); ?></span></a>
                             <a class="dropdown-item" href="../Controller/validarFlyers_controller.php">Flyers & Banners <span><?php printf($_SESSION['nF']); ?></span></a>
-                            <a class="dropdown-item" href="../Controller/validarVacante_controller.php">Bolsa de trabajo <span><?php printf($_SESSION['nF']); ?></span></a>
-                            <a class="dropdown-item" href="../Controller/validarEvento_controller.php">Carteleraa <span><?php printf($_SESSION['nF']); ?></span></a>
+                            <a class="dropdown-item" href="../Controller/validarVacante_controller.php">Bolsa de trabajo <span><?php printf($_SESSION['nVa']); ?></span></a>
+                            <a class="dropdown-item" href="../Controller/validarEvento_controller.php">Carteleraa <span><?php printf($_SESSION['nEve']); ?></span></a>
                         </div>
                     </li>
                 </ul>

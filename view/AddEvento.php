@@ -17,20 +17,20 @@ require_once('../includes/header2.php');
             </div>
             <div>
                 <span><label>Nombre del Evento:</label></span>
-                <span><input type="text" id="nombre" name="nombre" placeholder="Nombre del Evento" maxlength="99" required></span>
+                <span><input type="text" id="nombre" name="nombre" placeholder="Nombre del Evento" maxlength="48" required></span>
             </div> 
             <div>
                 <span><label>Categoria</label></span>
-                <span><input type="number" required  id="salario" placeholder="$" name="salario"></span>
+                <span><input type="number" required  id="salario"  name="salario"></span>
             </div>
             <div>
                 <span><label>Descripcion</label></span>
-                <span> <input type="text" required id="horario" placeholder="ejem: de 7:00 am a 5:00 pm" name="horario"></span>
+                <span> <input type="text" required id="horario"  name="horario"  maxlength="990"></span>
             </div>
 
              <div>
                 <span><label>Fecha:</label></span>
-                <span> <input type="text" required id="escolaridad" placeholder="Licenciatura" name="escolaridad"></span>
+                <span> <input type="text" required id="escolaridad"  name="escolaridad"></span>
             </div>
 
              <div>

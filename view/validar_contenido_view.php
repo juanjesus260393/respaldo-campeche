@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-
+<!-- 
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  Mostrar los elemntos pendientes de validacion 
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
+-->
 <html lang="en">
     <head>
         <meta charset="UTF-8">

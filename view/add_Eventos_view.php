@@ -15,7 +15,7 @@ require_once('../includes/header2.php');
                             <label>Nombre del Evento</label>
                         </td>
                         <td>
-                            <input type="text" size="50" name="nombre" id="nombre">
+                            <input type="text" size="50" name="nombre" id="nombre"  maxlength="48">
                         </td>
                     </tr>
                     <tr>
@@ -39,7 +39,7 @@ require_once('../includes/header2.php');
                             <label>Descripción del Evento</label>
                         </td>
                         <td>
-                            <input type="text" size="50" name="descripcion" id="descripcion">
+                            <input type="text" size="50" name="descripcion" id="descripcion"  maxlength="998">
                         </td>
                     </tr>
                     <tr>
@@ -55,7 +55,7 @@ require_once('../includes/header2.php');
                             <label>Lugar del Evento</label>
                         </td>
                         <td>
-                            <input type="text" size="50" name="lugar" id="lugar">
+                            <input type="text" size="50" name="lugar" id="lugar"  maxlength="198">
                         </td>
                     </tr>
                     <tr>
@@ -71,7 +71,7 @@ require_once('../includes/header2.php');
                             <label>Beneficiario del Evento</label>
                         </td>
                         <td>
-                            <input type="text" size="50" name="beneficiario" id="beneficiario">
+                            <input type="text" size="50" name="beneficiario" id="beneficiario"  maxlength="198">
                         </td>
                     </tr>
                     <tr>

@@ -11,7 +11,7 @@ class Conectar {
         $conexion = mysqli_connect("localhost", "root", "P4SSW0RD", "campeche");
         //--------------------Conexion Local Isidro-----------------------------------------------------------
         //$conexion = mysqli_connect("148.204.63.167:3306", "root", "P4SSW0RD", "campeche");
-        //$conexion = mysqli_connect("localhost", "root", "", "campeche1");
+        //$conexion = mysqli_connect("localhost", "root", "", "campeche");
 //------------------------------ Conexion local Campeche
         // $conexion = mysqli_connect("localhost", "root", "", "campeche");
         return $conexion;

@@ -1,5 +1,14 @@
 <?php
-
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  Agregar un nuevo Usuario-Empresa
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 
 include '../includes/header.php';
 
@@ -102,7 +111,7 @@ include '../includes/header.php';
            
             <script>
        
-                
+                //Muestra y oculta la fecha de caducidad de la membresia
                 function mostrarfec(a){
                     if(a.checked===true){
                         $('#fechafin').removeClass('d-none');
@@ -117,7 +126,7 @@ include '../includes/header.php';
                     
                     
                 }
-                
+                //Valida que el correo tenga un formato correcto
               $( "#nUsu" ).submit(function( event ) {
    var c= document.getElementById("mail").value;
  

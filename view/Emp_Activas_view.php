@@ -1,8 +1,20 @@
 <?php
+/*
+ *   Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 24-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Vista donde se encuentra toda la parte visual necesaria
+ *   para  mostrar las empresas activas
+ * 
+ * por Fabrica de Software, CIC-IPN
+ */
 include '../includes/header.php'
 ?>
 
-<script> var a =<?php echo $Nemp; ?>;
+<script> 
+    //Se declaran las variables necesarias para poder aplicar los filtros de busqueda y organizacion
+    var a =<?php echo $Nemp; ?>;
     var i;
     var j;
     var x = 0;
@@ -13,6 +25,7 @@ include '../includes/header.php'
 foreach ($datos as $dato) {
     ?>
     <script>
+        //Se asignan los datos de las empresas a un arreglo
         empresas.push({nombre: '<?php echo $dato[1] ?>', desc: '<?php echo $dato[2] ?>', sector: '<?php echo $dato[3] ?>', membresia: '<?php echo $dato[5] ?>', idEmp: '<?php echo $dato[4] ?>', pos: x});
         x++;
 
@@ -30,6 +43,7 @@ foreach ($datos as $dato) {
 
     }
 </script>
+<h1> Empresas Activas</h1>
 <!--<div style="background-color: #f1f1f1;">
     <label><b>BUSQUEDA :</b></label><input type="search" id="busqueda"></div>-->
 <table id="tableemp" class="table" style=' border: 1px solid grey; -moz-border-radius: 15px;' align="center">
@@ -68,6 +82,7 @@ foreach ($datos as $dato) {
     <?php
     $cont = 0;
 // while ($datos) {
+    //Imprime las empresas
     foreach ($datos as $dato) {
 
 
@@ -113,19 +128,20 @@ foreach ($datos as $dato) {
 
 
     <script>
+        //.DataTable asigna las funciones de busqueda
         $(document).ready(function () {
             $('#tableemp').DataTable();
         });
 
 
-
+//Filtro de busqueda de cadena
         $("#busqueda").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#tableemp tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-
+//muestra todas las empresas
         function showall() {
             for (i = 0; i <= a; i++) {
 
@@ -134,6 +150,7 @@ foreach ($datos as $dato) {
             }
 
         }
+        //Filtro ordena por sector
         function ordenarS() {
 
             for (i = 0; i <= a; i++) {
@@ -177,6 +194,7 @@ foreach ($datos as $dato) {
 
 
         }
+       
         function ordenarS2() {
 
 
@@ -217,7 +235,7 @@ foreach ($datos as $dato) {
 
         }
 
-
+//Filtro por nombre en orden alfabetico
         function filtroNombre() {
             for (i = 0; i <= a; i++) {
 
@@ -261,7 +279,7 @@ foreach ($datos as $dato) {
             }
 
         }
-
+//Filtro por sector seleccionado
         function filtroSector() {
 
 
@@ -292,7 +310,7 @@ foreach ($datos as $dato) {
             }
         }
 
-
+ //Filtro ordena por Tipo de Membresia
         function filtroMembresia() {
 
             for (i = 0; i <= a; i++) {

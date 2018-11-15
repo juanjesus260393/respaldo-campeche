@@ -1,4 +1,12 @@
 <?php
+/*
+ *          Campeche  360 
+ *   Autor: Isidro Delgado Murillo
+ *   Fecha: 10-10-2018
+ *   Versión: 1.0
+ *   Descripcion: Controlador de la funcion que muestra las empresas activas
+ * por Fabrica de Software, CIC-IPN
+ */
 session_start();
 
 if($_SESSION['loggedin']==NULL || $_SESSION['loggedin']==FALSE){

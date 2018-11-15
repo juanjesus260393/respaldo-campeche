@@ -29,17 +29,7 @@ if ($_SESSION['loggedin'] == NULL || $_SESSION['loggedin'] == FALSE) {
     $sit = new setSitios_model();
     $sitios = $sit->get_sitios();
     $municipio = $sit->get_municipios();
-
-
-    require_once("../Model/validar_contenido_model.php");
-    $cto_pendientes = new validar_contenido_model();
-
-    $_SESSION['nC'] = $cto_pendientes->get_num_cupones();
-    $_SESSION['nS'] = $cto_pendientes->get_num_sitios();
-    $_SESSION['totalPendientes'] = $_SESSION['nC'] + $_SESSION['nS'];
-
-
-
+   
     if (isset($_POST['seeet'])) {
 
         $b = $sit->add_sitio();
